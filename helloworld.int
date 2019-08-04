@@ -1,0 +1,12 @@
+// BEGIN_INTERNALS
+/*
+MAP_ZOOM: 1.000
+LAST_COMPILE_TIME: 1564946038
+DIR: backup code code\.mob code\obj icons 
+AUTO_FILE_DIR: ON
+MAP_ICON_TYPE: 0
+LAST_COMPILE_VERSION: 512.1475
+WINDOW: galaxy2.dmm;code\atmos.dm;code\.mob\interact.dm;code\controller_hueroller.dm;icons\pipes.dmi;code\obj\machinery.dm;helloworld.dm;code\turfs.dm;code\mob.dm;code\atom.dm;code\obj\pipes.dm;code\obj\atmos_devices.dm;icons\mob.dmi;icons\human.dmi
+FILE: icons\human.dmi
+*/
+// END_INTERNALS
