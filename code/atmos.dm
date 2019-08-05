@@ -10,6 +10,9 @@
 #define NORTHWEST_PIPE 9
 //pipe's dir's
 
+//pressure damage
+#define DAMAGE_PRESSURE 20
+
 //atmos
 var/pipenetid = 0
 var/veterok_pressure = 30
@@ -31,9 +34,17 @@ var/min_temperature = -380
 
 	proc/move_veterok(var/turf/destination)
 		for(var/atom/movable/M in src)
+			if(istype(M, /mob/living/human))
+				if(prob(abs(pressure - destination.pressure) / 3))
+					M:message_to_usr("Воздух под высоким давлением бьет вас о пол и стены")
+					for(var/obj/item/organ/O in M)
+						if(prob(15))
+							O.bone.health -= rand(10, 25)
+							O.muscle.health -= rand(5, 10)
+							O.skin.health -= rand(1, 8)
+
 			if(M.anchored == 0)
 				M.Move(destination)
-
 	process()
 		control = 0
 		for(var/turf/FLOOR in check_in_cardinal(1))

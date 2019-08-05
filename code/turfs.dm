@@ -7,6 +7,9 @@
 		cool
 			temperature = 0
 
+		hot
+			temperature = 800
+
 		attack_hand()
 			world << "[oxygen];[temperature];[pressure]"
 

@@ -44,15 +44,18 @@
 
 	proc/check_temperature()
 		if(istype(owner.loc, /turf))
-			if(owner.loc:temperature - owner.bodytemp > 20)
+			if(owner.loc:temperature - owner.bodytemp > 40)
 				if((speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def > 0)
 					owner.bodytemp += round(owner.loc:temperature - owner.bodytemp / (speed_of_zamerzanie + temp_factor)) - owner.clothes_temperature_def
 			if(owner.loc:temperature - owner.bodytemp < -20)
 				if((speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def > 0)
 					owner.bodytemp -= round(owner.loc:temperature - owner.bodytemp / (speed_of_zamerzanie + temp_factor)) + owner.clothes_temperature_def
 
-			if( (owner.loc:temperature - owner.bodytemp < -30) && (speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def > 0 \
-			|| (owner.loc:temperature - owner.bodytemp > 90  && (speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def > 0))
+			if( (owner.loc:temperature - owner.bodytemp < -30 && owner.clothes_temperature_def < speed_of_zamerzanie + temp_factor))
+				skin.health -= rand(1,3) - owner.clothes_temperature_def
+				muscle.health -= rand(5,10) - owner.clothes_temperature_def
+
+			if( (owner.loc:temperature - owner.bodytemp >= 90 && owner.clothes_temperature_def < speed_of_zamerzanie + temp_factor) || owner.bodytemp > 50)
 				skin.health -= rand(1,3) - owner.clothes_temperature_def
 				muscle.health -= rand(5,10) - owner.clothes_temperature_def
 
@@ -67,7 +70,7 @@
 				if(src:muscle.health > 0)
 					src:temp = ((100 - src:muscle.health) / 3) + rand(40,63)
 				else
-					owner.death = 1
+					owner.death()
 				spawn(src:temp)
 					owner.reagents.remove_reagent("blood_ven", 2)
 					owner.reagents.add_reagent("blood", 2)
@@ -171,7 +174,7 @@
 						owner.message_to_usr("[bone.name] раздроблена(ы) в мелкую крошку. ¬ам невыносимо больно. »спользование или лечение [src.ru_name] невозможно")
 						damage_level = HARD_DAMAGE
 						if(istype(src, /obj/item/organ/head))
-							owner.death = 1
+							owner.death()
 	larm
 		name = "l_arm"
 		ru_name = "лева€ рука"

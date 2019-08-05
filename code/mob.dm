@@ -46,6 +46,11 @@
 	var/obj/item/organ/heart/oheart
 	var/obj/item/organ/stomach/ostomach
 
+	proc/death()
+		death = 1
+		message_to_usr("Ќаступила смерть")
+		nocontrol()
+
 	proc/humanparts_upd()
 		humanparts.Cut()
 		humanparts.Add(bone_chest, bone_l_leg, bone_r_leg, bone_head, bone_r_arm, bone_l_arm, \
@@ -138,17 +143,14 @@
 		overlayupd()
 		blood_process()
 		if(health <= 0)
-			death = 1
-		if(death == 1)
-			message_to_usr("Ќаступила смерть")
-			nocontrol()
+			death()
 
 	proc/blood_process()
 		reagents.remove_reagent("blood", 2)  //поглощение мозгом крови насыщенной кислородом
 		reagents.add_reagent("blood_ven", 2) //возвращает обедненную кровь
 
 		if(reagents.has_reagent("blood_ven", 150) || !reagents.has_reagent("blood", 150))
-			death = 1
+			death()
 
 	New()
 		var/datum/reagents/R = new/datum/reagents(380)
