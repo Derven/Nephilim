@@ -13,7 +13,6 @@ var/list/atom/controlled = list()
 /datum/out_of_control
 	var/ticktime = 1
 	var/on = 1
-	var/datum/aircontroller/AC
 
 	New()
 		..()

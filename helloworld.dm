@@ -20,3 +20,7 @@ mob
 
 obj
 	step_size = 32
+
+/datum
+	var/name = "datum"
+	var/istate = "0"

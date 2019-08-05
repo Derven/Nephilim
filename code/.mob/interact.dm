@@ -41,3 +41,6 @@
 /atom/proc/call_message(var/myrange, var/msg)
 	for(var/mob/HEAR in range(myrange, src))
 		HEAR << msg
+
+/mob/proc/message_to_usr(var/msg)
+	src << msg

@@ -97,7 +97,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 /obj/machinery/portable_atmospherics/canister/process()
 	for(var/turf/floor/F in range(1, src))
 		for(var/atom/movable/A in F)
-			if(A.block_air == 1)
+			if(A.block_air == 0)
 				if(open == 1)
 					if(plasma > 0)
 						F.plasma += 1

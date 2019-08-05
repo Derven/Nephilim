@@ -25,8 +25,6 @@
 			for(var/turf/floor/CARD in check_in_cardinal(1))
 				CARD.process()
 
-
 	attack_hand()
 		call_message(3, "Дверь [open == 1 ? "открылась" : "закрылась"]")
 		open()
-		world << block_air
