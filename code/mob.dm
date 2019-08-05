@@ -48,8 +48,7 @@
 
 	proc/death()
 		control = 0
-		spawn(1)
-			nocontrol()
+		//nocontrol()
 		death = 1
 		message_to_usr("Наступила смерть")
 

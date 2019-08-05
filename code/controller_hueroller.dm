@@ -22,8 +22,8 @@ var/list/atom/controlled = list()
 		while(on)
 			checknhalt()
 			for(var/atom/unit in controlled)
-				spawn(ticktime)
-					if(unit.control == 1)
+				if(unit.control == 1)
+					spawn(ticktime)
 						unit.process()
 
 	proc/checknhalt() //safety system
