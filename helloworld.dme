@@ -27,6 +27,7 @@
 #include "code\chemistry\PORTING\REAGENTS.dm"
 #include "code\chemistry\PORTING\RECIPES.dm"
 #include "code\obj\atmos_devices.dm"
+#include "code\obj\hud.dm"
 #include "code\obj\machinery.dm"
 #include "code\obj\pipes.dm"
 // END_INCLUDE

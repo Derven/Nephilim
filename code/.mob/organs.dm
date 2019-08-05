@@ -34,11 +34,27 @@
 	var/mob/living/human/owner
 	var/ru_name
 	var/temp_factor = 0.2
+	var/list/obj/hud/IHUD = list()
 
 	New()
 		init()
 		..()
+		if(length(IHUD) > 0)
+			create_hud()
 
+	proc/create_hud()
+		if(owner)
+			for(var/hud in IHUD)
+				spawn(2)
+					if(owner.client)
+						new hud(owner.client)
+
+	proc/del_hud()
+		if(owner && owner.client)
+			for(var/obj/hud/H in owner.client.screen)
+				for(var/hud in IHUD)
+					if(H.type == hud)
+						owner.client.screen.Remove(H)
 	proc/init()
 		return 0
 
@@ -118,6 +134,7 @@
 				if(30 to 50)
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.damagedstate]",layer = 4)
 				if(-999 to 5)
+					del_hud()
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
 
 			return omuscle
@@ -129,6 +146,7 @@
 				if(5 to 100)
 					obone = image(icon = 'icons/human.dmi',icon_state = "[bone.istate]",layer = 4)
 				if(-999 to 5)
+					del_hud()
 					obone = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
 			return obone
 
@@ -195,6 +213,7 @@
 			bone.istate = "bone_arm_l"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
 
 	head
 		name = "l_arm"
@@ -216,6 +235,7 @@
 			bone.istate = "bone_head"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/helmet)
 
 	lungs
 		name = "lungs"
@@ -302,6 +322,7 @@
 			bone.istate = "bone_chest"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/uniform, /obj/hud/suit)
 
 	rarm
 		name = "r_arm"
@@ -323,6 +344,7 @@
 			bone.istate = "bone_arm_r"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/rhand, /obj/hud/glove_right)
 
 	rleg
 		name = "r_leg"
@@ -344,6 +366,7 @@
 			bone.istate = "bone_leg_r"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/shoes_right)
 
 	lleg
 		name = "l_leg"
@@ -365,3 +388,4 @@
 			bone.istate = "bone_leg_l"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/shoes_left)

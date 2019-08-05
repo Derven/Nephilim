@@ -47,9 +47,11 @@
 	var/obj/item/organ/stomach/ostomach
 
 	proc/death()
+		control = 0
+		spawn(1)
+			nocontrol()
 		death = 1
 		message_to_usr("Наступила смерть")
-		nocontrol()
 
 	proc/humanparts_upd()
 		humanparts.Cut()
