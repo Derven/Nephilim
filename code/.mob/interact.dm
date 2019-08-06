@@ -56,10 +56,10 @@
 
 /atom/proc/call_message(var/myrange, var/msg)
 	for(var/mob/HEAR in range(myrange, src))
-		HEAR << msg
+		HEAR << fix255(msg)
 
 /mob/proc/message_to_usr(var/msg)
-	src << msg
+	src << fix255(msg)
 
 /mob/living/human/proc/pickup(var/obj/item/I)
 	if(get_slot("lhand") || get_slot("rhand"))

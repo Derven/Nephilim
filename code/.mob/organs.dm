@@ -229,6 +229,10 @@
 		ru_name = "левая рука"
 		temp_factor = 0.7
 
+		crushing = 2
+		cutting = 1
+		stitching = 1
+
 		init()
 			bone = new /datum/bone
 			muscle = new /datum/muscle
@@ -268,7 +272,7 @@
 				owner = loc
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
-			/obj/hud/damage/damage_head)
+			/obj/hud/damage/damage_head, /obj/hud/say_intent)
 
 	lungs
 		name = "lungs"
@@ -361,6 +365,10 @@
 		name = "r_arm"
 		ru_name = "правая рука"
 		temp_factor = 0.7
+
+		crushing = 2
+		cutting = 1
+		stitching = 1
 
 		init()
 			bone = new /datum/bone

@@ -57,6 +57,35 @@
 				icon_state = "punch_intent_[usr:punch_intent]"
 				check_punch()
 
+	say_intent
+		name = "say_intent"
+		icon_state = "say_intent_0"
+		layer = 25
+		screen_loc = "11,1"
+		var/active = 0
+		type_of_slot = null
+
+		proc/check_say()
+			switch(usr:say_intent)
+				if(SAY)
+					usr:message_to_usr("Вы готовитесь к разговору")
+				if(WHISPER)
+					usr:message_to_usr("Вы готовитесь шептать")
+				if(KRIK)
+					usr:message_to_usr("Вы готовитесь ОРАТЬ")
+				if(ISTERIKA)
+					usr:message_to_usr("ИСтЕРИкА")
+
+		Click()
+			if(usr:say_intent < ISTERIKA)
+				usr:say_intent++
+				icon_state = "say_intent_[usr:say_intent]"
+				check_say()
+			else
+				usr:say_intent = SAY
+				icon_state = "say_intent_[usr:say_intent]"
+				check_say()
+
 	lhand
 		name = "lhand"
 		icon_state = "lhand_0"

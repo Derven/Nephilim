@@ -5,6 +5,13 @@
 #define PANCHSNIZY 2
 #define UKOL 3
 
+//say intents
+#define SAY 0
+#define WHISPER 1
+#define KRIK 2
+#define ISTERIKA 3
+
+
 
 /mob/living/human
 	icon = 'icons/human.dmi'
@@ -55,6 +62,25 @@
 
 	//panch
 	var/punch_intent = PANCHSBOKY
+	var/say_intent = SAY
+
+
+	verb/say(t as text)
+		t = fix255(t)
+		var/mysay = ""
+		switch(say_intent)
+			if(SAY)
+				mysay = pick("говорит", "высказывает", "произносит")
+				call_message(5, "[usr] [mysay], \"[t]\"")
+			if(WHISPER)
+				mysay = pick("шепчет", "нежно шепчет")
+				call_message(1, "[usr] [mysay], \"[t]\"")
+			if(KRIK)
+				mysay = pick("орет", "кричит")
+				call_message(7, "<h2>[usr] [mysay], \"[t]\"</h2>")
+			if(ISTERIKA)
+				mysay = pick("визжит", "бросается слюной", "истошно орет")
+				call_message(7, "<b><i><h2>[usr] [mysay], \"[t]\"</h2></b></i>")
 
 	attackby(var/mob/M, var/obj/item/I)
 		var/damage_target = ""
@@ -73,8 +99,19 @@
 			if(ORGAN.damagezone_to_organ(M:damagezone) != null)
 				damage_target = ORGAN.damagezone_to_organ(M:damagezone):ru_name
 
-		call_message(3, "\red [M] бьет [src] [I.ru_name] [method] в область [damage_target]")
+		call_message(3, "[M] бьет [src] [I.ru_name] [method] в область [damage_target]")
 		attack_organ(I, M:damagezone, M)
+
+	attack_hand(usr)
+		if(usr:get_slot("lhand") || usr:get_slot("rhand"))
+
+			if(usr:get_slot("lhand"))
+				if(usr:get_slot("lhand"):active)
+					attackby(usr, usr:left_arm)
+
+			if(usr:get_slot("rhand"))
+				if(usr:get_slot("rhand"):active)
+					attackby(usr, usr:right_arm)
 
 	proc/death()
 		control = 0
