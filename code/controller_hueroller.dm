@@ -11,7 +11,7 @@ var/list/atom/controlled = list()
 	controlled.Remove(src)
 
 /datum/out_of_control
-	var/ticktime = 1
+	var/ticktime = 2
 	var/on = 1
 
 	New()

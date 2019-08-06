@@ -1,6 +1,9 @@
 /atom/proc/attack_hand(var/mob, var/msg)
 	return 0
 
+/atom/proc/attackby(var/mob/M, var/item/I)
+	return 0
+
 /atom/var/block_air = 0
 
 /atom/proc/check_in_cardinal(var/atmos_block)
@@ -36,6 +39,19 @@
 	return cardinal
 
 /atom/Click()
+	if(usr:get_slot("lhand") || usr:get_slot("rhand"))
+		if(usr:get_slot("lhand"))
+			if(usr:get_slot("lhand"):active)
+				if(usr:get_slot("lhand"):SLOT != null)
+					attackby(usr, usr:get_slot("lhand"):SLOT)
+					return
+
+		if(usr:get_slot("rhand"))
+			if(usr:get_slot("rhand"):active)
+				if(usr:get_slot("rhand"):SLOT != null)
+					attackby(usr, usr:get_slot("rhand"):SLOT)
+					return
+
 	attack_hand(usr)
 
 /atom/proc/call_message(var/myrange, var/msg)
@@ -44,3 +60,14 @@
 
 /mob/proc/message_to_usr(var/msg)
 	src << msg
+
+/mob/living/human/proc/pickup(var/obj/item/I)
+	if(get_slot("lhand") || get_slot("rhand"))
+		if(get_slot("lhand"))
+			if(get_slot("lhand"):active)
+				get_slot("lhand"):SLOT = I
+				get_slot("lhand"):put_to_slot()
+		if(get_slot("rhand"))
+			if(get_slot("rhand"):active)
+				get_slot("rhand"):SLOT = I
+				get_slot("rhand"):put_to_slot()

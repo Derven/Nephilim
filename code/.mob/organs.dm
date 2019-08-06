@@ -27,14 +27,44 @@
 /obj/item/organ
 	icon = 'human.dmi'
 	name = "organ"
+	ru_name = ""
 	var/datum/bone/bone
 	var/datum/muscle/muscle
 	var/datum/skin/skin
 	var/damage_level = NO_DAMAGE
 	var/mob/living/human/owner
-	var/ru_name
 	var/temp_factor = 0.2
+	var/def = 0 //защита одеждой и другими факторами
+
 	var/list/obj/hud/IHUD = list()
+
+	proc/damagezone_to_organ(var/zone)
+		switch(zone)
+			if("damage_chest")
+				if(name == "chest")
+					return src
+
+			if("damage_head")
+				if(name == "head")
+					return src
+
+			if("damage_rarm")
+				if(name == "r_arm")
+					return src
+
+			if("damage_larm")
+				if(name == "l_arm")
+					return src
+
+			if("damage_lleg")
+				if(name == "l_leg")
+					return src
+
+			if("damage_rleg")
+				if(name == "r_leg")
+					return src
+			else
+				return null
 
 	New()
 		init()
@@ -54,7 +84,10 @@
 			for(var/obj/hud/H in owner.client.screen)
 				for(var/hud in IHUD)
 					if(H.type == hud)
-						owner.client.screen.Remove(H)
+						if(H.SLOT != null)
+							owner.call_message(3, "[H.SLOT.ru_name] падает с поврежденного(ой) [ru_name]")
+							H.remove_from_slot(owner.loc)
+							owner.client.screen.Remove(H)
 	proc/init()
 		return 0
 
@@ -109,8 +142,6 @@
 
 				if(src:muscle.health <= 30)
 					owner.call_message(5, "[owner] кашляет")
-				if(src:muscle.health <= 0)
-					del(src)
 
 	proc/check_skin()
 		var/image/oskin
@@ -216,7 +247,7 @@
 			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
 
 	head
-		name = "l_arm"
+		name = "head"
 		ru_name = "голова"
 		temp_factor = 0.3
 
@@ -235,7 +266,9 @@
 			bone.istate = "bone_head"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/helmet)
+			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
+			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
+			/obj/hud/damage/damage_head)
 
 	lungs
 		name = "lungs"

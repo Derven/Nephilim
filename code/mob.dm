@@ -1,4 +1,10 @@
 #define speed_of_zamerzanie 2
+//punch intents
+#define PANCHSBOKY 0
+#define PANCHSVERHU 1
+#define PANCHSNIZY 2
+#define UKOL 3
+
 
 /mob/living/human
 	icon = 'icons/human.dmi'
@@ -9,6 +15,7 @@
 	var/death = 0
 	var/oxyloss = 0
 	var/clothes_temperature_def = 0
+	var/damagezone = "damage_chest"
 
 	var/image/list/humanparts = list()
 	var/image/lungs
@@ -45,6 +52,29 @@
 	var/obj/item/organ/lungs/olungs
 	var/obj/item/organ/heart/oheart
 	var/obj/item/organ/stomach/ostomach
+
+	//panch
+	var/punch_intent = PANCHSBOKY
+
+	attackby(var/mob/M, var/obj/item/I)
+		var/damage_target = ""
+		var/method = ""
+		switch(M:punch_intent)
+			if(PANCHSBOKY)
+				method = "c бокового замаха"
+			if(PANCHSNIZY)
+				method = "с нижнего замаха"
+			if(PANCHSVERHU)
+				method = "с верхнего замаха"
+			if(PANCHSVERHU)
+				method = "уколом"
+
+		for(var/obj/item/organ/ORGAN in src)
+			if(ORGAN.damagezone_to_organ(M:damagezone) != null)
+				damage_target = ORGAN.damagezone_to_organ(M:damagezone):ru_name
+
+		call_message(3, "\red [M] бьет [src] [I.ru_name] [method] в область [damage_target]")
+		attack_organ(I, M:damagezone, M)
 
 	proc/death()
 		control = 0

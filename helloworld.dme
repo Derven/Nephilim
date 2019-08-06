@@ -20,6 +20,7 @@
 #include "code\atom.dm"
 #include "code\controller_hueroller.dm"
 #include "code\mob.dm"
+#include "code\mob_damage_system.dm"
 #include "code\turfs.dm"
 #include "code\.mob\interact.dm"
 #include "code\.mob\organs.dm"
@@ -28,6 +29,7 @@
 #include "code\chemistry\PORTING\RECIPES.dm"
 #include "code\obj\atmos_devices.dm"
 #include "code\obj\hud.dm"
+#include "code\obj\items.dm"
 #include "code\obj\machinery.dm"
 #include "code\obj\pipes.dm"
 // END_INCLUDE
