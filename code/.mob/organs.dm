@@ -28,6 +28,7 @@
 	icon = 'human.dmi'
 	name = "organ"
 	ru_name = ""
+	icon = 'human.dmi'
 	var/datum/bone/bone
 	var/datum/muscle/muscle
 	var/datum/skin/skin
@@ -35,6 +36,7 @@
 	var/mob/living/human/owner
 	var/temp_factor = 0.2
 	var/def = 0 //защита одеждой и другими факторами
+	layer = 5
 
 	var/list/obj/hud/IHUD = list()
 
@@ -86,8 +88,8 @@
 					if(H.type == hud)
 						if(H.SLOT != null)
 							owner.call_message(3, "[H.SLOT.ru_name] падает с поврежденного(ой) [ru_name]")
-							H.remove_from_slot(owner.loc)
-							owner.client.screen.Remove(H)
+							H.remove_from_slot(owner, owner.loc)
+						owner.client.screen.Remove(H)
 	proc/init()
 		return 0
 
@@ -167,6 +169,12 @@
 				if(-999 to 5)
 					del_hud()
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
+					var/obj/item/organ/O = new src.type(owner.loc)
+					O.muscle.health = muscle.health
+					O.skin.health = skin.health
+					O.bone.health = bone.health
+					call_message(5, "[ru_name] отваливается и падает на пол")
+					del(src)
 
 			return omuscle
 
@@ -228,6 +236,7 @@
 		name = "l_arm"
 		ru_name = "левая рука"
 		temp_factor = 0.7
+		icon_state = "skin_arm_l"
 
 		crushing = 2
 		cutting = 1
@@ -254,6 +263,7 @@
 		name = "head"
 		ru_name = "голова"
 		temp_factor = 0.3
+		icon_state = "skin_head"
 
 		init()
 			bone = new /datum/bone
@@ -278,6 +288,7 @@
 		name = "lungs"
 		ru_name = "легкие"
 		temp_factor = 0.0
+		icon_state = "lungs"
 
 		init()
 			bone = new /datum/bone
@@ -302,6 +313,7 @@
 		var/health = 100
 		var/temp = 1
 		temp_factor = 0.0
+		icon_state = "heart"
 
 		init()
 			bone = new /datum/bone
@@ -343,6 +355,7 @@
 		name = "chest"
 		ru_name = "тело"
 		temp_factor = 1.5
+		icon_state = "skin_chest"
 
 		init()
 			bone = new /datum/bone
@@ -365,6 +378,7 @@
 		name = "r_arm"
 		ru_name = "правая рука"
 		temp_factor = 0.7
+		icon_state = "skin_arm_l"
 
 		crushing = 2
 		cutting = 1
@@ -391,6 +405,7 @@
 		name = "r_leg"
 		ru_name = "правая нога"
 		temp_factor = 0.7
+		icon_state = "skin_leg_r"
 
 		init()
 			bone = new /datum/bone
@@ -413,6 +428,7 @@
 		name = "l_leg"
 		ru_name = "левая нога"
 		temp_factor = 0.7
+		icon_state = "skin_leg_l"
 
 		init()
 			bone = new /datum/bone

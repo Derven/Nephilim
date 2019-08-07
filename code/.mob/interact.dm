@@ -4,6 +4,9 @@
 /atom/proc/attackby(var/mob/M, var/item/I)
 	return 0
 
+/atom/proc/attackinhand(var/mob/M)
+	return 0
+
 /atom/var/block_air = 0
 
 /atom/proc/check_in_cardinal(var/atmos_block)
@@ -56,7 +59,10 @@
 
 /atom/proc/call_message(var/myrange, var/msg)
 	for(var/mob/HEAR in range(myrange, src))
-		HEAR << fix255(msg)
+		if(HEAR.myears)
+			HEAR << fix255(msg)
+		else
+			HEAR << "*шум*"
 
 /mob/proc/message_to_usr(var/msg)
 	src << fix255(msg)

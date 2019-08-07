@@ -11,7 +11,13 @@
 #define KRIK 2
 #define ISTERIKA 3
 
+//power damage
+#define LITE_UDAR 300
+#define MEDIUM_UDAR 700
+#define HARD_UDAR 1000
 
+/mob
+	var/myears = 1
 
 /mob/living/human
 	icon = 'icons/human.dmi'
@@ -166,39 +172,48 @@
 	proc/humanupd()
 		humanparts_upd()
 
-		skin_l_arm = left_arm.check_skin()
-		muscle_l_arm = left_arm.check_muscle()
-		bone_l_arm = left_arm.check_bone()
+		if(left_arm)
+			bone_l_arm = left_arm.check_bone()
+			skin_l_arm = left_arm.check_skin()
+			muscle_l_arm = left_arm.check_muscle()
+			left_arm.process()
 
-		skin_r_arm = right_arm.check_skin()
-		muscle_r_arm = right_arm.check_muscle()
-		bone_r_arm = right_arm.check_bone()
+		if(right_arm)
+			bone_r_arm = right_arm.check_bone()
+			skin_r_arm = right_arm.check_skin()
+			muscle_r_arm = right_arm.check_muscle()
 
-		skin_l_leg = left_leg.check_skin()
-		muscle_l_leg = left_leg.check_muscle()
-		bone_l_leg = left_leg.check_bone()
+		if(left_leg)
+			left_leg.process()
+			bone_l_leg = left_leg.check_bone()
+			skin_l_leg = left_leg.check_skin()
+			muscle_l_leg = left_leg.check_muscle()
 
-		skin_r_leg = right_leg.check_skin()
-		muscle_r_leg = right_leg.check_muscle()
-		bone_r_leg = right_leg.check_bone()
+		if(right_leg)
+			skin_r_leg = right_leg.check_skin()
+			bone_r_leg = right_leg.check_bone()
+			muscle_r_leg = right_leg.check_muscle()
 
-		skin_chest = ochest.check_skin()
-		muscle_chest = ochest.check_muscle()
-		bone_chest = ochest.check_bone()
+		if(ochest)
+			ochest.process()
+			skin_chest = ochest.check_skin()
+			bone_chest = ochest.check_bone()
+			muscle_chest = ochest.check_muscle()
 
-		skin_head = ohead.check_skin()
-		muscle_head = ohead.check_muscle()
-		bone_head = ohead.check_bone()
+		if(ohead)
+			ohead.process()
+			bone_head = ohead.check_bone()
+			skin_head = ohead.check_skin()
+			muscle_head = ohead.check_muscle()
 
-		left_arm.process()
-		right_arm.process()
-		left_leg.process()
-		right_leg.process()
-		olungs.process()
-		oheart.process()
-		ostomach.process()
-		ohead.process()
-		ochest.process()
+		if(olungs)
+			olungs.process()
+		if(oheart)
+			oheart.process()
+		if(ostomach)
+			ostomach.process()
+
+
 
 	proc/overlayupd()
 		for(var/image/A in humanparts)
@@ -252,3 +267,57 @@
 
 	verb/heart_damage()
 		oheart.health -= 10
+
+	verb/debug_ears()
+		myears = !myears
+
+	proc/drop()
+		for(var/obj/hud/rhand/RH in usr.client.screen)
+			if(RH.SLOT != null)
+				var/itemname = RH.SLOT.ru_name
+				if(RH.active == 1)
+					usr.call_message(3, "Бросает [itemname] на пол")
+					RH.remove_from_slot()
+
+		for(var/obj/hud/lhand/LH in usr.client.screen)
+			if(LH.SLOT != null)
+				var/itemname = LH.SLOT.ru_name
+				if(LH.active == 1)
+					usr.call_message(3, "Бросает [itemname] на пол")
+					LH.remove_from_slot()
+
+	proc/powerdamage(var/damage)
+		switch(damage)
+			if(0 to LITE_UDAR)
+				return 0
+			if(LITE_UDAR to MEDIUM_UDAR)
+				for(var/obj/item/organ/O in src)
+					if(O.skin.name)
+						O.skin.health -= round(damage / 20)
+					O.muscle.health -= round(damage / 20)
+				call_message(5, "[src] бьет легкий удар тока")
+			if(MEDIUM_UDAR to HARD_UDAR)
+				for(var/obj/item/organ/O in src)
+					if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
+						if(O.skin.name)
+							O.skin.health -= round(damage / 15)
+						O.muscle.health -= round(damage / 15)
+					else
+						O.muscle.health -= round(damage / 100)
+						sleep(7)
+						if(prob(99))
+							O.muscle.health -= 99
+				call_message(5, "[src] бьет серьезный удар тока, возможно он уже мертв")
+			if(HARD_UDAR to 999999999)
+				for(var/obj/item/organ/O in src)
+					if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
+						if(O.skin.name)
+							O.skin.health -= round(damage / 10)
+						O.muscle.health -= round(damage / 10)
+					else
+						O.muscle.health -= round(damage / 150)
+						sleep(7)
+						if(prob(99))
+							O.muscle.health -= 99
+				call_message(5, "[src] поджаривает на месте. С хрустящей корочкой")
+		return 0

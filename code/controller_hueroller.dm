@@ -22,14 +22,14 @@ var/list/atom/controlled = list()
 		while(on)
 			checknhalt()
 			for(var/atom/unit in controlled)
-				if(unit.control == 1)
+				if(unit.control == 1 && on)
 					spawn(ticktime)
 						unit.process()
 
 	proc/checknhalt() //safety system
-		while(world.cpu > 30)
+		while(world.cpu > 60)
 			on = 0
 			//sleep(ticktime)
-		if(world.cpu < 30)
+		if(world.cpu < 60)
 			sleep(ticktime)
 			on = 1

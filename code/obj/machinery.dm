@@ -4,12 +4,16 @@
 /obj/machinery/airlock
 	icon = 'icons/airlock.dmi'
 	icon_state = "door_1"
+	ru_name = "Дверная установка"
 	density = 1
 	opacity = 1
 	block_air = 1
 	anchored = 1
 	var/door_state = "door"
 	var/open = 1
+	need_voltage = 25
+	need_amperage = 3
+	max_VLTAMP = 500
 
 	proc/open()
 		open = !open
@@ -26,5 +30,8 @@
 				CARD.process()
 
 	attack_hand()
-		call_message(3, "Дверь [open == 1 ? "открылась" : "закрылась"]")
-		open()
+		if(use_power())
+			call_message(3, "Дверь [open == 1 ? "открылась" : "закрылась"]")
+			open()
+		else
+			call_message(3, "Дверь обесточена")

@@ -8,14 +8,18 @@
 	name = "hud"
 	var/obj/item/SLOT
 	var/type_of_slot
+	var/image/slotimage
+	var/slotname = ""
 
 	proc/put_to_slot()
 		if(istype(SLOT, type_of_slot))
+			slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 10)
+			usr.overlays.Add(slotimage)
 			SLOT.loc = src
 			SLOT.layer = 35
 			src.overlays += SLOT
 
-	proc/remove_from_slot(var/atom/aloc)
+	proc/remove_from_slot(var/mob/M, var/atom/aloc)
 		if(istype(SLOT, type_of_slot))
 			if(aloc)
 				SLOT.loc = aloc
@@ -24,6 +28,22 @@
 			src.overlays -= SLOT
 			SLOT.layer = initial(SLOT.layer)
 			SLOT = null
+			if(usr)
+				usr.overlays.Remove(slotimage)
+			if(M)
+				M.overlays.Remove(slotimage)
+
+	attackby(var/mob/M, var/obj/item/I)
+		SLOT = I
+		if(istype(SLOT, type_of_slot))
+			usr:drop()
+			put_to_slot()
+		else
+			SLOT = null
+
+	attack_hand()
+		if(SLOT)
+			remove_from_slot(usr.loc)
 
 	New(client/C)
 		C.screen += src
@@ -95,12 +115,14 @@
 		type_of_slot = /obj/item/
 
 		Click()
-			for(var/obj/hud/rhand/RH in usr.client.screen)
-				RH.active = !RH.active
-				RH.icon_state = "rhand_[RH.active]"
-			active = !active
-			icon_state = "lhand_[active]"
-
+			if(SLOT == null)
+				for(var/obj/hud/rhand/RH in usr.client.screen)
+					RH.active = !RH.active
+					RH.icon_state = "rhand_[RH.active]"
+				active = !active
+				icon_state = "lhand_[active]"
+			else
+				SLOT.attackinhand(usr)
 	damage
 		name = "damage"
 		var/activezone = 0
@@ -155,19 +177,7 @@
 		screen_loc = "4,2"
 
 		Click()
-			for(var/obj/hud/rhand/RH in usr.client.screen)
-				if(RH.SLOT != null)
-					var/itemname = RH.SLOT.ru_name
-					if(RH.active == 1)
-						usr.call_message(3, "Бросает [itemname] на пол")
-						RH.remove_from_slot()
-
-			for(var/obj/hud/lhand/LH in usr.client.screen)
-				if(LH.SLOT != null)
-					var/itemname = LH.SLOT.ru_name
-					if(LH.active == 1)
-						usr.call_message(3, "Бросает [itemname] на пол")
-						LH.remove_from_slot()
+			usr:drop()
 
 	glove_left
 		name = "glove_left"
@@ -184,11 +194,14 @@
 		type_of_slot = /obj/item/
 
 		Click()
-			for(var/obj/hud/lhand/LH in usr.client.screen)
-				LH.active = !LH.active
-				LH.icon_state = "lhand_[LH.active]"
-			active = !active
-			icon_state = "rhand_[active]"
+			if(SLOT == null)
+				for(var/obj/hud/lhand/LH in usr.client.screen)
+					LH.active = !LH.active
+					LH.icon_state = "lhand_[LH.active]"
+				active = !active
+				icon_state = "rhand_[active]"
+			else
+				SLOT.attackinhand(usr)
 
 	glove_right
 		name = "glove_right"
@@ -201,12 +214,16 @@
 		icon_state = "shoes"
 		layer = 25
 		screen_loc = "5,1"
+		type_of_slot = /obj/item/clothing
+		slotname = "rleg"
 
 	shoes_left
 		name = "shoes_left"
 		icon_state = "shoes"
 		layer = 25
 		screen_loc = "6,1"
+		type_of_slot = /obj/item/clothing
+		slotname = "lleg"
 
 	helmet
 		name = "helmet"
@@ -219,6 +236,8 @@
 		icon_state = "uniform"
 		layer = 25
 		screen_loc = "8,1"
+		slotname = "chestu"
+		type_of_slot = /obj/item/clothing/uniform
 
 	suit
 		name = "suit"
