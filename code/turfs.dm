@@ -1,6 +1,10 @@
 /turf
 	icon='icons/turfs.dmi'
 
+	space
+		hull
+			icon_state = "hull"
+
 	floor
 		icon_state = "floor"
 
@@ -32,6 +36,7 @@
 		icon_state = "wall"
 		density = 1
 		opacity = 1
+		ru_name = "стена"
 
 		window
 			opacity = 0

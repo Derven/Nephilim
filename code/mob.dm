@@ -22,6 +22,7 @@
 /mob/living/human
 	icon = 'icons/human.dmi'
 	icon_state = "brain"
+	var/rest = 0
 	var/health = 100
 	var/bodytemp = 36
 	layer = 2
@@ -34,6 +35,7 @@
 	var/image/lungs
 	var/image/heart
 	var/image/stomach
+	var/oxygen_tank = 0
 
 	var/image/bone_chest
 	var/image/bone_l_leg
@@ -69,7 +71,6 @@
 	//panch
 	var/punch_intent = PANCHSBOKY
 	var/say_intent = SAY
-
 
 	verb/say(t as text)
 		t = fix255(t)
@@ -173,12 +174,13 @@
 		humanparts_upd()
 
 		if(left_arm)
+			left_arm.process()
 			bone_l_arm = left_arm.check_bone()
 			skin_l_arm = left_arm.check_skin()
 			muscle_l_arm = left_arm.check_muscle()
-			left_arm.process()
 
 		if(right_arm)
+			right_arm.process()
 			bone_r_arm = right_arm.check_bone()
 			skin_r_arm = right_arm.check_skin()
 			muscle_r_arm = right_arm.check_muscle()
@@ -190,6 +192,7 @@
 			muscle_l_leg = left_leg.check_muscle()
 
 		if(right_leg)
+			right_leg.process()
 			skin_r_leg = right_leg.check_skin()
 			bone_r_leg = right_leg.check_bone()
 			muscle_r_leg = right_leg.check_muscle()
@@ -208,12 +211,12 @@
 
 		if(olungs)
 			olungs.process()
+
 		if(oheart)
 			oheart.process()
+
 		if(ostomach)
 			ostomach.process()
-
-
 
 	proc/overlayupd()
 		for(var/image/A in humanparts)
@@ -240,10 +243,11 @@
 		reagents = R
 		R.my_atom = src
 		R.add_reagent("blood", 300)
-
 		tocontrol()
 		generate()
 		..()
+		var/atom/A = pick(LM)
+		loc = A.loc
 
 	verb/skin_damage()
 		left_arm.skin.health -= 16
@@ -271,6 +275,20 @@
 	verb/debug_ears()
 		myears = !myears
 
+	proc/rest()
+		spawn(5)
+			if(rest == 0 || left_leg != null && right_leg != null && ochest != null)
+				if(rest == 0 || left_leg.muscle.health > 20 && right_leg.muscle.health > 20 && ochest.muscle.health > 20 \
+				&& left_leg.bone.health > 20 && right_leg.bone.health > 20 && ochest.bone.health > 20)
+					rest = !rest
+					if(rest)
+						src.transform = turn(src.transform, 90)
+					else
+						src.transform = turn(src.transform, -90)
+
+	verb/resting()
+		rest()
+
 	proc/drop()
 		for(var/obj/hud/rhand/RH in usr.client.screen)
 			if(RH.SLOT != null)
@@ -285,39 +303,3 @@
 				if(LH.active == 1)
 					usr.call_message(3, "Бросает [itemname] на пол")
 					LH.remove_from_slot()
-
-	proc/powerdamage(var/damage)
-		switch(damage)
-			if(0 to LITE_UDAR)
-				return 0
-			if(LITE_UDAR to MEDIUM_UDAR)
-				for(var/obj/item/organ/O in src)
-					if(O.skin.name)
-						O.skin.health -= round(damage / 20)
-					O.muscle.health -= round(damage / 20)
-				call_message(5, "[src] бьет легкий удар тока")
-			if(MEDIUM_UDAR to HARD_UDAR)
-				for(var/obj/item/organ/O in src)
-					if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
-						if(O.skin.name)
-							O.skin.health -= round(damage / 15)
-						O.muscle.health -= round(damage / 15)
-					else
-						O.muscle.health -= round(damage / 100)
-						sleep(7)
-						if(prob(99))
-							O.muscle.health -= 99
-				call_message(5, "[src] бьет серьезный удар тока, возможно он уже мертв")
-			if(HARD_UDAR to 999999999)
-				for(var/obj/item/organ/O in src)
-					if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
-						if(O.skin.name)
-							O.skin.health -= round(damage / 10)
-						O.muscle.health -= round(damage / 10)
-					else
-						O.muscle.health -= round(damage / 150)
-						sleep(7)
-						if(prob(99))
-							O.muscle.health -= 99
-				call_message(5, "[src] поджаривает на месте. С хрустящей корочкой")
-		return 0

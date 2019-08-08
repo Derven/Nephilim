@@ -127,15 +127,28 @@
 					owner.reagents.add_reagent("blood", 2)
 
 			if(istype(src, /obj/item/organ/lungs))
-				if(istype(owner.loc, /turf/floor))
-					if((owner.loc:oxygen < 20 || owner.loc:plasma > 20) && owner.oxyloss < 100)
-						owner.oxyloss += 1
-						if(prob(2))
-							owner.call_message(5, "[owner] кашляет")
+				if(!owner.oxygen_tank)
+					if(istype(owner.loc, /turf))
+						if((owner.loc:oxygen < 20 || owner.loc:plasma > 20) && owner.oxyloss < 100)
+							owner.oxyloss += 1
+							if(prob(2))
+								owner.call_message(5, "[owner] кашляет")
+						else
+							owner.oxyloss -= 1
 					else
-						owner.oxyloss -= 1
+						owner.oxyloss += 1
 				else
-					owner.oxyloss += 1
+					if(owner)
+						if(owner.get_slot("tank", owner))
+							if((owner.get_slot("tank", owner):SLOT:oxygen < 20 || owner.get_slot("tank", owner):SLOT:plasma > 20) && owner.oxyloss < 100)
+								owner.oxyloss += 1
+								if(prob(2))
+									owner.call_message(5, "[owner] кашляет")
+							else
+								var/obj/item/tank/T = owner.get_slot("tank", owner):SLOT
+								T:oxygen -= 1
+								owner.oxyloss -= 1
+
 
 				if(owner.oxyloss >= 100)
 					if(prob(10))
@@ -168,13 +181,18 @@
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.damagedstate]",layer = 4)
 				if(-999 to 5)
 					del_hud()
+					if(name == "chest" || name == "l_leg" || name == "r_leg")
+						if(!owner.rest)
+							owner.rest()
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
 					var/obj/item/organ/O = new src.type(owner.loc)
 					O.muscle.health = muscle.health
 					O.skin.health = skin.health
 					O.bone.health = bone.health
+					O.transform = turn(src.transform, rand(0,170))
 					call_message(5, "[ru_name] отваливается и падает на пол")
 					del(src)
+
 
 			return omuscle
 
@@ -185,6 +203,9 @@
 				if(5 to 100)
 					obone = image(icon = 'icons/human.dmi',icon_state = "[bone.istate]",layer = 4)
 				if(-999 to 5)
+					if(name == "chest" || name == "l_leg" || name == "r_leg")
+						if(!owner.rest)
+							owner.rest()
 					del_hud()
 					obone = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
 			return obone
@@ -305,6 +326,7 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/oxygen)
 
 
 	heart
@@ -372,7 +394,7 @@
 			bone.istate = "bone_chest"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/uniform, /obj/hud/suit)
+			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank)
 
 	rarm
 		name = "r_arm"

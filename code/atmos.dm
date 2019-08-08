@@ -31,6 +31,23 @@ var/min_temperature = -380
 	plasma = 0
 	temperature = 20
 	pressure = 0
+	ru_name = "пол"
+
+	openspess
+		icon_state = "openspace"
+		ru_name = "дыра в полу"
+		layer = 8
+
+		Crossed(atom/movable/O2)
+			if(z > 1)
+				O2:message_to_usr("Вы падаете вниз!")
+				for(var/obj/item/organ/O in O2)
+					if(!istype(O, /obj/item/organ/heart) && !istype(O, /obj/item/organ/lungs))
+						if(prob(25))
+							O.bone.health -= rand(5, 10)
+							O.muscle.health -= rand(2, 5)
+							O.skin.health -= rand(1, 5)
+				O2.z -= 1
 
 	proc/move_veterok(var/turf/destination)
 		for(var/atom/movable/M in src)
@@ -48,7 +65,18 @@ var/min_temperature = -380
 				M.Move(destination)
 	process()
 		control = 0
-		for(var/turf/FLOOR in check_in_cardinal(1))
+		var/list/turf/TURFS = list()
+		if(istype(src, /turf/floor/openspess))
+			TURFS = check_in_cardinal_Z(1)
+			if(z > 1)
+				underlays.Cut()
+				for(var/atom/A in locate(x,y,z-1))
+					if(!istype(A, /obj/electro/cable) && !istype(A, /obj/machinery/atmospherics))
+						underlays.Add(A)
+
+		else
+			TURFS = check_in_cardinal(1)
+		for(var/turf/FLOOR in TURFS)
 			if(istype(FLOOR, /turf/floor))
 				FLOOR.pressure = round((FLOOR.oxygen + FLOOR.co2 + FLOOR.plasma) * FLOOR.temperature / 2)
 				pressure = round((oxygen + co2 + plasma) * temperature / 2)

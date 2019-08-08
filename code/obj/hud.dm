@@ -1,7 +1,12 @@
-/mob/proc/get_slot(var/slotname)
-	for(var/obj/hud/H in usr.client.screen)
-		if(H.name == slotname)
-			return H
+/mob/proc/get_slot(var/slotname, var/mob/M)
+	if(!M)
+		for(var/obj/hud/H in usr.client.screen)
+			if(H.name == slotname)
+				return H
+	else
+		for(var/obj/hud/H in M.client.screen)
+			if(H.name == slotname)
+				return H
 
 /obj/hud
 	icon = 'HUD.dmi'
@@ -13,6 +18,8 @@
 
 	proc/put_to_slot()
 		if(istype(SLOT, type_of_slot))
+			if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+				usr:clothes_temperature_def += SLOT:temperature_def
 			slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 10)
 			usr.overlays.Add(slotimage)
 			SLOT.loc = src
@@ -21,6 +28,11 @@
 
 	proc/remove_from_slot(var/mob/M, var/atom/aloc)
 		if(istype(SLOT, type_of_slot))
+			if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+				if(usr)
+					usr:clothes_temperature_def -= SLOT:temperature_def
+				else
+					M:clothes_temperature_def -= SLOT:temperature_def
 			if(aloc)
 				SLOT.loc = aloc
 			else
@@ -123,6 +135,26 @@
 				icon_state = "lhand_[active]"
 			else
 				SLOT.attackinhand(usr)
+
+	oxygen
+		name = "oxygen_control"
+		icon_state = "oxygen_0"
+		layer = 25
+		screen_loc = "14,12"
+		var/active = 0
+
+		Click()
+			if(usr.get_slot("tank"))
+				active = !active
+				icon_state = "oxygen_[active]"
+				if(usr.get_slot("tank"):SLOT)
+					usr:message_to_usr("вы в режиме [active ? "подача воздуха из баллона" : "внешняя подача воздуха"]")
+					usr:oxygen_tank = !usr:oxygen_tank
+				else
+					usr:oxygen_tank = 0
+					icon_state = "oxygen_0"
+					usr:message_to_usr("Нельзя переключить этот режим без баллона")
+
 	damage
 		name = "damage"
 		var/activezone = 0
@@ -230,7 +262,18 @@
 		icon_state = "helmet"
 		layer = 25
 		screen_loc = "7,1"
+		slotname = "head"
+		type_of_slot = /obj/item/clothing/helmet
 
+		put_to_slot()
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					usr:clothes_temperature_def += SLOT:temperature_def
+				slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 15)
+				usr.overlays.Add(slotimage)
+				SLOT.loc = src
+				SLOT.layer = 35
+				src.overlays += SLOT
 	uniform
 		name = "uniform"
 		icon_state = "uniform"
@@ -239,8 +282,62 @@
 		slotname = "chestu"
 		type_of_slot = /obj/item/clothing/uniform
 
+	tank
+		name = "tank"
+		icon_state = "oxygenslot"
+		layer = 25
+		screen_loc = "5,2"
+		slotname = "tank"
+		type_of_slot = /obj/item/tank
+
+		put_to_slot()
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					usr:clothes_temperature_def += SLOT:temperature_def
+				slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 17)
+				usr.overlays.Add(slotimage)
+				SLOT.loc = src
+				SLOT.layer = 35
+				src.overlays += SLOT
+
+		remove_from_slot(var/mob/M, var/atom/aloc)
+			if(usr)
+				if(usr.get_slot("oxygen_control", usr))
+					usr.get_slot("oxygen_control", usr):active = 0
+					usr.get_slot("oxygen_control", usr):icon_state = "oxygen_0"
+					usr:oxygen_tank = 0
+			else
+				if(M.get_slot("oxygen_control", M))
+					M.get_slot("oxygen_control", M):active = 0
+					M.get_slot("oxygen_control", M):icon_state = "oxygen_0"
+					M:oxygen_tank = 0
+			if(istype(SLOT, type_of_slot))
+				if(aloc)
+					SLOT.loc = aloc
+				else
+					SLOT.loc = usr.loc
+				src.overlays -= SLOT
+				SLOT.layer = initial(SLOT.layer)
+				SLOT = null
+				if(usr)
+					usr.overlays.Remove(slotimage)
+				if(M)
+					M.overlays.Remove(slotimage)
+
 	suit
 		name = "suit"
 		icon_state = "suit"
 		layer = 25
 		screen_loc = "9,1"
+		slotname = "chests"
+		type_of_slot = /obj/item/clothing/suit
+
+		put_to_slot()
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					usr:clothes_temperature_def += SLOT:temperature_def
+				slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 15)
+				usr.overlays.Add(slotimage)
+				SLOT.loc = src
+				SLOT.layer = 35
+				src.overlays += SLOT

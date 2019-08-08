@@ -1,6 +1,8 @@
 /proc/fix255(var/message)
     return replace(message, "ÿ", "&#255;")
 
+/proc/fix1103(var/message)
+    return replace(message, "ÿ", "&#1103;")
 //PIZDING(STOLE)
 //THANK to Forum_Account
 

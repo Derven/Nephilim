@@ -44,6 +44,7 @@ var/list/obj/machinery/machines = list()
 	var
 		sq = 1 //площадь сечения
 
+	anchored = 1
 	name = "cable"
 	icon = 'power.dmi'
 	ru_name = "кабель"
@@ -59,6 +60,10 @@ var/list/obj/machinery/machines = list()
 		icon_state = "force"
 		resistance = 50
 		sq = 12
+
+	Del()
+		..()
+		reset = 1
 
 	proc/return_smes()
 		for(var/obj/electro/battery/B in controlled)
@@ -136,6 +141,7 @@ var/list/obj/machinery/machines = list()
 		icon_state = "smes"
 		work_voltage = 320
 		full_charge = 50000
+		anchored = 1
 
 	process()
 		for(var/obj/electro/cable/C in controlled)
@@ -320,6 +326,23 @@ var/list/obj/machinery/machines = list()
 	icon = 'power.dmi'
 	icon_state = "generator"
 	layer = 4
+
+	solar
+		icon_state = "solar"
+
+		New()
+			..()
+			tocontrol()
+
+		process()
+			if(istype(src.loc, /turf/space))
+				for(var/obj/electro/battery/B in controlled)
+					if(B.powernet == powernet)
+						if(prob(15))
+							B.full_charge += rand(50, 100)
+
+		attack_hand(usr)
+			return 0
 
 /obj/machinery/generator/attack_hand(usr)
 	for(var/obj/electro/battery/B in controlled)
