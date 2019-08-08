@@ -40,13 +40,14 @@ var/min_temperature = -380
 
 		Crossed(atom/movable/O2)
 			if(z > 1)
-				O2:message_to_usr("Вы падаете вниз!")
-				for(var/obj/item/organ/O in O2)
-					if(!istype(O, /obj/item/organ/heart) && !istype(O, /obj/item/organ/lungs))
-						if(prob(25))
-							O.bone.health -= rand(5, 10)
-							O.muscle.health -= rand(2, 5)
-							O.skin.health -= rand(1, 5)
+				if(istype(O2, /mob))
+					O2:message_to_usr("Вы падаете вниз!")
+					for(var/obj/item/organ/O in O2)
+						if(!istype(O, /obj/item/organ/heart) && !istype(O, /obj/item/organ/lungs))
+							if(prob(25))
+								O.bone.health -= rand(5, 10)
+								O.muscle.health -= rand(2, 5)
+								O.skin.health -= rand(1, 5)
 				O2.z -= 1
 
 	proc/move_veterok(var/turf/destination)
