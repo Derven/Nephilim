@@ -43,5 +43,6 @@
 #include "code\obj\stacks.dm"
 #include "code\obj\tanks.dm"
 #include "code\obj\structure\ladder.dm"
+#include "code\obj\structure\preparing_table.dm"
 // END_INCLUDE
 

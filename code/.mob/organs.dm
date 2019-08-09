@@ -8,10 +8,16 @@
 	var/broken = 0
 	name = "bone"
 
+	robo
+		health = 300
+
 /datum/muscle
 	var/health = 100
 	name = "muscle"
 	var/damagedstate = ""
+
+	robo
+		health = 200
 
 /datum/organ
 	var/health = 100
@@ -23,6 +29,9 @@
 	name = "skin"
 	var/health = 30
 	var/damagedstate = ""
+
+	robo
+		health = 120
 
 /obj/item/organ
 	icon = 'human.dmi'
@@ -36,9 +45,58 @@
 	var/mob/living/human/owner
 	var/temp_factor = 0.2
 	var/def = 0 //защита одеждой и другими факторами
+	var/scalped = 0
+	var/silicon = 0
 	layer = 5
 
 	var/list/obj/hud/IHUD = list()
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(!istype(src, /obj/item/organ/chest) && !istype(src, /obj/item/organ/head))
+			if(istype(I, /obj/item/tools/scalpel))
+				scalped = 1
+				loc.call_message(5, "на [ru_name] появляются надрезы")
+			if(istype(I, /obj/item/tools/cauterizer))
+				if(scalped)
+					scalped = !scalped
+					loc.call_message(5, "рана на [ru_name] прижигается")
+			if(istype(I, /obj/item/tools/saw))
+				if(scalped)
+					var/obj/item/organ/O = new src.type(owner.loc)
+					O.muscle.health = muscle.health
+					O.skin.health = skin.health
+					O.bone.health = bone.health
+					O.transform = turn(src.transform, rand(0,170))
+					del_hud()
+					if(istype(src, /obj/item/organ/rleg) || istype(src, /obj/item/organ/lleg))
+						owner.rest = 0
+						owner:rest()
+					call_message(5, "[ru_name] отваливается и падает на пол")
+					del(src)
+		else
+			if(istype(src, /obj/item/organ/chest))
+				if(istype(I, /obj/item/roboprothesis))
+					switch(I:type_of_prothesis)
+						if("larm")
+							if(!owner.left_arm)
+								owner.left_arm = new /obj/item/organ/larm/roboarm(owner)
+								M:drop()
+								del(I)
+						if("rarm")
+							if(!owner.right_arm)
+								owner.right_arm = new /obj/item/organ/rarm/roboarm(owner)
+								M:drop()
+								del(I)
+						if("rleg")
+							if(!owner.right_leg)
+								owner.right_leg = new /obj/item/organ/rleg/roboleg(owner)
+								M:drop()
+								del(I)
+						if("lleg")
+							if(!owner.left_leg)
+								owner.left_leg = new /obj/item/organ/lleg/roboleg(owner)
+								M:drop()
+								del(I)
 
 	proc/damagezone_to_organ(var/zone)
 		switch(zone)
@@ -80,7 +138,6 @@
 				spawn(2)
 					if(owner.client)
 						new hud(owner.client)
-
 	proc/del_hud()
 		if(owner && owner.client)
 			for(var/obj/hud/H in owner.client.screen)
@@ -103,12 +160,14 @@
 					owner.bodytemp -= round(owner.loc:temperature - owner.bodytemp / (speed_of_zamerzanie + temp_factor)) + owner.clothes_temperature_def
 
 			if( (owner.loc:temperature - owner.bodytemp < -30 && owner.clothes_temperature_def < speed_of_zamerzanie + temp_factor))
-				skin.health -= rand(1,3) - owner.clothes_temperature_def
-				muscle.health -= rand(5,10) - owner.clothes_temperature_def
+				if(silicon == 0)
+					skin.health -= rand(1,3) - owner.clothes_temperature_def
+					muscle.health -= rand(5,10) - owner.clothes_temperature_def
 
 			if( (owner.loc:temperature - owner.bodytemp >= 90 && owner.clothes_temperature_def < speed_of_zamerzanie + temp_factor) || owner.bodytemp > 50)
-				skin.health -= rand(1,3) - owner.clothes_temperature_def
-				muscle.health -= rand(5,10) - owner.clothes_temperature_def
+				if(silicon == 0)
+					skin.health -= rand(1,3) - owner.clothes_temperature_def
+					muscle.health -= rand(5,10) - owner.clothes_temperature_def
 
 	process(var/image/oskin, var/image/omuscle, var/image/obone)
 		if(owner)
@@ -162,7 +221,7 @@
 		var/image/oskin
 		if(owner)
 			switch(skin.health)
-				if(15 to 30)
+				if(15 to 3000)
 					oskin = image(icon = 'icons/human.dmi',icon_state = "[skin.istate]",layer = 4)
 				if(5 to 15)
 					oskin = image(icon = 'icons/human.dmi',icon_state = "[skin.damagedstate]",layer = 4)
@@ -175,7 +234,7 @@
 		var/image/omuscle
 		if(owner)
 			switch(muscle.health)
-				if(50 to 100)
+				if(50 to 10000)
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.istate]",layer = 4)
 				if(30 to 50)
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.damagedstate]",layer = 4)
@@ -200,7 +259,7 @@
 		var/image/obone
 		if(owner)
 			switch(bone.health)
-				if(5 to 100)
+				if(5 to 10000)
 					obone = image(icon = 'icons/human.dmi',icon_state = "[bone.istate]",layer = 4)
 				if(-999 to 5)
 					if(name == "chest" || name == "l_leg" || name == "r_leg")
@@ -280,6 +339,34 @@
 				owner = loc
 			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
 
+		roboarm
+			name = "l_arm"
+			ru_name = "левая рука (протез)"
+			temp_factor = 0.7
+			icon_state = "skin_roboarm_l"
+			silicon = 1
+
+			crushing = 5
+			cutting = 2
+			stitching = 1
+
+			init()
+				bone = new /datum/bone/robo
+				muscle = new /datum/muscle/robo
+				skin = new /datum/skin/robo
+
+				bone.name = "каркас в левой руке"
+				muscle.name = "приводы левой руки"
+				skin.name = "покрытие на левой руке"
+				skin.istate = "skin_roboarm_l"
+				skin.damagedstate = "skin_damaged_roboarm_l"
+				muscle.istate = "muscles_roboarm_l"
+				muscle.damagedstate = "muscles_damaged_roboarm_l"
+				bone.istate = "bone_roboarm_l"
+				if(istype(loc, /mob/living/human))
+					owner = loc
+				IHUD = list(/obj/hud/lhand/robohand)
+
 	head
 		name = "head"
 		ru_name = "голова"
@@ -303,7 +390,7 @@
 				owner = loc
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
-			/obj/hud/damage/damage_head, /obj/hud/say_intent)
+			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent)
 
 	lungs
 		name = "lungs"
@@ -423,6 +510,34 @@
 				owner = loc
 			IHUD = list(/obj/hud/rhand, /obj/hud/glove_right)
 
+		roboarm
+			name = "r_arm"
+			ru_name = "правая рука (протез)"
+			temp_factor = 0.7
+			icon_state = "skin_roboarm_r"
+			silicon = 1
+
+			crushing = 5
+			cutting = 2
+			stitching = 1
+
+			init()
+				bone = new /datum/bone/robo
+				muscle = new /datum/muscle/robo
+				skin = new /datum/skin/robo
+
+				bone.name = "каркас в правой руке"
+				muscle.name = "приводы правой руки"
+				skin.name = "покрытие на правой руке"
+				skin.istate = "skin_roboarm_r"
+				skin.damagedstate = "skin_damaged_roboarm_r"
+				muscle.istate = "muscles_roboarm_r"
+				muscle.damagedstate = "muscles_damaged_roboarm_r"
+				bone.istate = "bone_roboarm_r"
+				if(istype(loc, /mob/living/human))
+					owner = loc
+				IHUD = list(/obj/hud/rhand/robohand)
+
 	rleg
 		name = "r_leg"
 		ru_name = "правая нога"
@@ -446,6 +561,35 @@
 				owner = loc
 			IHUD = list(/obj/hud/shoes_right)
 
+		roboleg
+			name = "r_leg"
+			ru_name = "правая нога (протез)"
+			temp_factor = 0.7
+			icon_state = "skin_roboleg_r"
+			silicon = 1
+
+			crushing = 5
+			cutting = 2
+			stitching = 1
+
+			init()
+				bone = new /datum/bone/robo
+				muscle = new /datum/muscle/robo
+				skin = new /datum/skin/robo
+
+				bone.name = "каркас в правой ноге"
+				muscle.name = "приводы правой ноге"
+				skin.name = "покрытие на правой ноге"
+				skin.istate = "skin_roboleg_r"
+				skin.damagedstate = "skin_damaged_roboleg_r"
+				muscle.istate = "muscles_roboleg_r"
+				muscle.damagedstate = "muscles_damaged_roboleg_r"
+				bone.istate = "bone_roboleg_r"
+				if(istype(loc, /mob/living/human))
+					owner = loc
+				IHUD = list()
+
+
 	lleg
 		name = "l_leg"
 		ru_name = "левая нога"
@@ -468,3 +612,31 @@
 			if(istype(loc, /mob/living/human))
 				owner = loc
 			IHUD = list(/obj/hud/shoes_left)
+
+		roboleg
+			name = "l_leg"
+			ru_name = "левая нога (протез)"
+			temp_factor = 0.7
+			icon_state = "skin_roboleg_l"
+			silicon = 1
+
+			crushing = 5
+			cutting = 2
+			stitching = 1
+
+			init()
+				bone = new /datum/bone/robo
+				muscle = new /datum/muscle/robo
+				skin = new /datum/skin/robo
+
+				bone.name = "каркас в левой ноге"
+				muscle.name = "приводы в левой ноге"
+				skin.name = "покрытие на левой ноге"
+				skin.istate = "skin_roboleg_l"
+				skin.damagedstate = "skin_damaged_roboleg_'"
+				muscle.istate = "muscles_roboleg_l"
+				muscle.damagedstate = "muscles_damaged_roboleg_l"
+				bone.istate = "bone_roboleg_l"
+				if(istype(loc, /mob/living/human))
+					owner = loc
+				IHUD = list()

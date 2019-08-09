@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1565289484
+LAST_COMPILE_TIME: 1565380765
 DIR: backup code code\.mob code\obj code\obj\structure icons 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1470
-WINDOW: icons\items.dmi;code\obj\machinery.dm;code\obj\items.dm;code\obj\stacks.dm;code\turfs.dm;code\topics.dm;code\fix255.dm;code\atom.dm;code\atmos.dm;icons\HUD.dmi;code\obj\hud.dm;icons\clothes_on_mob.dmi;code\obj\tanks.dm;code\obj\landmarks.dm;icons\landmark.dmi;helloworld.dm;icons\computer.dmi;code\power.dm;code\obj\computer.dm;code\controller_hueroller.dm;code\.mob\clothing.dm;code\mob.dm;code\.mob\organs.dm;icons\human.dmi;galaxy2.dmm;code\.mob\interact.dm;code\obj\constructing.dm;icons\structure.dmi;code\obj\structure\ladder.dm;code\obj\pipes.dm
-FILE: code\atmos.dm
+WINDOW: code\obj\hud.dm;icons\clothes_on_mob.dmi;code\obj\tanks.dm;code\obj\landmarks.dm;icons\landmark.dmi;helloworld.dm;icons\computer.dmi;code\power.dm;code\obj\computer.dm;code\controller_hueroller.dm;code\.mob\clothing.dm;code\mob.dm;code\.mob\organs.dm;galaxy2.dmm;code\turfs.dm;code\.mob\interact.dm;code\obj\morphing.dm;icons\structure.dmi;code\obj\structure\ladder.dm;code\obj\structure\preparing_table.dm;code\obj\machinery.dm;icons\HUD.dmi;icons\items.dmi;code\mob_damage_system.dm;code\obj\items.dm;icons\mob.dmi;icons\human.dmi;code\obj\stacks.dm;icons\silicon_hud.dmi;code\.mob\client.dm
+FILE: code\.mob\organs.dm
 */
 // END_INTERNALS

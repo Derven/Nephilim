@@ -20,6 +20,17 @@
 	cutting = 0
 	stitching = 0
 
+/obj/item/roboprothesis
+	icon = 'items.dmi'
+	icon_state = "roboprothesis"
+	name = "roboprothesis"
+	ru_name = " заготовка протеза"
+	var/type_of_prothesis = "rarm"
+
+	crushing = 1
+	cutting = 1
+	stitching = 1
+
 /obj/item/tools
 	icon = 'items.dmi'
 
@@ -49,6 +60,33 @@
 		crushing = 1
 		cutting = 1
 		stitching = 1
+
+	scalpel
+		icon_state = "scalpel"
+		name = "scalpel"
+		ru_name = "скальпель"
+
+		crushing = 0
+		cutting = 7
+		stitching = 5
+
+	saw
+		icon_state = "saw"
+		name = "saw"
+		ru_name = "пила"
+
+		crushing = 3
+		cutting = 3
+		stitching = 0
+
+	cauterizer
+		icon_state = "cauterizer"
+		name = "cauterizer"
+		ru_name = "прижигатель"
+
+		crushing = 0
+		cutting = 2
+		stitching = 0
 
 /obj/item/unconnected_cable
 	name = "copper_cable"

@@ -15,8 +15,9 @@
 
 	New()
 		..()
-		tocontrol()
 		MAINBOARD = new defaultmainboard(src)
+		sleep(5)
+		tocontrol()
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/tools/screwdriver))
@@ -78,12 +79,6 @@
 				data += fix1103("Вероятное напряжение: [B.full_charge / (20 * 15 * 2)]")
 				data += fix1103("Вероятная сила тока: [(B.full_charge / (20 * 15 * 2)) / 20]")
 		return data
-
-	New()
-		..()
-		MAINBOARD = new defaultmainboard(src)
-		sleep(5)
-		tocontrol()
 
 	process()
 		if(MAINBOARD)
@@ -170,3 +165,78 @@
 		icon_state = "mainboard_engcomputer"
 		ru_name = "главная плата инженерного компьютера"
 		comptype = /obj/machinery/computer/eng
+/*
+	morph
+		icon = 'computer.dmi'
+		icon_state = "mainboard_morphcomputer"
+		ru_name = "главная плата морферкомпьютера"
+		comptype = /obj/machinery/computer/morph
+
+
+/obj/machinery/computer/morph
+	icon = 'computer.dmi'
+	icon_state = "computer_frame"
+	ru_name = "Компьютер управления морфером"
+	name = "morph_comp"
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 25
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 700
+	var/ticks = 1
+	var/reservedfortime = 0
+	defaultmainboard = /obj/item/mainboard/morph
+	var/reserves = 0
+	var/obj/machinery/morphcamera_corpse/M_C
+	var/obj/machinery/morphcamera_newbody/N_B
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		M_C = null
+		N_B = null
+
+		var/list/devices = list()
+		var/list/hrefs = list()
+
+		for(var/obj/machinery/morphcamera_corpse/MC in controlled)
+			if(MC.powernet == powernet)
+				M_C = MC
+
+		for(var/obj/machinery/morphcamera_newbody/NB in controlled)
+			if(NB.powernet == powernet)
+				N_B = NB
+
+		if(M_C)
+			devices.Add("[M_C.ru_name]: [M_C.body]")
+			hrefs.Add("mc=1")
+
+		if(N_B)
+			devices.Add("[N_B.ru_name]: [N_B.body]")
+			hrefs.Add("nb=1")
+
+		if(M_C && N_B)
+			devices.Add("Перенести сознание из [M_C.ru_name] в [N_B.ru_name]")
+			hrefs.Add("mctonb=1")
+
+		M << browse(nterface(devices, hrefs),"window=[name]")
+
+
+	Topic(href,href_list[])
+		if(href_list["mctonb"] == "1")
+			var/client/nbclient
+			if(N_B.body.client)
+				nbclient = N_B.body.client
+			if(M_C.body.client)
+				M_C.body.client = N_B.body.client
+			if(nbclient)
+				nbclient = M_C.body.client
+			for(var/atom/movable/M in M_C)
+				M.loc = M_C
+				M_C.body = null
+			for(var/atom/movable/M in N_B)
+				M.loc = N_B
+				N_B.body = null
+*/

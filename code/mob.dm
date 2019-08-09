@@ -30,6 +30,7 @@
 	var/oxyloss = 0
 	var/clothes_temperature_def = 0
 	var/damagezone = "damage_chest"
+	var/harm_intent = 0
 
 	var/image/list/humanparts = list()
 	var/image/lungs
@@ -102,12 +103,15 @@
 			if(PANCHSVERHU)
 				method = "óêîëîì"
 
-		for(var/obj/item/organ/ORGAN in src)
-			if(ORGAN.damagezone_to_organ(M:damagezone) != null)
-				damage_target = ORGAN.damagezone_to_organ(M:damagezone):ru_name
+		if(M:harm_intent == 1)
+			for(var/obj/item/organ/ORGAN in src)
+				if(ORGAN.damagezone_to_organ(M:damagezone) != null)
+					damage_target = ORGAN.damagezone_to_organ(M:damagezone):ru_name
 
-		call_message(3, "[M] áüåò [src] [I.ru_name] [method] â îáëàñòü [damage_target]")
-		attack_organ(I, M:damagezone, M)
+			call_message(3, "[M] áüåò [src] [I.ru_name] [method] â îáëàñòü [damage_target]")
+			attack_organ(I, M:damagezone, M)
+		else
+			interact_withorgan(I, M:damagezone, M)
 
 	attack_hand(usr)
 		if(usr:get_slot("lhand") || usr:get_slot("rhand"))
@@ -172,42 +176,66 @@
 
 	proc/humanupd()
 		humanparts_upd()
-
 		if(left_arm)
 			left_arm.process()
 			bone_l_arm = left_arm.check_bone()
 			skin_l_arm = left_arm.check_skin()
 			muscle_l_arm = left_arm.check_muscle()
+		else
+			bone_l_arm = null
+			skin_l_arm = null
+			muscle_l_arm = null
 
 		if(right_arm)
 			right_arm.process()
 			bone_r_arm = right_arm.check_bone()
 			skin_r_arm = right_arm.check_skin()
 			muscle_r_arm = right_arm.check_muscle()
-
-		if(left_leg)
-			left_leg.process()
-			bone_l_leg = left_leg.check_bone()
-			skin_l_leg = left_leg.check_skin()
-			muscle_l_leg = left_leg.check_muscle()
-
-		if(right_leg)
-			right_leg.process()
-			skin_r_leg = right_leg.check_skin()
-			bone_r_leg = right_leg.check_bone()
-			muscle_r_leg = right_leg.check_muscle()
+		else
+			bone_r_arm = null
+			skin_r_arm = null
+			muscle_r_arm = null
 
 		if(ochest)
 			ochest.process()
 			skin_chest = ochest.check_skin()
 			bone_chest = ochest.check_bone()
 			muscle_chest = ochest.check_muscle()
+		else
+			skin_chest = null
+			bone_chest = null
+			muscle_chest = null
+
+		if(left_leg)
+			left_leg.process()
+			bone_l_leg = left_leg.check_bone()
+			skin_l_leg = left_leg.check_skin()
+			muscle_l_leg = left_leg.check_muscle()
+		else
+			bone_l_leg = null
+			skin_l_leg = null
+			muscle_l_leg = null
+
+
+		if(right_leg)
+			right_leg.process()
+			skin_r_leg = right_leg.check_skin()
+			bone_r_leg = right_leg.check_bone()
+			muscle_r_leg = right_leg.check_muscle()
+		else
+			bone_r_leg = null
+			skin_r_leg = null
+			muscle_r_leg = null
 
 		if(ohead)
 			ohead.process()
 			bone_head = ohead.check_bone()
 			skin_head = ohead.check_skin()
 			muscle_head = ohead.check_muscle()
+		else
+			bone_head = null
+			skin_head = null
+			muscle_head = null
 
 		if(olungs)
 			olungs.process()
@@ -248,6 +276,9 @@
 		..()
 		var/atom/A = pick(LM)
 		loc = A.loc
+		spawn(5)
+			if(!client)
+				loc = initial(loc)
 
 	verb/skin_damage()
 		left_arm.skin.health -= 16
@@ -277,7 +308,7 @@
 
 	proc/rest()
 		spawn(5)
-			if(rest == 0 || left_leg != null && right_leg != null && ochest != null)
+			if(rest == 0 || (left_leg != null && right_leg != null && ochest != null))
 				if(rest == 0 || left_leg.muscle.health > 20 && right_leg.muscle.health > 20 && ochest.muscle.health > 20 \
 				&& left_leg.bone.health > 20 && right_leg.bone.health > 20 && ochest.bone.health > 20)
 					rest = !rest

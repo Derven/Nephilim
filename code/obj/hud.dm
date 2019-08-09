@@ -8,6 +8,9 @@
 			if(H.name == slotname)
 				return H
 
+var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard, /obj/item/tank, /obj/item/clothing, /obj/item/unconnected_cable, /obj/item/roboprothesis)
+
+
 /obj/hud
 	icon = 'HUD.dmi'
 	name = "hud"
@@ -15,6 +18,7 @@
 	var/type_of_slot
 	var/image/slotimage
 	var/slotname = ""
+	var/silicon = 0
 
 	proc/put_to_slot()
 		if(istype(SLOT, type_of_slot))
@@ -22,28 +26,41 @@
 				usr:clothes_temperature_def += SLOT:temperature_def
 			slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 10)
 			usr.overlays.Add(slotimage)
+			if(silicon)
+				var/no = 0
+				for(var/p_a_t_h in disacceptedtomount)
+					if(ispath(SLOT.type, p_a_t_h))
+						no = 1
+
+				if(no == 0)
+					usr:message_to_usr("[SLOT.ru_name] вмонтировано в вашу конечность")
+				else
+					usr:message_to_usr("[SLOT.ru_name] не может быть вмонтировано в вашу конечность")
+					SLOT = null
+					return
 			SLOT.loc = src
 			SLOT.layer = 35
 			src.overlays += SLOT
 
 	proc/remove_from_slot(var/mob/M, var/atom/aloc)
-		if(istype(SLOT, type_of_slot))
-			if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
-				if(usr)
-					usr:clothes_temperature_def -= SLOT:temperature_def
+		if(!silicon)
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					if(usr)
+						usr:clothes_temperature_def -= SLOT:temperature_def
+					else
+						M:clothes_temperature_def -= SLOT:temperature_def
+				if(aloc)
+					SLOT.loc = aloc
 				else
-					M:clothes_temperature_def -= SLOT:temperature_def
-			if(aloc)
-				SLOT.loc = aloc
-			else
-				SLOT.loc = usr.loc
-			src.overlays -= SLOT
-			SLOT.layer = initial(SLOT.layer)
-			SLOT = null
-			if(usr)
-				usr.overlays.Remove(slotimage)
-			if(M)
-				M.overlays.Remove(slotimage)
+					SLOT.loc = usr.loc
+				src.overlays -= SLOT
+				SLOT.layer = initial(SLOT.layer)
+				SLOT = null
+				if(usr)
+					usr.overlays.Remove(slotimage)
+				if(M)
+					M.overlays.Remove(slotimage)
 
 	attackby(var/mob/M, var/obj/item/I)
 		SLOT = I
@@ -118,6 +135,19 @@
 				icon_state = "say_intent_[usr:say_intent]"
 				check_say()
 
+	harm_intent
+		name = "harm_intent"
+		icon_state = "harm_intent_0"
+		layer = 25
+		screen_loc = "12,1"
+		var/active = 0
+		type_of_slot = null
+
+		Click()
+			active = !active
+			icon_state = "harm_intent_[active]"
+			usr:harm_intent = active
+
 	lhand
 		name = "lhand"
 		icon_state = "lhand_0"
@@ -127,14 +157,20 @@
 		type_of_slot = /obj/item/
 
 		Click()
-			if(SLOT == null)
-				for(var/obj/hud/rhand/RH in usr.client.screen)
-					RH.active = !RH.active
-					RH.icon_state = "rhand_[RH.active]"
+			if(SLOT == null || silicon)
 				active = !active
 				icon_state = "lhand_[active]"
+				for(var/obj/hud/rhand/RH in usr.client.screen)
+					RH.active = !active
+					RH.icon_state = "rhand_[!active]"
 			else
 				SLOT.attackinhand(usr)
+
+		robohand
+			name = "lhand"
+			icon_state = "lhand_0"
+			icon = 'silicon_hud.dmi'
+			silicon = 1
 
 	oxygen
 		name = "oxygen_control"
@@ -226,14 +262,20 @@
 		type_of_slot = /obj/item/
 
 		Click()
-			if(SLOT == null)
-				for(var/obj/hud/lhand/LH in usr.client.screen)
-					LH.active = !LH.active
-					LH.icon_state = "lhand_[LH.active]"
+			if(SLOT == null || silicon)
 				active = !active
 				icon_state = "rhand_[active]"
+				for(var/obj/hud/lhand/LH in usr.client.screen)
+					LH.active = !active
+					LH.icon_state = "lhand_[!active]"
 			else
 				SLOT.attackinhand(usr)
+
+		robohand
+			name = "rhand"
+			icon_state = "rhand_0"
+			icon = 'silicon_hud.dmi'
+			silicon = 1
 
 	glove_right
 		name = "glove_right"

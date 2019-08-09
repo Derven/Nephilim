@@ -1,4 +1,13 @@
 /mob/living/human
+
+	proc/interact_withorgan(var/obj/item/I, var/zone, var/mob/M)
+		var/obj/item/organ/O
+		for(var/obj/item/organ/ORGAN in src)
+			if(ORGAN.damagezone_to_organ(zone) != null)
+				O = ORGAN.damagezone_to_organ(zone)
+				O.attackby(M, I)
+
+
 	proc/powerdamage(var/damage)
 		switch(damage)
 			if(0 to LITE_UDAR)
