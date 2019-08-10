@@ -142,6 +142,96 @@
 			attack_hand(usr)
 
 
+/obj/machinery/computer/autolathe
+	icon = 'computer.dmi'
+	icon_state = "autolathe"
+	ru_name = "автолат"
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 10
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 5000
+	var/ticks = 1
+	var/reservedfortime = 0
+	defaultmainboard = /obj/item/mainboard/autolathe
+	var/reserves = 0
+	var/metal = 0
+	var/glass = 0
+	var/list/required_metal = list(1,0,1)
+	var/list/required_glass = list(0,1,0)
+	var/list/obj/item/production = list(/obj/item/stack/metal, /obj/item/stack/glass, /obj/item/tools/wrench)
+	var/list/production_names = list("лист металла", "лист стекла", "разводной ключ")
+
+	robotech_fabricator
+		defaultmainboard = /obj/item/mainboard/robotech
+		ru_name = "фабрикатор"
+		required_metal = list(1,0,1,1,1,1)
+		required_glass = list(0,1,1,1,1,1)
+		production = list(/obj/item/stack/metal, /obj/item/stack/glass, /obj/item/roboprothesis, /obj/item/roboprothesis/arml, /obj/item/roboprothesis/legl, /obj/item/roboprothesis/legr)
+		production_names = list("лист металла", "лист стекла", "протез правой руки", "протез левой руки", "протез левой ноги", "протез правой ноги")
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/screwdriver))
+			if(MAINBOARD)
+				MAINBOARD.loc = src.loc
+				call_message(3, "[usr] вытаскивает [MAINBOARD.ru_name] из [src.ru_name]")
+				MAINBOARD = null
+		if(istype(I, /obj/item/mainboard))
+			if(!MAINBOARD)
+				var/obj/machinery/computer/CM = new I:comptype(src.loc)
+				call_message(3, "[usr] вставляет [I.ru_name] в [ru_name]")
+				usr:drop()
+				CM.MAINBOARD = I
+				I.Move(CM)
+				del(src)
+		if(istype(I, /obj/item/stack/metal))
+			metal += I:amount
+			call_message(3, "[usr] вставляет [I:amount] листов металла в [ru_name]")
+			M:drop()
+			del(I)
+		if(istype(I, /obj/item/stack/glass))
+			glass += I:amount
+			call_message(3, "[usr] вставляет [I:amount] листов стекла в [ru_name]")
+			M:drop()
+			del(I)
+
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(use_power())
+			var/list/descr = list()
+			var/list/myhrefs = list()
+			var/i = 0
+			for(var/d in production)
+				i++
+				descr.Add("[production_names[i]] - требует [required_metal[i]] металла и [required_glass[i]] стекла")
+
+			for(var/d in production)
+				myhrefs.Add("production=[d]")
+
+			descr.Add("Металла [metal]; Стекла [glass]")
+			myhrefs.Add("null=null")
+
+			M << browse(nterface(descr, myhrefs),"window=[name]")
+
+	Topic(href,href_list[])
+		if(href_list["production"])
+			var/mypath = text2path(href_list["production"])
+			var/i = 0
+			for(var/cr in production)
+				i++
+				if(cr == mypath && required_metal[i] <= metal && required_glass[i] <= glass && use_power())
+					var/atom/A = new mypath(usr.loc)
+					call_message(5, "[usr] строит [A.ru_name]")
+					metal -= required_metal[i]
+					glass -= required_glass[i]
+
+			attack_hand(usr)
+
+
 /obj/item/mainboard
 	icon = 'computer.dmi'
 	icon_state = "mainboard_computer"
@@ -165,6 +255,18 @@
 		icon_state = "mainboard_engcomputer"
 		ru_name = "главная плата инженерного компьютера"
 		comptype = /obj/machinery/computer/eng
+
+	autolathe
+		icon = 'computer.dmi'
+		icon_state = "mainboard_autolathe"
+		ru_name = "главная плата автолата"
+		comptype = /obj/machinery/computer/autolathe
+
+	robotech
+		icon = 'computer.dmi'
+		icon_state = "mainboard_robotech"
+		ru_name = "главная плата фабрикатора"
+		comptype = /obj/machinery/computer/autolathe/robotech_fabricator
 /*
 	morph
 		icon = 'computer.dmi'

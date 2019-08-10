@@ -31,6 +31,13 @@
 	cutting = 1
 	stitching = 1
 
+	arml
+		type_of_prothesis = "larm"
+	legl
+		type_of_prothesis = "lleg"
+	legr
+		type_of_prothesis = "rleg"
+
 /obj/item/tools
 	icon = 'items.dmi'
 

@@ -69,8 +69,8 @@
 					O.transform = turn(src.transform, rand(0,170))
 					del_hud()
 					if(istype(src, /obj/item/organ/rleg) || istype(src, /obj/item/organ/lleg))
-						owner.rest = 0
-						owner:rest()
+						if(!owner.rest)
+							owner:rest()
 					call_message(5, "[ru_name] отваливается и падает на пол")
 					del(src)
 		else
@@ -185,6 +185,16 @@
 					owner.reagents.remove_reagent("blood_ven", 2)
 					owner.reagents.add_reagent("blood", 2)
 
+			if(istype(src, /obj/item/organ/eyes))
+				if(muscle.health < 50)
+					var/obj/hud/HUD = owner.get_slot("blind", owner)
+					if(HUD)
+						HUD.icon_state = "blind_1"
+				else
+					var/obj/hud/HUD = owner.get_slot("blind", owner)
+					if(HUD)
+						HUD.icon_state = "blind_0"
+
 			if(istype(src, /obj/item/organ/lungs))
 				if(!owner.oxygen_tank)
 					if(istype(owner.loc, /turf))
@@ -244,6 +254,7 @@
 						if(!owner.rest)
 							owner.rest()
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
+
 					var/obj/item/organ/O = new src.type(owner.loc)
 					O.muscle.health = muscle.health
 					O.skin.health = skin.health
@@ -251,7 +262,6 @@
 					O.transform = turn(src.transform, rand(0,170))
 					call_message(5, "[ru_name] отваливается и падает на пол")
 					del(src)
-
 
 			return omuscle
 
@@ -390,7 +400,7 @@
 				owner = loc
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
-			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent)
+			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind)
 
 	lungs
 		name = "lungs"
@@ -414,6 +424,29 @@
 			if(istype(loc, /mob/living/human))
 				owner = loc
 			IHUD = list(/obj/hud/oxygen)
+
+	eyes
+		name = "eyes"
+		ru_name = "глаза"
+		temp_factor = 0.0
+		icon_state = ""
+
+		init()
+			bone = new /datum/bone
+			muscle = new /datum/muscle
+			skin = new /datum/skin
+
+			bone.name = null
+			muscle.name = "глаза"
+			skin.name = null
+			skin.istate = null
+			skin.damagedstate = null
+			muscle.istate = ""
+			muscle.damagedstate = ""
+			bone.istate = null
+			if(istype(loc, /mob/living/human))
+				owner = loc
+			IHUD = list()
 
 
 	heart
@@ -481,7 +514,7 @@
 			bone.istate = "bone_chest"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank)
+			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers)
 
 	rarm
 		name = "r_arm"
@@ -559,7 +592,7 @@
 			bone.istate = "bone_leg_r"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/shoes_right)
+			IHUD = list(/obj/hud/shoes_right, /obj/hud/socks_right)
 
 		roboleg
 			name = "r_leg"
@@ -611,7 +644,7 @@
 			bone.istate = "bone_leg_l"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/shoes_left)
+			IHUD = list(/obj/hud/shoes_left, /obj/hud/socks_left)
 
 		roboleg
 			name = "l_leg"

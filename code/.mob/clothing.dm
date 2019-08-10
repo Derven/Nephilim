@@ -13,6 +13,24 @@
 		def_cf = 0.1
 		temperature_def = 0.1
 
+	socks
+		ru_name = "носки"
+		icon_state = "blacksocks"
+		def_cf = 0.0
+		temperature_def = 0.0
+
+	boxers
+		ru_name = "трусы"
+		icon_state = "blackboxers"
+		def_cf = 0.0
+		temperature_def = 0.0
+
+	mayka
+		ru_name = "майка"
+		icon_state = "mayka"
+		def_cf = 0.0
+		temperature_def = 0.0
+
 	suit/spacesuit
 		ru_name = "скафандр"
 		icon_state = "spacesuit"

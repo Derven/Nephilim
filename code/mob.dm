@@ -18,6 +18,7 @@
 
 /mob
 	var/myears = 1
+	var/blind = 0
 
 /mob/living/human
 	icon = 'icons/human.dmi'
@@ -68,6 +69,7 @@
 	var/obj/item/organ/lungs/olungs
 	var/obj/item/organ/heart/oheart
 	var/obj/item/organ/stomach/ostomach
+	var/obj/item/organ/eyes/eyes
 
 	//panch
 	var/punch_intent = PANCHSBOKY
@@ -173,6 +175,7 @@
 		ostomach = new /obj/item/organ/stomach(src)
 		ochest = new /obj/item/organ/chest(src)
 		ohead = new /obj/item/organ/head(src)
+		eyes = new /obj/item/organ/eyes(src)
 
 	proc/humanupd()
 		humanparts_upd()
@@ -216,6 +219,12 @@
 			skin_l_leg = null
 			muscle_l_leg = null
 
+		if(eyes)
+			eyes.process()
+			eyes.check_muscle()
+		else
+			if(get_slot("blind", src))
+				get_slot("blind", src):icon_state = "blind_2"
 
 		if(right_leg)
 			right_leg.process()
@@ -305,6 +314,9 @@
 
 	verb/debug_ears()
 		myears = !myears
+
+	verb/damage_eyes()
+		eyes.muscle.health -= 10
 
 	proc/rest()
 		spawn(5)

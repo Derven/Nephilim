@@ -4,9 +4,28 @@
 			if(H.name == slotname)
 				return H
 	else
+		if(M.client)
+			for(var/obj/hud/H in M.client.screen)
+				if(H.name == slotname)
+					return H
+
+/mob/proc/change_slot_level(var/mob/M)
+	if(!M)
+		var/obj/hud/slot_level/SL = usr.get_slot("slot_level", usr)
+		for(var/obj/hud/H in usr.client.screen)
+			if(!H.slot_neutral && H.slot_level == SL.level)
+				H.invisibility = 0
+
+			if(!H.slot_neutral && H.slot_level != SL.level)
+				H.invisibility = 101
+	else
+		var/obj/hud/slot_level/SL = M.get_slot("slot_level", M)
 		for(var/obj/hud/H in M.client.screen)
-			if(H.name == slotname)
-				return H
+			if(!H.slot_neutral && H.slot_level == SL.level)
+				H.invisibility = 0
+
+			if(!H.slot_neutral && H.slot_level != SL.level)
+				H.invisibility = 101
 
 var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard, /obj/item/tank, /obj/item/clothing, /obj/item/unconnected_cable, /obj/item/roboprothesis)
 
@@ -19,6 +38,8 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 	var/image/slotimage
 	var/slotname = ""
 	var/silicon = 0
+	var/slot_neutral = 1
+	var/slot_level = 1
 
 	proc/put_to_slot()
 		if(istype(SLOT, type_of_slot))
@@ -76,6 +97,14 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 
 	New(client/C)
 		C.screen += src
+
+	blind
+		name = "blind"
+		icon_state = "blind_1"
+		layer = 24
+		screen_loc = "1,1 to 13,13"
+		type_of_slot = null
+		mouse_opacity = 0
 
 	punch_intent
 		name = "punch_intent"
@@ -147,6 +176,19 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 			active = !active
 			icon_state = "harm_intent_[active]"
 			usr:harm_intent = active
+
+	slot_level
+		name = "slot_level"
+		icon_state = "slot_level_1"
+		layer = 25
+		screen_loc = "13,1"
+		var/level = 1
+		type_of_slot = null
+
+		Click()
+			level = !level
+			icon_state = "slot_level_[level]"
+			usr.change_slot_level(usr)
 
 	lhand
 		name = "lhand"
@@ -288,16 +330,60 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		icon_state = "shoes"
 		layer = 25
 		screen_loc = "5,1"
-		type_of_slot = /obj/item/clothing
+		type_of_slot = /obj/item/clothing/shoes
 		slotname = "rleg"
+		slot_neutral = 0
+
+	socks_right
+		name = "socks_right"
+		icon_state = "socks"
+		layer = 25
+		screen_loc = "5,1"
+		invisibility = 101
+		slot_level = 0
+		type_of_slot = /obj/item/clothing/socks
+		slotname = "rlegs"
+		slot_neutral = 0
+
+		put_to_slot()
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					usr:clothes_temperature_def += SLOT:temperature_def
+				slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 8)
+				usr.overlays.Add(slotimage)
+				SLOT.loc = src
+				SLOT.layer = 35
+				src.overlays += SLOT
+
+	socks_left
+		name = "socks_left"
+		icon_state = "socks"
+		layer = 25
+		screen_loc = "6,1"
+		invisibility = 101
+		slot_level = 0
+		type_of_slot = /obj/item/clothing/socks
+		slotname = "llegs"
+		slot_neutral = 0
+
+		put_to_slot()
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					usr:clothes_temperature_def += SLOT:temperature_def
+				slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 8)
+				usr.overlays.Add(slotimage)
+				SLOT.loc = src
+				SLOT.layer = 35
+				src.overlays += SLOT
 
 	shoes_left
 		name = "shoes_left"
 		icon_state = "shoes"
 		layer = 25
 		screen_loc = "6,1"
-		type_of_slot = /obj/item/clothing
+		type_of_slot = /obj/item/clothing/shoes
 		slotname = "lleg"
+		slot_neutral = 0
 
 	helmet
 		name = "helmet"
@@ -323,6 +409,49 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		screen_loc = "8,1"
 		slotname = "chestu"
 		type_of_slot = /obj/item/clothing/uniform
+		slot_neutral = 0
+
+	mayka
+		name = "mayka"
+		icon_state = "mayka"
+		layer = 25
+		invisibility = 101
+		screen_loc = "8,2"
+		slotname = "chestm"
+		type_of_slot = /obj/item/clothing/mayka
+		slot_neutral = 0
+		slot_level = 0
+
+		put_to_slot()
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					usr:clothes_temperature_def += SLOT:temperature_def
+				slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 8)
+				usr.overlays.Add(slotimage)
+				SLOT.loc = src
+				SLOT.layer = 35
+				src.overlays += SLOT
+
+	boxers
+		name = "boxers"
+		icon_state = "boxers"
+		layer = 25
+		invisibility = 101
+		screen_loc = "8,1"
+		slotname = "chestb"
+		type_of_slot = /obj/item/clothing/boxers
+		slot_neutral = 0
+		slot_level = 0
+
+		put_to_slot()
+			if(istype(SLOT, type_of_slot))
+				if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
+					usr:clothes_temperature_def += SLOT:temperature_def
+				slotimage = image(icon = 'clothes_on_mob.dmi', icon_state = "[slotname]_[SLOT.icon_state]", layer = 8)
+				usr.overlays.Add(slotimage)
+				SLOT.loc = src
+				SLOT.layer = 35
+				src.overlays += SLOT
 
 	tank
 		name = "tank"

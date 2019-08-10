@@ -10,3 +10,5 @@
 			if(!over_object:rest)
 				over_object:rest()
 				over_object.loc = src.loc
+
+	cyborg_table
