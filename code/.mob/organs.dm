@@ -261,6 +261,8 @@
 					O.bone.health = bone.health
 					O.transform = turn(src.transform, rand(0,170))
 					call_message(5, "[ru_name] отваливается и падает на пол")
+					if(istype(src, /obj/item/organ/head))
+						owner.health = 0
 					del(src)
 
 			return omuscle

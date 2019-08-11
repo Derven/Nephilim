@@ -1,5 +1,6 @@
 /obj/machinery
 	var/on = 0
+	layer = 3
 
 /obj/machinery/airlock
 	icon = 'icons/airlock.dmi'
@@ -35,3 +36,69 @@
 			open()
 		else
 			call_message(3, "Дверь обесточена")
+
+/obj/machinery/power_block
+	icon = 'computer.dmi'
+	icon_state = "power_block"
+	ru_name = "блок питания"
+	var/ivoltage = 45
+	var/iamperage = 3
+	var/out_voltage = 0
+	var/out_amperage = 0
+	max_VLTAMP = 500000
+
+	anchored = 1
+	layer = 2
+
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/metal)
+	easy_deconstruct = 1
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			easy_deconstruct(usr)
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(use_power())
+			var/list/descr = list()
+			var/list/hrefs = list()
+			var/obj/electro/cable/CABEL
+			for(var/obj/electro/cable/C in src.loc)
+				powernet = C.powernet
+				CABEL = C
+			descr.Add(fix1103("Напряжение в сети [CABEL.voltage]"))
+			descr.Add("Сила тока в сети [CABEL.amperage]")
+			descr.Add(fix1103("Задать выходное напряжение [ivoltage]"))
+			descr.Add("Задать выходную силу тока [iamperage]")
+
+			hrefs.Add("null=null")
+			hrefs.Add("null=null")
+			hrefs.Add("voltage=ok")
+			hrefs.Add("amperage=ok")
+
+			M << browse(nterface(descr, hrefs),"window=[name]")
+
+	Topic(href,href_list[])
+		if(href_list["voltage"]=="ok")
+			ivoltage = input(usr, "Напряжение (выходное).","ваше значение",ivoltage) as num
+			attack_hand(usr)
+		if(href_list["amperage"]=="ok")
+			iamperage = input(usr, "Сила тока (выходная).","ваше значение",iamperage) as num
+			attack_hand(usr)
+
+	New()
+		..()
+		tocontrol()
+
+	process()
+		for(var/obj/electro/cable/C in src.loc)
+			powernet = C.powernet
+			if(C.voltage > ivoltage)
+				out_voltage = ivoltage
+			else
+				out_voltage = 0
+
+			if(C.amperage > iamperage)
+				out_amperage = iamperage
+			else
+				out_amperage = 0

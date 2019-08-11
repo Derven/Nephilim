@@ -267,6 +267,8 @@
 		blood_process()
 		if(health <= 0)
 			death()
+			if(!rest)
+				rest()
 
 	proc/blood_process()
 		reagents.remove_reagent("blood", 2)  //поглощение мозгом крови насыщенной кислородом

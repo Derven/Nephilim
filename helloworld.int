@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1565439171
+LAST_COMPILE_TIME: 1565559095
 DIR: backup code code\.mob code\obj code\obj\structure icons 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1470
-WINDOW: code\obj\hud.dm;icons\clothes_on_mob.dmi;icons\landmark.dmi;code\obj\tanks.dm;code\obj\landmarks.dm;helloworld.dm;icons\computer.dmi;code\power.dm;code\obj\computer.dm;code\controller_hueroller.dm;code\.mob\clothing.dm;code\mob.dm;code\.mob\organs.dm;galaxy2.dmm;code\obj\stacks.dm;code\obj\items.dm;icons\HUD.dmi;icons\items.dmi;code\obj\structure\ladder.dm;icons\structure.dmi;code\obj\structure\preparing_table.dm
-FILE: code\obj\structure\preparing_table.dm
+WINDOW: code\obj\computer.dm;icons\computer.dmi;galaxy2.dmm;code\power.dm;code\.mob\interact.dm;code\obj\hud.dm;icons\items.dmi;code\obj\items.dm
+FILE: code\obj\computer.dm
 */
 // END_INTERNALS

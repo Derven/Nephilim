@@ -52,7 +52,7 @@ var/list/obj/machinery/machines = list()
 	var/reset = 0
 	var/zLevel = 0
 	var/marker = 0
-	layer = 2.4
+	layer = 2
 	var/real_resistance
 
 	output
@@ -103,11 +103,23 @@ var/list/obj/machinery/machines = list()
 	proc/burnmachine()
 		call_message(5, "[src.ru_name] дымит и искрит. Похоже эта установка сгорела")
 
-
 	proc/use_power()
 		if(use_power == 1)
 			for(var/obj/electro/cable/C in src.loc)
 				powernet = C.powernet
+				for(var/obj/machinery/power_block/PB in src.loc)
+					if(PB.out_amperage >= need_amperage && PB.out_voltage >= need_voltage)
+						if(PB.out_amperage * PB.out_voltage > max_VLTAMP)
+							burnmachine()
+							use_power = 0
+							return 0
+						else
+							if(C.return_smes())
+								C.return_smes():full_charge -= need_amperage * need_voltage
+								return 1
+					else
+						return 0
+
 				if(C.amperage >= need_amperage && C.voltage >= need_voltage)
 					if(C.amperage * C.voltage > max_VLTAMP)
 						burnmachine()
@@ -140,7 +152,7 @@ var/list/obj/machinery/machines = list()
 		icon = 'power.dmi'
 		icon_state = "smes"
 		work_voltage = 320
-		full_charge = 50000
+		full_charge = 500000
 		anchored = 1
 
 	process()

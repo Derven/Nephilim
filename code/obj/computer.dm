@@ -231,6 +231,183 @@
 
 			attack_hand(usr)
 
+/obj/item/device
+	icon = 'computer.dmi'
+	icon_state = "device_frame"
+	ru_name = "устройство"
+	var/obj/item/devicemainboard/MAINBOARD
+	var/obj/item/devicebattery/DEVICEBATTERY
+	var/obj/item/deviceoutput/SPEAKER
+	var/mainboardov = 0
+	var/batteryov = 0
+	var/speakerov = 0
+	var/need_voltage = 12
+	var/need_amperage = 1
+	var/maxVLTAMP = 15
+	var/on = 0
+	var/broken = 0
+	layer = 3
+
+	proc/init()
+		MAINBOARD = new(src)
+		DEVICEBATTERY = new(src)
+		SPEAKER = new(src)
+		tocontrol()
+
+	New()
+		..()
+		init()
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(MAINBOARD)
+			if(istype(I, /obj/item/tools/screwdriver))
+				MAINBOARD.loc = src.loc
+				call_message(3, "[usr] вытаскивает [MAINBOARD.ru_name] из [src.ru_name]")
+				MAINBOARD = null
+				return
+
+		if(DEVICEBATTERY)
+			if(istype(I, /obj/item/tools/screwdriver))
+				DEVICEBATTERY.loc = src.loc
+				call_message(3, "[usr] вытаскивает [SPEAKER.ru_name] из [src.ru_name]")
+				DEVICEBATTERY = null
+				return
+
+		if(SPEAKER)
+			if(istype(I, /obj/item/tools/screwdriver))
+				SPEAKER.loc = src.loc
+				call_message(3, "[usr] вытаскивает [SPEAKER.ru_name] из [src.ru_name]")
+				SPEAKER = null
+				return
+
+		if(istype(I, /obj/item/devicemainboard))
+			if(!MAINBOARD)
+				var/obj/item/device/CM = new I:comptype(src.loc)
+				call_message(3, "[usr] вставляет [I.ru_name] в [ru_name]")
+				usr:drop()
+				CM.MAINBOARD = I
+				I.Move(CM)
+				if(!DEVICEBATTERY)
+					CM.DEVICEBATTERY = null
+				if(!SPEAKER)
+					CM.SPEAKER = null
+				nocontrol()
+				spawn(5)
+					del(src)
+
+		if(istype(I, /obj/item/devicebattery))
+			if(!DEVICEBATTERY)
+				DEVICEBATTERY = I
+				M:drop()
+				I.Move(src)
+				call_message(3, "[usr] вставляет [I.ru_name] в [ru_name]")
+
+		if(istype(I, /obj/item/deviceoutput))
+			if(!SPEAKER)
+				SPEAKER = I
+				M:drop()
+				I.Move(src)
+				call_message(3, "[usr] вставляет [I.ru_name] в [ru_name]")
+
+	process()
+		if(MAINBOARD && !mainboardov)
+			overlays.Add(MAINBOARD)
+			mainboardov = 1
+
+		if(DEVICEBATTERY && !batteryov)
+			overlays.Add(DEVICEBATTERY)
+			batteryov = 1
+
+		if(SPEAKER && !speakerov)
+			overlays.Add(SPEAKER)
+			speakerov = 1
+
+		if(!SPEAKER)
+			overlays.Cut()
+			speakerov = 0
+			mainboardov = 0
+			batteryov = 0
+			if(MAINBOARD && !mainboardov)
+				overlays.Add(MAINBOARD)
+				mainboardov = 1
+			if(DEVICEBATTERY && !batteryov)
+				overlays.Add(DEVICEBATTERY)
+				batteryov = 1
+
+
+		if(!MAINBOARD)
+			overlays.Cut()
+			mainboardov = 0
+			speakerov = 0
+			batteryov = 0
+			if(SPEAKER && !speakerov)
+				overlays.Add(SPEAKER)
+				speakerov = 1
+			if(DEVICEBATTERY && !batteryov)
+				overlays.Add(DEVICEBATTERY)
+				batteryov = 1
+
+		if(!DEVICEBATTERY)
+			overlays.Cut()
+			speakerov = 0
+			mainboardov = 0
+			batteryov = 0
+			if(SPEAKER && !speakerov)
+				overlays.Add(SPEAKER)
+				speakerov = 1
+			if(DEVICEBATTERY && !batteryov)
+				overlays.Add(DEVICEBATTERY)
+				batteryov = 1
+
+		if(MAINBOARD && DEVICEBATTERY && SPEAKER)
+			if(!broken && on)
+				if(DEVICEBATTERY.charge_level > 0)
+					if(DEVICEBATTERY.voltage * DEVICEBATTERY.amperage > maxVLTAMP)
+						broken = 1
+						loc.call_message(5, "[src.ru_name] дымит и искрит. Похоже это устройство сгорело")
+						return
+
+					if(DEVICEBATTERY.charge_level < 100)
+						loc.call_message(SPEAKER.power, "[src.ru_name] разряжается. Срочно найдите станцию зарядки!")
+
+					DEVICEBATTERY.charge_level--
+				else
+					on = 0
+
+	attackinhand(var/mob/M)
+		if(MAINBOARD && DEVICEBATTERY && SPEAKER)
+			if(!broken)
+				if(DEVICEBATTERY.charge_level > 0)
+					on = !on
+					if(on)
+						M.call_message(SPEAKER.power, "[src.ru_name] играет мелодию приветствия!")
+					if(!on)
+						M.call_message(SPEAKER.power, "[src.ru_name] играет мелодию прощания!")
+
+/obj/item/deviceoutput
+	icon = 'computer.dmi'
+	icon_state = "speaker_device"
+	ru_name = "простой динамик"
+	layer = 4
+	var/power = 3
+
+/obj/item/devicebattery
+	icon = 'computer.dmi'
+	icon_state = "battery_device"
+	ru_name = "простая батарея"
+	amperage = 1
+	voltage = 12
+	var/max_charge = 2000
+	var/charge_level = 2000
+	layer = 4
+
+/obj/item/devicemainboard
+	icon = 'computer.dmi'
+	icon_state = "mainboard_device"
+	ru_name = "микроплата"
+	var/comptype = /obj/item/device
+	layer = 4
+
 
 /obj/item/mainboard
 	icon = 'computer.dmi'

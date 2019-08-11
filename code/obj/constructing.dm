@@ -162,3 +162,66 @@
 			else
 				call_message(3, "к [src.ru_name] уже подключен дисплей")
 			check_stages()
+
+/obj/frame/powerblock
+	icon_state = "powerblock_frame"
+	ru_name = "корпус блока питания"
+	frame_type = /obj/machinery/power_block
+	var/bolts = 0
+	var/wired = 0
+	var/tofloor = 0
+
+	action_1()
+		if(bolts)
+			call_message(3, "болты [src.ru_name] затянуты")
+			return 1
+		else
+			return 0
+
+		return 0
+	action_2()
+		if(wired)
+			call_message(3, "внутри [src.ru_name] протянуты провода")
+			return 1
+		else
+			return 0
+
+	action_3()
+		if(tofloor)
+			call_message(3, "[src.ru_name] прикручен к полу")
+			return 1
+		else
+			return 0
+
+	completestage()
+		if(action_3())
+			if(stage == 2)
+				stage = 3
+				var/atom/A
+				if(!ispath(frame_type,/turf))
+					A = new frame_type(src.loc)
+				else
+					A = new frame_type( locate(src.x, src.y, src.z) )
+				call_message(3, "[src.ru_name] превращается в [A.ru_name]")
+				del(src)
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/screwdriver))
+			bolts = !bolts
+			check_stages()
+			return
+		if(istype(I, /obj/item/unconnected_cable))
+			if(wired == 0)
+				wired = 1
+				usr:drop()
+				I.loc = src
+			else
+				call_message(3, "внутри [src.ru_name] уже протянуты провода")
+			check_stages()
+			return
+		if(istype(I, /obj/item/tools/wrench))
+			if(tofloor == 0)
+				tofloor = 1
+			else
+				call_message(3, "[src.ru_name] уже прикручен к полу")
+			check_stages()
