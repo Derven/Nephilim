@@ -14,6 +14,9 @@
 		hot
 			temperature = 800
 
+		water
+			water = 10000
+
 		attack_hand()
 			world << "[oxygen];[temperature];[pressure]"
 

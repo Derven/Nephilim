@@ -198,7 +198,7 @@
 			if(istype(src, /obj/item/organ/lungs))
 				if(!owner.oxygen_tank)
 					if(istype(owner.loc, /turf))
-						if((owner.loc:oxygen < 20 || owner.loc:plasma > 20) && owner.oxyloss < 100)
+						if((owner.loc:oxygen < 20 || owner.loc:plasma > 20 || owner.loc:water > 50) && owner.oxyloss < 100)
 							owner.oxyloss += 1
 							if(prob(2))
 								owner.call_message(5, "[owner] кашляет")
@@ -221,7 +221,7 @@
 
 				if(owner.oxyloss >= 100)
 					if(prob(10))
-						owner.call_message(5, "[owner] задыхается")
+						owner.call_message(5, "[owner] задыхается ")
 						owner.health -= rand(0,5)
 
 				if(src:muscle.health <= 30)

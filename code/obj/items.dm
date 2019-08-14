@@ -57,7 +57,7 @@
 
 		crushing = 0
 		cutting = 0
-		stitching = 4
+		stitching = 6
 
 	welder
 		icon_state = "welder"

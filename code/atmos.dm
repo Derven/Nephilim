@@ -24,6 +24,7 @@ var/min_temperature = -380
 	var/plasma = 0
 	var/temperature = -380
 	var/pressure = 0
+	var/water = 0
 
 /turf/floor
 	oxygen = 50
@@ -32,6 +33,21 @@ var/min_temperature = -380
 	temperature = 20
 	pressure = 0
 	ru_name = "пол"
+
+	proc/overlayupdate()
+		overlays.Cut()
+		if(water > 0)
+			overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_0",layer = 3))
+		switch(water)
+			if(1 to 10)
+				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_1",layer = 7))
+			if(11 to 30)
+				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_2",layer = 7))
+			if(31 to 50)
+				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_3",layer = 7))
+			if(51 to 99999999)
+				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_4",layer = 7))
+
 
 	openspess
 		icon_state = "openspace"
@@ -64,6 +80,7 @@ var/min_temperature = -380
 
 			if(M.anchored == 0)
 				M.Move(destination)
+
 	process()
 		control = 0
 		var/list/turf/TURFS = list()
@@ -77,10 +94,12 @@ var/min_temperature = -380
 
 		else
 			TURFS = check_in_cardinal(1)
+			overlayupdate()
+
 		for(var/turf/FLOOR in TURFS)
 			if(istype(FLOOR, /turf/floor))
-				FLOOR.pressure = round((FLOOR.oxygen + FLOOR.co2 + FLOOR.plasma) * FLOOR.temperature / 2)
-				pressure = round((oxygen + co2 + plasma) * temperature / 2)
+				FLOOR.pressure = round((FLOOR.oxygen + FLOOR.co2 + FLOOR.plasma + FLOOR.water) * FLOOR.temperature / 2)
+				pressure = round((oxygen + co2 + plasma + water) * temperature / 2)
 
 				if(pressure > FLOOR.pressure)
 					if(abs(pressure - FLOOR.pressure) > veterok_pressure)
@@ -105,6 +124,10 @@ var/min_temperature = -380
 					temperature += 1
 					FLOOR.temperature -= 1
 
+				if((FLOOR.water > water) && FLOOR.water - water > 1)
+					water += 1
+					FLOOR.water -= 1
+
 			if(istype(FLOOR, /turf/space))
 				move_veterok(FLOOR)
 
@@ -122,6 +145,9 @@ var/min_temperature = -380
 					plasma  -= 5
 					if(plasma < 0)
 						plasma = 0
+
+				if(water > 0)
+					water = 0
 
 				if(temperature > min_temperature)
 					temperature -= 50

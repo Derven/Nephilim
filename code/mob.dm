@@ -131,6 +131,8 @@
 		//nocontrol()
 		death = 1
 		message_to_usr("Наступила смерть")
+		spawn(25)
+			process()
 
 	proc/humanparts_upd()
 		humanparts.Cut()
@@ -319,6 +321,10 @@
 
 	verb/damage_eyes()
 		eyes.muscle.health -= 10
+
+	verb/check_speed()
+		speed += 100
+		accelerate += 10
 
 	proc/rest()
 		spawn(5)

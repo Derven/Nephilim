@@ -7,6 +7,21 @@
 				O = ORGAN.damagezone_to_organ(zone)
 				O.attackby(M, I)
 
+	proc/impactdamage(var/damage)
+		for(var/obj/item/organ/O in src)
+			if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
+				if(istype(O, /obj/item/organ/eyes))
+					return 0
+				if(O.skin.name)
+					O.skin.health -= round(damage / 2)
+				if(O.bone.name)
+					O.bone.health -= round(damage)
+				O.muscle.health -= round(damage / 2)
+			else
+				O.muscle.health -= round(damage / 2)
+
+	collisionBumped(var/speeedwagon)
+		impactdamage(speeedwagon)
 
 	proc/powerdamage(var/damage)
 		switch(damage)
@@ -121,9 +136,14 @@
 						bonus += 8
 					if(I.stitching * 3 - O.def * 0.3 > 0)
 						O.skin.health -= bonus + I.stitching * 3 - O.def * 0.3
-						if(name == "chest")
+						if(O.name == "chest")
 							if(I.stitching + bonus > 10)
 								for(var/obj/item/organ/heart/H in src)
 									H.muscle.health -= round(I.stitching / 4)
 								for(var/obj/item/organ/lungs/L in src)
 									L.muscle.health -= round(I.stitching / 6)
+
+						if(O.name == "head")
+							if(I.stitching + bonus > 5)
+								if(eyes)
+									eyes.muscle.health -= I.stitching + bonus
