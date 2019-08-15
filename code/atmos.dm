@@ -34,6 +34,14 @@ var/min_temperature = -380
 	pressure = 0
 	ru_name = "пол"
 
+	attackby(var/mob/M, var/obj/item/I)
+		if(!istype(src, /turf/floor/openspess))
+			if(istype(I, /obj/item/staple))
+				M:drop()
+				del(I)
+				call_message(5, "к [ru_name] крепится скоба")
+				new /obj/structure/staple(src)
+
 	proc/overlayupdate()
 		overlays.Cut()
 		if(water > 0)
@@ -78,7 +86,7 @@ var/min_temperature = -380
 								O.muscle.health -= rand(5, 10)
 								O.skin.health -= rand(1, 8)
 
-			if(M.anchored == 0)
+			if(M.anchored == 0 && M.reality)
 				M.Move(destination)
 
 	process()

@@ -6,6 +6,7 @@
 	var/speed = 0
 	var/accelerate = 0
 	var/structurehealth = 100
+	var/reality = 1
 
 	proc/atmosdeceleration()
 		if(istype(src.loc, /turf))
@@ -39,20 +40,32 @@
 
 	Move()
 		moving_vector = dir
+		if(reality)
+			density = 1
+		for(var/obj/gravity/GRAVITY in src.loc)
+			speed = 0
+			accelerate = 0
+		for(var/obj/structure/staple/STAPLE in range(1,src))
+			if(istype(src, /mob/living/human))
+				if(src:throwmode)
+					speed = 0
+					accelerate = 0
 		..()
 		if(speed < 1)
 			speed = 0
 		speed += accelerate
-		if(atmosdeceleration() > 0)
-			if(istype(src, /mob/living))
-				if(src:client)
-					src:client.dir = turn(src:client.dir, pick(90,-90,180,-180))
-			sleep((src.loc:pressure / 1000) + 1)
-			if(istype(src, /mob/living))
-				if(src:client)
-					src:client.dir = NORTH
-			step(src,moving_vector,0)
-			dir = moving_vector
+		if(reality)
+			if(atmosdeceleration() > 0)
+				if(istype(src, /mob/living))
+					if(src:client)
+						src:client.dir = turn(src:client.dir, pick(90,-90,180,-180))
+				sleep((src.loc:pressure / 1000) + 1)
+				if(istype(src, /mob/living))
+					if(src:client)
+						src:client.dir = NORTH
+				step(src,moving_vector,0)
+				dir = moving_vector
+		density = initial(density)
 
 /atom
 	var/ru_name
@@ -66,6 +79,16 @@
 				M.accelerate = round(M.accelerate / 2)
 				M.moving_vector = turn(M.moving_vector, pick(90,-90, -45, 45, 180))
 				M.dir = M.moving_vector
+			if(istype(M, /mob/living/human))
+				if(M:throwmode && damage < 200)
+					var/staple = 0
+					for(var/obj/structure/staple/STAPLE in range(1,M))
+						staple = 50
+					if(prob(40 + staple))
+						M.speed = 0
+						M.accelerate = 0
+						call_message(5, "[M.ru_name ? M.ru_name : M.name ] хватается и избегает жесткого столкновения ")
+						return 0
 			return damage
 		else
 			return 0
@@ -73,3 +96,4 @@
 	proc/bumpedzero()
 
 	proc/collisionBumped(var/speeedwagon)
+		..()

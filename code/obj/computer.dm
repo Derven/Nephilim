@@ -160,10 +160,10 @@
 	var/reserves = 0
 	var/metal = 0
 	var/glass = 0
-	var/list/required_metal = list(1,0,1)
-	var/list/required_glass = list(0,1,0)
-	var/list/obj/item/production = list(/obj/item/stack/metal, /obj/item/stack/glass, /obj/item/tools/wrench)
-	var/list/production_names = list("лист металла", "лист стекла", "разводной ключ")
+	var/list/required_metal = list(1,0,1,1)
+	var/list/required_glass = list(0,1,0,0)
+	var/list/obj/item/production = list(/obj/item/stack/metal, /obj/item/stack/glass, /obj/item/tools/wrench, /obj/item/staple)
+	var/list/production_names = list("лист металла", "лист стекла", "разводной ключ", "скоба")
 
 	robotech_fabricator
 		defaultmainboard = /obj/item/mainboard/robotech
@@ -519,3 +519,57 @@
 				M.loc = N_B
 				N_B.body = null
 */
+
+/obj/item/mainboard/gravity
+	icon = 'computer.dmi'
+	icon_state = "mainboard_gravity"
+	ru_name = "главна€ плата гравитационного компьютера"
+	comptype = /obj/machinery/computer/gravity
+
+/obj/machinery/computer/gravity
+	icon = 'computer.dmi'
+	icon_state = "computer_frame"
+	ru_name = "гравитационный компьютер"
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 10
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 5000
+	var/ticks = 1
+	defaultmainboard = /obj/item/mainboard/gravity
+
+	proc/view_all_activity()
+		var/list/obj/machinery/gravity_shield/data = list()
+		for(var/obj/machinery/gravity_shield/B in controlled)
+			if(B.powernet == powernet)
+				data.Add(B)
+		return data
+
+	process()
+		if(MAINBOARD)
+			if(checkoverlay == 0)
+				overlays.Add(MAINBOARD)
+				checkoverlay = 1
+			use_power()
+		else
+			overlays.Cut()
+			//nocontrol()
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(okinterface() && use_power())
+			if(view_all_activity())
+				var/list/powerstat = list()
+				var/list/hrefs = list()
+				powerstat.Add(fix1103("¬ключить/выключить гравитационные ловушки в сети"))
+				hrefs.Add("gravity=ok")
+				M << browse(nterface(powerstat, hrefs),"window=[name]")
+
+	Topic(href,href_list[])
+		if(href_list["gravity"] == "ok")
+			var/list/obj/machinery/gravity_shield/data = view_all_activity()
+			for(var/obj/machinery/gravity_shield/SH in data)
+				SH.on = !SH.on

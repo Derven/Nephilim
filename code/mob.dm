@@ -70,6 +70,7 @@
 	var/obj/item/organ/heart/oheart
 	var/obj/item/organ/stomach/ostomach
 	var/obj/item/organ/eyes/eyes
+	var/throwmode = 0
 
 	//panch
 	var/punch_intent = PANCHSBOKY
@@ -129,10 +130,16 @@
 	proc/death()
 		control = 0
 		//nocontrol()
-		death = 1
-		message_to_usr("Наступила смерть")
-		spawn(25)
+		if(death == 0)
 			process()
+		death = 1
+		if(client)
+			var/mob/dead/ghost/deadly_ghost = new /mob/dead/ghost(src.loc)
+			client.screen.Cut()
+			client = null
+			deadly_ghost.client = client
+		message_to_usr("Наступила смерть")
+		nocontrol()
 
 	proc/humanparts_upd()
 		humanparts.Cut()
@@ -244,6 +251,7 @@
 			skin_head = ohead.check_skin()
 			muscle_head = ohead.check_muscle()
 		else
+			death = 1
 			bone_head = null
 			skin_head = null
 			muscle_head = null
@@ -340,17 +348,40 @@
 	verb/resting()
 		rest()
 
-	proc/drop()
-		for(var/obj/hud/rhand/RH in usr.client.screen)
-			if(RH.SLOT != null)
-				var/itemname = RH.SLOT.ru_name
-				if(RH.active == 1)
-					usr.call_message(3, "Бросает [itemname] на пол")
-					RH.remove_from_slot()
+	proc/drop(var/vector, var/strength)
+		if(!vector || !strength)
+			for(var/obj/hud/rhand/RH in usr.client.screen)
+				if(RH.SLOT != null)
+					var/itemname = RH.SLOT.ru_name
+					if(RH.active == 1)
+						usr.call_message(3, "Бросает [itemname] на пол")
+						RH.remove_from_slot()
 
-		for(var/obj/hud/lhand/LH in usr.client.screen)
-			if(LH.SLOT != null)
-				var/itemname = LH.SLOT.ru_name
-				if(LH.active == 1)
-					usr.call_message(3, "Бросает [itemname] на пол")
-					LH.remove_from_slot()
+			for(var/obj/hud/lhand/LH in usr.client.screen)
+				if(LH.SLOT != null)
+					var/itemname = LH.SLOT.ru_name
+					if(LH.active == 1)
+						usr.call_message(3, "Бросает [itemname] на пол")
+						LH.remove_from_slot()
+		else
+			for(var/obj/hud/rhand/RH in usr.client.screen)
+				if(RH.SLOT != null)
+					var/itemname = RH.SLOT.ru_name
+					if(RH.active == 1)
+						usr.call_message(3, "Бросает [itemname] прочь")
+						var/obj/item/I = RH.SLOT
+						RH.remove_from_slot()
+						I.speed = strength
+						I.accelerate = strength
+						I.Move(get_step(src, vector))
+
+			for(var/obj/hud/lhand/LH in usr.client.screen)
+				if(LH.SLOT != null)
+					var/itemname = LH.SLOT.ru_name
+					if(LH.active == 1)
+						usr.call_message(3, "Бросает [itemname] прочь")
+						var/obj/item/I = LH.SLOT
+						LH.remove_from_slot()
+						I.speed = strength
+						I.accelerate = strength
+						I.Move(get_step(src, vector))

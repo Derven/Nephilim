@@ -289,6 +289,19 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		Click()
 			usr:drop()
 
+	throwbutton
+		name = "throw"
+		icon_state = "throw"
+		layer = 25
+		screen_loc = "6,2"
+
+		Click()
+			usr:throwmode = !usr:throwmode
+			if(usr:throwmode == 1)
+				color = "green"
+			else
+				color = null
+
 	glove_left
 		name = "glove_left"
 		icon_state = "glove"

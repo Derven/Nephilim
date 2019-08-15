@@ -102,3 +102,49 @@
 				out_amperage = iamperage
 			else
 				out_amperage = 0
+
+/obj/gravity
+	icon = 'computer.dmi'
+	icon_state = "gravity"
+	mouse_opacity = 0
+	reality = 0
+	alpha = 128
+
+/obj/machinery/gravity_shield
+	icon = 'computer.dmi'
+	icon_state = "gravity_shield"
+	ru_name = "гравитационная ловушка"
+	on = 1
+	var/powerrange = 2
+	need_voltage = 30
+	need_amperage = 2
+	max_VLTAMP = 1000000
+	var/list/iterationgravity = list()
+
+	anchored = 1
+	layer = 2
+
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/metal)
+	easy_deconstruct = 1
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			easy_deconstruct(usr)
+
+	New()
+		..()
+		tocontrol()
+
+	process()
+		for(var/obj/electro/cable/C in src.loc)
+			powernet = C.powernet
+		for(var/atom/A in iterationgravity)
+			iterationgravity.Remove(A)
+			del(A)
+		if(on)
+			need_amperage = 2
+			need_voltage = powerrange * 7
+			if(use_power())
+				for(var/turf/T in range(powerrange, src))
+					var/obj/gravity/G = new /obj/gravity(T)
+					iterationgravity.Add(G)

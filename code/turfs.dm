@@ -41,6 +41,15 @@
 		opacity = 1
 		ru_name = "стена"
 
+		attackby(var/mob/M, var/obj/item/I)
+			if(!istype(src, /turf/wall/window))
+				if(istype(I, /obj/item/staple))
+					M:drop()
+					del(I)
+					call_message(5, "к [ru_name] крепится скоба")
+					new /obj/structure/staple(src)
+
+
 		window
 			opacity = 0
 			icon_state = "window"

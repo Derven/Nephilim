@@ -4,6 +4,8 @@ client
 			if(mob:rest)
 				return
 			..()
+		else
+			..()
 
 
 	proc/shakecamera()
