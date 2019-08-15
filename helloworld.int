@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1565887240
+LAST_COMPILE_TIME: 1565895758
 DIR: backup code code\.mob code\obj code\obj\structure icons 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: icons\computer.dmi;galaxy2.dmm;code\obj\machinery.dm;code\power.dm;code\obj\structure\preparing_table.dm;code\obj\structure\ladder.dm;code\obj\structure\lattice.dm;icons\structure.dmi;code\atom.dm;icons\turfs.dmi;code\obj\stacks.dm;icons\items.dmi;code\obj\constructing.dm;icons\constructing.dmi;code\obj\items.dm;code\obj\items_structure.dm;code\atmos.dm;code\obj\computer.dm;code\turfs.dm;icons\clothes_on_mob.dmi;code\mob.dm;code\ghost.dm
-FILE: code\ghost.dm
+WINDOW: icons\computer.dmi;code\obj\machinery.dm;code\power.dm;code\obj\structure\preparing_table.dm;code\obj\structure\ladder.dm;code\obj\structure\lattice.dm;icons\structure.dmi;code\atom.dm;icons\turfs.dmi;code\obj\stacks.dm;icons\items.dmi;code\obj\constructing.dm;icons\constructing.dmi;code\obj\items.dm;code\obj\items_structure.dm;code\atmos.dm;code\obj\computer.dm;code\turfs.dm;icons\clothes_on_mob.dmi;code\mob.dm;code\ghost.dm;icons\pipes.dmi;code\obj\atmos_devices.dm;galaxy2.dmm;icons\human.dmi
+FILE: galaxy2.dmm
 */
 // END_INTERNALS

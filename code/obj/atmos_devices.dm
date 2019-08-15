@@ -164,28 +164,37 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 /obj/machinery/atmospherics/outer
 	icon_state = "vent"
 	anchored = 1
+	ru_name = "вентиляция"
 	density = 0
 	layer = 3
+	var/volume = 1
+	var/freq = 30
+	on = 0
+
+	high_volume
+		ru_name = "мощная вентиляция"
+		volume = 5
 
 /obj/machinery/atmospherics/outer/process()
 	atmosnet = 0
 	icon_state = "vent"
-	for(var/obj/machinery/atmospherics/pipe/P in range(1, src))
-		atmosnet = P.atmosnet
-	for(var/obj/machinery/portable_atmospherics/canister/C in world)
-		if(C.connected == 1 && C.atmosnet == atmosnet)
-			for(var/turf/floor/F in range(1, src))
-				for(var/atom/movable/A in F)
-					if(A.block_air == 0)
-						if(C.oxygen > 0)
-							icon_state = "vent_work"
-							F.oxygen += 1
-							C.oxygen -= 1
+	if(on)
+		for(var/obj/machinery/atmospherics/pipe/P in range(1, src))
+			atmosnet = P.atmosnet
+		for(var/obj/machinery/portable_atmospherics/canister/C in world)
+			if(C.connected == 1 && C.atmosnet == atmosnet)
+				for(var/turf/floor/F in range(1, src))
+					for(var/atom/movable/A in F)
+						if(A.block_air == 0)
+							if(C.oxygen > volume)
+								icon_state = "vent_work"
+								F.oxygen += volume
+								C.oxygen -= volume
 
-						if(C.plasma > 0)
-							icon_state = "vent_work"
-							F.plasma += 1
-							C.plasma -= 1
+							if(C.plasma > 0)
+								icon_state = "vent_work"
+								F.plasma += volume
+								C.plasma -= volume
 
 /obj/machinery/atmospherics/outer/New()
 	tocontrol()
@@ -193,34 +202,54 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	..()
 
 /obj/machinery/atmospherics/outer/attack_hand()
-	world << "[atmosnet]"
+	freq = input("Выбрать частоту устройства.","Ваша частота",freq)
+	if(freq > 100)
+		freq = 100
+	if(freq < 0)
+		freq = 0
 
 /obj/machinery/atmospherics/inner
 	icon_state = "in"
 	density = 0
 	layer = 2.3
+	ru_name = "насос"
+	anchored = 1
+	var/volume = 1
+	var/freq = 30
+	on = 0
+
+	high_volume
+		ru_name = "мощный насос"
+		volume = 5
 
 /obj/machinery/atmospherics/inner/New()
-	process()
+	tocontrol()
+	..()
 
+/obj/machinery/atmospherics/inner/attack_hand()
+	freq = input("Выбрать частоту устройства.","Ваша частота",freq)
+	if(freq > 100)
+		freq = 100
+	if(freq < 0)
+		freq = 0
 
 /obj/machinery/atmospherics/inner/process()
 	atmosnet = 0
 	icon_state = "in"
-	for(var/obj/machinery/atmospherics/pipe/P in range(1, src))
-		atmosnet = P.atmosnet
-	for(var/obj/machinery/portable_atmospherics/canister/C in world)
-		if(C.connected == 1 && C.atmosnet == atmosnet)
-			for(var/turf/floor/F in range(1, src))
-				for(var/atom/movable/A in F)
-					if(A.block_air == 1)
+	if(on)
+		for(var/obj/machinery/atmospherics/pipe/P in range(1, src))
+			atmosnet = P.atmosnet
+		for(var/obj/machinery/portable_atmospherics/canister/C in controlled)
+			if(C.connected == 1 && C.atmosnet == atmosnet)
+				for(var/turf/floor/F in range(1, src))
+					for(var/atom/movable/A in F)
+						if(A.block_air == 0)
+							if(F.oxygen >= volume)
+								icon_state = "in_work"
+								F.oxygen -= volume
+								C.oxygen += volume
 
-						if(F.oxygen > 0)
-							icon_state = "in_work"
-							F.oxygen -= 1
-							C.oxygen += 1
-
-						if(F.plasma > 0)
-							icon_state = "in_work"
-							F.plasma -= 1
-							C.plasma += 1
+							if(F.plasma >= volume)
+								icon_state = "in_work"
+								F.plasma -= volume
+								C.plasma += volume

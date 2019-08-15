@@ -573,3 +573,72 @@
 			var/list/obj/machinery/gravity_shield/data = view_all_activity()
 			for(var/obj/machinery/gravity_shield/SH in data)
 				SH.on = !SH.on
+
+
+/obj/item/mainboard/atmos
+	icon = 'computer.dmi'
+	icon_state = "mainboard_atmos"
+	ru_name = "главная плата атмосферного компьютера"
+	comptype = /obj/machinery/computer/atmos
+
+/obj/machinery/computer/atmos
+	icon = 'computer.dmi'
+	icon_state = "computer_frame"
+	ru_name = "атмосферный компьютер"
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 10
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 5000
+	var/freq = 15
+	defaultmainboard = /obj/item/mainboard/atmos
+
+	proc/view_all_activity()
+		var/list/obj/machinery/atmospherics/data = list()
+		for(var/obj/machinery/atmospherics/outer/B in controlled)
+			if(B.freq == freq)
+				data.Add(B)
+		for(var/obj/machinery/atmospherics/inner/A in controlled)
+			if(A.freq == freq)
+				data.Add(A)
+		return data
+
+	process()
+		if(MAINBOARD)
+			if(checkoverlay == 0)
+				overlays.Add(MAINBOARD)
+				checkoverlay = 1
+			use_power()
+		else
+			overlays.Cut()
+			//nocontrol()
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(okinterface() && use_power())
+			if(view_all_activity())
+				var/list/stats = list()
+				var/list/hrefs = list()
+				var/list/obj/machinery/M2 = view_all_activity()
+				for(var/obj/machinery/atmospherics/A in M2)
+					stats.Add(fix1103("[A.ru_name] включить/выключить ([A.on ? "включено" : "выключено"])"))
+					hrefs.Add("amachine=\ref[A]")
+				stats.Add("Сменить частоту ([freq])")
+				hrefs.Add("freq=input")
+				M << browse(nterface(stats, hrefs),"window=[name]")
+
+	Topic(href,href_list[])
+		if(href_list["amachine"])
+			var/obj/machinery/M = locate(href_list["amachine"])
+			M.on = !M.on
+			attack_hand(usr)
+		if(href_list["freq"] == "input")
+			freq = input("Выбрать частоту устройства.","Ваша частота",freq)
+			if(freq > 100)
+				freq = 100
+			if(freq < 0)
+				freq = 0
+			attack_hand(usr)
