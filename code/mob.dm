@@ -321,6 +321,9 @@
 		world << reagents.get_reagent_amount("blood")
 		world << reagents.get_reagent_amount("blood_ven")
 
+	verb/reboot()
+		world.Reboot()
+
 	verb/heart_damage()
 		oheart.health -= 10
 
