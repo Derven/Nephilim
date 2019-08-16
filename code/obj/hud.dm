@@ -309,10 +309,9 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		screen_loc = "7,2"
 
 		Click()
-			usr:pullmode = !usr:pullmode
 			if(usr:pullmode == 1)
-				color = "green"
-			else
+				usr:pullmode = !usr:pullmode
+				usr:pulling = null
 				color = null
 
 	glove_left

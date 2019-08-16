@@ -3,7 +3,15 @@ client
 		if(istype(mob, /mob/living/human))
 			if(mob:rest)
 				return
+			var/turf/oldloc = mob.loc
 			..()
+			if(mob:pullmode)
+				if(mob:pulling.anchored == 0)
+					mob:pulling.Move(oldloc)
+				else
+					usr:get_slot("pull"):color = null
+					mob:pullmode = !mob:pullmode
+					mob:pulling = null
 		else
 			..()
 

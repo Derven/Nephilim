@@ -32,7 +32,9 @@
 	var/clothes_temperature_def = 0
 	var/damagezone = "damage_chest"
 	var/harm_intent = 0
+
 	var/pullmode = 0
+	var/atom/movable/pulling
 
 	var/image/list/humanparts = list()
 	var/image/lungs

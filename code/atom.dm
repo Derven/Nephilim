@@ -8,6 +8,16 @@
 	var/structurehealth = 100
 	var/reality = 1
 
+	verb/pull()
+		set src in range(1, usr)
+		if(istype(usr, /mob/living/human))
+			usr:pullmode = 0
+			usr:pulling = null
+
+			usr:pullmode = 1
+			usr:pulling = src
+			usr:get_slot("pull"):color = "green"
+
 	proc/atmosdeceleration()
 		if(istype(src.loc, /turf))
 			var/decelarated_atmos = src.loc:pressure / 100
@@ -57,6 +67,11 @@
 					speed = 0
 					accelerate = 0
 		..()
+		if(istype(src, /obj/machinery/atmospherics))
+			src:disconnect()
+			src:process()
+			refresh_connector()
+
 		if(speed < 1)
 			speed = 0
 		speed += accelerate

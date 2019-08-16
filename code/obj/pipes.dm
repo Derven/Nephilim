@@ -22,6 +22,9 @@ var/global/GASWAGEN_NET = 0//
 	anchored = 1
 	ru_name = "труба"
 
+	newpipe
+		anchored = 0
+
 	attackby(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/tools/wrench))
 			call_message(3, "[src.ru_name] [anchored ? "откручивается" : "закручивается"]")
@@ -156,7 +159,7 @@ var/global/GASWAGEN_NET = 0//
 				A.atmosnet = 0
 		atmosnet = 0
 		reset = 0
-		world << "ОБРЫВ ТРУБЫ"
+		//world << "ОБРЫВ ТРУБЫ"
 
 
 /obj/machinery/atmospherics/pipe/New()
@@ -172,14 +175,18 @@ var/global/GASWAGEN_NET = 0//
 	disconnect()
 	..()
 
-/obj/machinery/atmospherics/pipe/proc/disconnect()
+/obj/machinery/atmospherics/proc/disconnect()
 	var/how_much
 	for(var/obj/machinery/atmospherics/connector/C in world)
 		if(atmosnet == C.atmosnet)
 			how_much = 0 //сколько сранных коннекторов в ебучей атмососети
 			how_much += 1
 
-	for(var/obj/machinery/atmospherics/pipe/P in world)
+	for(var/obj/machinery/atmospherics/P in world)
+		if(istype(P,/obj/machinery/atmospherics/outer))
+			P.on = 0
+		if(istype(P,/obj/machinery/atmospherics/inner))
+			P.on = 0
 		if(atmosnet == P.atmosnet)
 			P.reset = 1
 

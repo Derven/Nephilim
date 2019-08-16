@@ -174,6 +174,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 		if(P.atmosnet != 0)
 			atmosnet = P.atmosnet
 
+
 /obj/machinery/atmospherics/outer
 	icon_state = "vent"
 	anchored = 1
