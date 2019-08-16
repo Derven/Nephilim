@@ -120,14 +120,13 @@
 						if(usr:get_slot("rhand"):SLOT != null)
 							attackby(usr, usr:get_slot("rhand"):SLOT)
 							return
+			attack_hand(usr)
 		else
 			if(usr:throwmode)
 				usr:throwmode = !usr:throwmode
 				usr:drop(turn(get_dir(src,usr), 180), rand(3,4))
 				usr:get_slot("throw"):color = null
 				return
-
-		attack_hand(usr)
 
 /atom/MouseDrop(atom/over_object as mob|obj|turf|area)
 	spawn( 0 )

@@ -38,6 +38,12 @@
 		else
 			bumpedzero()
 
+	proc/MoveToVent(var/obj/target, var/pump_volume)
+		src.loc = target.loc
+		src:speed = pump_volume / 25
+		src:accelerate = pump_volume / 50
+		Move( get_step( src, pick(NORTH, SOUTH, WEST, EAST) ) )
+
 	Move()
 		moving_vector = dir
 		if(reality)
@@ -66,6 +72,8 @@
 				step(src,moving_vector,0)
 				dir = moving_vector
 		density = initial(density)
+
+
 
 /atom
 	var/ru_name

@@ -11,6 +11,11 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	icon = 'pipes.dmi'
 	density = 1
 
+	Del()
+		for(var/atom/movable/A in src)
+			A.loc = src.loc
+		..()
+
 /obj/machinery/portable_atmospherics
 	var/oxygen = 0
 	var/nitrogen = 0
@@ -150,6 +155,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 /obj/machinery/atmospherics/connector/New()
 	GASWAGEN_NET++
 	atmosnet = GASWAGEN_NET
+	true_initial = atmosnet
 	process()
 	tocontrol()
 
@@ -158,6 +164,10 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	icon_state = "connector"
 	anchored = 1
 	on = 0
+	var/true_initial = 0
+
+	attack_hand(var/mob/M)
+		M << atmosnet
 
 /obj/machinery/atmospherics/connector/process()
 	for(var/obj/machinery/atmospherics/pipe/P in range(1, src)) //коннектор ищет трубы в радиусе 1 тайла от себ€
@@ -178,6 +188,21 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 		ru_name = "мощна€ вентил€ци€"
 		volume = 5
 
+	verb/eject()
+		set src in range(1,usr)
+		if(src == usr.loc)
+			usr.loc = src.loc
+
+	mousedrop(var/atom/movable/over_object, var/atom/movable/over_location)
+		if(istype(over_object, /mob/living/human))
+			call_message(5, "[over_object] заталкиваетс€ в [ru_name]")
+			if(!over_object:rest)
+				over_object:rest()
+				over_object.loc = src
+		if(istype(over_object, /obj/item))
+			call_message(5, "[over_object] скидываетс€ в [ru_name]")
+			over_object.loc = src
+
 /obj/machinery/atmospherics/outer/process()
 	atmosnet = 0
 	icon_state = "vent"
@@ -186,6 +211,12 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 			atmosnet = P.atmosnet
 		for(var/obj/machinery/portable_atmospherics/canister/C in world)
 			if(C.connected == 1 && C.atmosnet == atmosnet)
+				if(C.oxygen + C.plasma > 30)
+					for(var/obj/machinery/atmospherics/P in controlled)
+						if(P.atmosnet == atmosnet)
+							for(var/atom/movable/M in P)
+								M.MoveToVent(src, C.oxygen + C.plasma)
+
 				for(var/turf/floor/F in range(1, src))
 					for(var/atom/movable/A in F)
 						if(A.block_air == 0)

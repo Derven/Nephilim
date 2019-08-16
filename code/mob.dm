@@ -32,6 +32,7 @@
 	var/clothes_temperature_def = 0
 	var/damagezone = "damage_chest"
 	var/harm_intent = 0
+	var/pullmode = 0
 
 	var/image/list/humanparts = list()
 	var/image/lungs
@@ -131,6 +132,7 @@
 		control = 0
 		//nocontrol()
 		if(death == 0)
+			sleep(2)
 			process()
 		death = 1
 		if(client)
@@ -138,6 +140,8 @@
 			client.screen.Cut()
 			client = null
 			deadly_ghost.client = client
+			deadly_ghost.client.dir = NORTH
+
 		message_to_usr("Наступила смерть")
 		nocontrol()
 

@@ -15,3 +15,11 @@
 
 	verb/reboot()
 		world.Reboot()
+
+	verb/zup()
+		if(z + 1 < world.maxz)
+			loc = locate(x, y, z + 1)
+
+	verb/zdown()
+		if(z - 1 > 0)
+			loc = locate(x, y, z - 1)

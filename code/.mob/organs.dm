@@ -516,7 +516,7 @@
 			bone.istate = "bone_chest"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton)
+			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton, /obj/hud/pullbutton)
 
 	rarm
 		name = "r_arm"

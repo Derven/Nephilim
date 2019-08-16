@@ -302,6 +302,19 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 			else
 				color = null
 
+	pullbutton
+		name = "pull"
+		icon_state = "pull"
+		layer = 25
+		screen_loc = "7,2"
+
+		Click()
+			usr:pullmode = !usr:pullmode
+			if(usr:pullmode == 1)
+				color = "green"
+			else
+				color = null
+
 	glove_left
 		name = "glove_left"
 		icon_state = "glove"

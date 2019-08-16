@@ -1,7 +1,6 @@
 //КАК ЖЕ Я НЕНАВИЖУ ТРУБЫ БЛЯДЬ И ПРОВОДА УЕБАНСКИЕ
 var/global/GASWAGEN_NET = 0//
 
-
 /obj/machinery/atmospherics
 	var/atmosnet = 0 //трубосети, нужны, чтобы создавать независимые друг от друга атмосокоммуникации
 	var/reset
@@ -21,6 +20,35 @@ var/global/GASWAGEN_NET = 0//
 	icon_state = "pipe_atmos"
 	density = 0
 	anchored = 1
+	ru_name = "труба"
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			call_message(3, "[src.ru_name] [anchored ? "откручивается" : "закручивается"]")
+			anchored = !anchored
+			reset = 1
+			if(!anchored)
+				dir = turn(dir, 45)
+			disconnect()
+			process()
+			sleep(25)
+			refresh_connector()
+
+
+	verb/rotate()
+		set src in range(1, usr)
+		if(!anchored)
+			dir = turn(dir, 45)
+
+	//verb/delme()
+	//	set src in range(1, usr)
+	//	if(!anchored)
+	//		del(src)
+
+	verb/eject()
+		set src in range(1,usr)
+		if(src == usr.loc && anchored == 1)
+			usr.loc = src.loc
 
 /obj/machinery/atmospherics/pipe/manifold
 	icon = 'pipes.dmi'
@@ -28,7 +56,6 @@ var/global/GASWAGEN_NET = 0//
 	atmosnet = 0
 
 /obj/machinery/atmospherics/pipe/manifold/process() // используется для подключения дополнительного коннектора, также соединения атмососетей
-	sleep(1)
 	for(var/obj/machinery/atmospherics/A in range(1,src))
 		if(!(istype(src, /obj/machinery/atmospherics/connector)))
 			if(A.atmosnet != 0)
@@ -49,43 +76,54 @@ var/global/GASWAGEN_NET = 0//
 	world << "[atmosnet]"
 
 /obj/machinery/atmospherics/pipe/process()
-	sleep(1)
-	if(dir == 2 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
-
-		for(var/obj/machinery/atmospherics/A in get_step(src,NORTH)) //вертикальные трубы
-			if(istype(A,/obj/machinery/atmospherics/outer))
-				if(atmosnet != 0)
-					A.atmosnet = atmosnet
-				else
-					A.atmosnet = 0
-			else
-				if(A.atmosnet != 0)
-					atmosnet = A.atmosnet
+	if(dir == 2 || dir == 1 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
 
 		for(var/obj/machinery/atmospherics/A in get_step(src,SOUTH)) //вертикальные трубы
-			if(istype(A,/obj/machinery/atmospherics/outer))
-				if(atmosnet != 0)
-					A.atmosnet = atmosnet
-			else
-				if(A.atmosnet != 0)
-					atmosnet = A.atmosnet
+			if(A.dir == 2 || A.dir == 1 || A.dir == 10 || A.dir == 9)
+				if(istype(A,/obj/machinery/atmospherics/outer))
+					if(atmosnet != 0)
+						A.atmosnet = atmosnet
+					else
+						A.atmosnet = 0
+				else
+					if(A.atmosnet != 0)
+						atmosnet = A.atmosnet
 
-	if(dir == 4 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
+		for(var/obj/machinery/atmospherics/A in get_step(src,NORTH)) //вертикальные трубы
+			if(A.dir == 2 || A.dir == 1 || A.dir == 6 || A.dir == 5)
+				if(istype(A,/obj/machinery/atmospherics/outer))
+					if(atmosnet != 0)
+						A.atmosnet = atmosnet
+				else
+					if(A.atmosnet != 0)
+						atmosnet = A.atmosnet
+
+	if(dir == 4 || dir == 8 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
 
 		for(var/obj/machinery/atmospherics/A in get_step(src,EAST))  //горизонтальные трубы
-			if(istype(A,/obj/machinery/atmospherics/outer))
-				if(atmosnet != 0)
-					A.atmosnet = atmosnet
+			if(!istype(A,/obj/machinery/atmospherics/pipe/manifold))
+				if(A.dir == 4 || A.dir == 8 || A.dir == 10 || A.dir == 9)
+					if(istype(A,/obj/machinery/atmospherics/outer))
+						if(atmosnet != 0)
+							A.atmosnet = atmosnet
+					else
+						if(A.atmosnet != 0)
+							atmosnet = A.atmosnet
 			else
 				if(A.atmosnet != 0)
 					atmosnet = A.atmosnet
 
 		for(var/obj/machinery/atmospherics/A in get_step(src,WEST)) //горизонтальные трубы
-			if(istype(A,/obj/machinery/atmospherics/outer))
-				if(atmosnet != 0)
-					A.atmosnet = atmosnet
-				else
-					A.atmosnet = 0
+			if(!istype(A,/obj/machinery/atmospherics/pipe/manifold))
+				if(A.dir == 4 || A.dir == 8 || A.dir == 5 || A.dir == 6)
+					if(istype(A,/obj/machinery/atmospherics/outer))
+						if(atmosnet != 0)
+							A.atmosnet = atmosnet
+						else
+							A.atmosnet = 0
+					else
+						if(A.atmosnet != 0)
+							atmosnet = A.atmosnet
 			else
 				if(A.atmosnet != 0)
 					atmosnet = A.atmosnet
@@ -113,6 +151,9 @@ var/global/GASWAGEN_NET = 0//
 					atmosnet = A.atmosnet
 
 	if(reset == 1)
+		for(var/obj/machinery/atmospherics/A in controlled)
+			if(A.atmosnet == atmosnet)
+				A.atmosnet = 0
 		atmosnet = 0
 		reset = 0
 		world << "ОБРЫВ ТРУБЫ"
@@ -124,23 +165,25 @@ var/global/GASWAGEN_NET = 0//
 	..()
 
 /obj/machinery/atmospherics/pipe/attack_hand()
-	//world << "atmosnet №[atmosnet]"
-	del(src)
+	world << "[atmosnet];[dir]"
+	//del(src)
 
 /obj/machinery/atmospherics/pipe/Del()
-	world << "atmosnet №[atmosnet]"
+	disconnect()
+	..()
+
+/obj/machinery/atmospherics/pipe/proc/disconnect()
 	var/how_much
 	for(var/obj/machinery/atmospherics/connector/C in world)
 		if(atmosnet == C.atmosnet)
 			how_much = 0 //сколько сранных коннекторов в ебучей атмососети
 			how_much += 1
-	if(how_much > 1)
-		for(var/obj/machinery/atmospherics/connector/C in world)
-			GASWAGEN_NET++
-			C.atmosnet = GASWAGEN_NET
 
 	for(var/obj/machinery/atmospherics/pipe/P in world)
 		if(atmosnet == P.atmosnet)
 			P.reset = 1
 
-	..()
+	//sleep(10)
+/proc/refresh_connector()
+	for(var/obj/machinery/atmospherics/connector/C in world)
+		C.atmosnet = C.true_initial
