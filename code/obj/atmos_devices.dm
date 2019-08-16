@@ -40,6 +40,9 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	plasma = 0
 	icon_state = "canister_o"
 
+	high_volume
+		oxygen = 50000
+
 /obj/machinery/portable_atmospherics/canister/plasma
 	oxygen = 0
 	nitrogen = 0

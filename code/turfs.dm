@@ -1,5 +1,7 @@
 /turf
 	icon='icons/turfs.dmi'
+	var/atom/movable/CRATE
+	var/crated = 0
 
 	space
 		hull
@@ -20,20 +22,14 @@
 		attack_hand()
 			world << "[oxygen];[temperature];[pressure]"
 
-		attackby(var/mob/M, var/obj/item/I)
-			if(istype(I, /obj/item/unconnected_cable))
-				M:drop()
-				call_message(3, "[M] прокладывает [I.ru_name] на полу")
-				var/obj/electro/cable/copper/CBL = new /obj/electro/cable/copper(src)
-				CBL.dir = I.dir
-				del(I)
-
 		New()
+			CRATE = new /atom/movable()
 			tocontrol()
 			..()
 
 		plating
 			icon_state = "plating"
+			layer = 1
 
 	wall
 		icon_state = "wall"

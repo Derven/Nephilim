@@ -33,6 +33,7 @@ var/min_temperature = -380
 	temperature = 20
 	pressure = 0
 	ru_name = "пол"
+	layer = 2
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(!istype(src, /turf/floor/openspess))
@@ -41,6 +42,40 @@ var/min_temperature = -380
 				del(I)
 				call_message(5, "к [ru_name] крепится скоба")
 				new /obj/structure/staple(src)
+			if(istype(I, /obj/item/tools/screwdriver))
+				if(!istype(src, /turf/floor/plating))
+					call_message(5, "c [ru_name] снимается плитка")
+					var/atom/movable/M2 = CRATE
+					var/turf/floor/plating/FL = new /turf/floor/plating( locate(src.x, src.y, src.z) )
+					FL.CRATE = M2
+					new /obj/item/stack/metal(locate(src.x, src.y, src.z))
+			if(istype(I, /obj/item/tools/welder))
+				if(istype(src, /turf/floor/plating))
+					call_message(5, "[ru_name] разваривается")
+					new /obj/structure/lattice( locate(src.x, src.y, src.z) )
+					new /obj/item/stack/metal(locate(src.x, src.y, src.z))
+					new /turf/space(locate(src.x, src.y, src.z))
+					for(var/obj/item/I2 in CRATE)
+						I2.loc = src
+					call_message(5, "ниша в полу открывается")
+			if(istype(I, /obj/item/stack/metal))
+				if(I:amount > 0)
+					var/atom/movable/M2 = CRATE
+					var/turf/floor/FL = new /turf/floor( locate(src.x, src.y, src.z) )
+					FL.CRATE = M2
+					I:amount--
+					I:check_amount(M)
+			if(istype(I, /obj/item/tools/wrench))
+				if(istype(src, /turf/floor/plating))
+					crated = !crated
+					if(crated)
+						for(var/obj/item/I2 in src)
+							I2.loc = CRATE
+						call_message(5, "ниша в полу закрывается")
+					else
+						for(var/obj/item/I2 in CRATE)
+							I2.loc = src
+						call_message(5, "ниша в полу открывается")
 
 	proc/overlayupdate()
 		overlays.Cut()

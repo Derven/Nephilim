@@ -47,9 +47,9 @@
 		name = "metal"
 		ru_name = "лист(а) металла"
 		icon_state = "metal"
-		craft_table = list(/obj/frame/wall, /obj/frame/computer, /obj/frame/powerblock, /obj/frame/gravityshield)
-		amounts = list(2, 1, 1, 1)
-		rnames = list("заготовка: стена", "заготовка: компьютер", "заготовка: энергомодуль", "заготовка: гравитационная ловушка")
+		craft_table = list(/obj/frame/wall, /obj/frame/computer, /obj/frame/powerblock, /obj/frame/gravityshield, /obj/structure/lattice)
+		amounts = list(2, 1, 1, 1, 1)
+		rnames = list("заготовка: стена", "заготовка: компьютер", "заготовка: энергомодуль", "заготовка: гравитационная ловушка", "Балки")
 
 	glass
 		name = "glass"
