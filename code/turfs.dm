@@ -58,6 +58,8 @@
 		opacity = 1
 		ru_name = "стена"
 		wall_type = "wall"
+		construct_parts = list(/obj/item/stack/metal)
+		easy_deconstruct = 1
 
 		New()
 			..()
@@ -74,6 +76,12 @@
 					del(I)
 					call_message(5, "к [ru_name] крепится скоба")
 					new /obj/structure/staple(src)
+				if(istype(I, /obj/item/tools/welder))
+					call_message(5, "[ru_name] разваривается")
+					new /obj/structure/lattice( locate(src.x, src.y, src.z) )
+					new /obj/frame/wall(locate(src.x, src.y, src.z))
+					new /obj/item/stack/metal(locate(src.x, src.y, src.z))
+					new /turf/floor/plating(locate(src.x, src.y, src.z))
 
 
 		window

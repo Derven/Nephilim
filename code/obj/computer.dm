@@ -160,10 +160,11 @@
 	var/reserves = 0
 	var/metal = 0
 	var/glass = 0
-	var/list/required_metal = list(1,0,1,1,2)
-	var/list/required_glass = list(0,1,0,0,0)
-	var/list/obj/item/production = list(/obj/item/stack/metal, /obj/item/stack/glass, /obj/item/tools/wrench, /obj/item/staple, /obj/machinery/atmospherics/pipe/newpipe)
-	var/list/production_names = list("лист металла", "лист стекла", "разводной ключ", "скоба", "труба")
+	var/list/required_metal = list(1,0,1,1,2,2,2)
+	var/list/required_glass = list(0,1,0,0,0,0,0)
+	var/list/obj/item/production = list(/obj/item/stack/metal, /obj/item/stack/glass, /obj/item/tools/wrench, /obj/item/staple, /obj/machinery/atmospherics/pipe/newpipe, \
+	/obj/machinery/atmospherics/inner/newscrub, /obj/machinery/atmospherics/outer/newvent)
+	var/list/production_names = list("лист металла", "лист стекла", "разводной ключ", "скоба", "труба", "насос", "вентиляция")
 
 	robotech_fabricator
 		defaultmainboard = /obj/item/mainboard/robotech

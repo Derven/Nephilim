@@ -70,15 +70,36 @@ var/list/obj/machinery/machines = list()
 			if(B.powernet == powernet)
 				return B
 
+	attack_hand()
+		if(!isolation)
+			usr:powerdamage(voltage * amperage)
+		world << "[powernet];[voltage];[amperage]"
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wirecutters))
+			call_message(3, "[src.ru_name] [anchored ? "откусываетс€" : "скручиваетс€"]")
+			if(!M:check_isogloves())
+				usr:powerdamage(voltage * amperage)
+			anchored = !anchored
+			allcablesreset()
+			process()
+
+	proc/allcablesreset()
+		for(var/obj/electro/cable/B in controlled)
+			if(B.powernet == powernet)
+				B.voltage = 0
+				B.amperage = 0
+				B.reset = 1
+
+		for(var/obj/machinery/M in controlled)
+			if(M.powernet == powernet)
+				M.powernet = 0
+
 /obj/electro/cable/copper
 	name = "copper_cable"
 	icon_state = "copper"
 	resistance = 20
 	sq = 15
-
-	attack_hand()
-		if(!isolation)
-			usr:powerdamage(voltage * amperage)
 
 /obj/electro/cable/iron
 	name = "iron_cable"
@@ -110,6 +131,7 @@ var/list/obj/machinery/machines = list()
 				for(var/obj/machinery/power_block/PB in src.loc)
 					if(PB.out_amperage >= need_amperage && PB.out_voltage >= need_voltage)
 						if(PB.out_amperage * PB.out_voltage > max_VLTAMP)
+							world << "[PB.out_amperage];[PB.out_voltage]"
 							burnmachine()
 							use_power = 0
 							return 0
@@ -147,26 +169,39 @@ var/list/obj/machinery/machines = list()
 		//емкость в ватт-часах (напр€жение * емкость в ампер-часах) ### full_charge = charge * work_voltage
 		full_charge = 0
 		powernet = 0
+		on = 1
 	smes
 		name = "smes"
 		icon = 'power.dmi'
 		icon_state = "smes"
+		ru_name = "аккумул€торна€ установка"
 		work_voltage = 320
 		full_charge = 500000
 		anchored = 1
+		density = 1
 
 	process()
-		for(var/obj/electro/cable/C in controlled)
-			if(C.powernet == powernet)
-				C.voltage = full_charge/(C.resistance * C.sq * LENGTH)
-			if(full_charge < 0)
-				full_charge = 0
+		if(on)
+			for(var/obj/electro/cable/C in controlled)
+				if(C.powernet == powernet)
+					C.voltage = full_charge/(C.resistance * C.sq * LENGTH)
+				if(full_charge < 0)
+					full_charge = 0
+		else
+			for(var/obj/electro/cable/C in controlled)
+				if(C.powernet == powernet)
+					C.voltage = 0
+				if(full_charge < 0)
+					full_charge = 0
 	New()
+		DERVENPOWER++
+		powernet = DERVENPOWER
 		..()
 		tocontrol()
 
 /obj/electro/battery/attack_hand(usr)
-	world << "[charge]"
+	on = !on
+	call_message(5, "[src.ru_name] [on ? "включена" : "выключена"]")
 
 /obj/electro/cable/proc/just_check(var/other_amperage)
 	if(amperage == 0)
@@ -222,7 +257,7 @@ var/list/obj/machinery/machines = list()
 		del(src)
 
 
-	if(dir == 2 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
+	if(dir == 1 || dir == 2 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
 
 		for(var/obj/electro/cable/A in get_step(src,NORTH))
 			if(A.powernet != 0)
@@ -260,7 +295,7 @@ var/list/obj/machinery/machines = list()
 			S.powernet = powernet
 				//world << "power[x];[y]"
 
-	if(dir == 4 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
+	if(dir == 4 || dir == 6 || dir == 10 || dir == 9 || dir == 5 || dir == 8)
 
 		for(var/obj/electro/cable/A in get_step(src,EAST))
 			if(A.powernet != 0)
@@ -308,10 +343,9 @@ var/list/obj/machinery/machines = list()
 			if(A.powernet != 0)
 				powernet = A.powernet
 
-	if(reset == 1) // ебасброс
+	if(reset == 1) //сброс
 		powernet = 0
 		reset = 0
-		call_message(5, "изол€ци€ кабел€ плавитс€ и это место очень сильно искрит")
 
 /obj/effect/sparks
 	name = "spaks"

@@ -319,6 +319,8 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		icon_state = "glove"
 		layer = 25
 		screen_loc = "3,1"
+		type_of_slot = /obj/item/clothing/gloves
+		slotname = "larm"
 
 	rhand
 		name = "rhand"
@@ -349,6 +351,8 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		icon_state = "glove"
 		layer = 25
 		screen_loc = "4,1"
+		type_of_slot = /obj/item/clothing/gloves
+		slotname = "rarm"
 
 	shoes_right
 		name = "shoes_right"

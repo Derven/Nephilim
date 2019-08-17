@@ -185,6 +185,26 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/freq = 30
 	on = 0
 
+	newvent
+		anchored = 0
+
+	verb/rotate()
+		set src in range(1, usr)
+		if(!anchored)
+			dir = turn(dir, 45)
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			call_message(3, "[src.ru_name] [anchored ? "откручиваетс€" : "закручиваетс€"]")
+			anchored = !anchored
+			reset = 1
+			if(!anchored)
+				dir = turn(dir, 45)
+			disconnect()
+			process()
+			sleep(25)
+			refresh_connector()
+
 	high_volume
 		ru_name = "мощна€ вентил€ци€"
 		volume = 5
@@ -256,6 +276,26 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	high_volume
 		ru_name = "мощный насос"
 		volume = 5
+
+	newscrub
+		anchored = 0
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			call_message(3, "[src.ru_name] [anchored ? "откручиваетс€" : "закручиваетс€"]")
+			anchored = !anchored
+			reset = 1
+			if(!anchored)
+				dir = turn(dir, 45)
+			disconnect()
+			process()
+			sleep(25)
+			refresh_connector()
+
+	verb/rotate()
+		set src in range(1, usr)
+		if(!anchored)
+			dir = turn(dir, 45)
 
 /obj/machinery/atmospherics/inner/New()
 	tocontrol()

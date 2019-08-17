@@ -15,3 +15,42 @@
 	attack_hand(var/mob/M)
 		call_message(3, "[M] опускается по лестнице")
 		M.z--
+
+/obj/structure/closet
+	icon = 'structure.dmi'
+	icon_state = "closet_1"
+	var/state = "closet"
+	var/close = 1
+	anchored = 0
+	density = 1
+	easy_deconstruct = 1
+	construct_parts = list(/obj/item/stack/metal, /obj/item/stack/metal)
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			easy_deconstruct(usr)
+
+	Del()
+		..()
+		for(var/atom/movable/M in src.loc)
+			if(M.anchored == 0)
+				M.loc = src
+
+	New()
+		..()
+		spawn(5)
+			for(var/atom/movable/M in src.loc)
+				if(M.anchored == 0)
+					M.loc = src
+
+	attack_hand(var/mob/M)
+		close = !close
+		icon_state = "[state]_[close]"
+		density = close
+		if(!close)
+			for(var/atom/movable/M2 in src)
+				M2.loc = src.loc
+		else
+			for(var/atom/movable/M2 in src.loc)
+				if(M.anchored == 0)
+					M2.loc = src

@@ -288,3 +288,47 @@
 			else
 				call_message(3, "[src.ru_name] уже прикручен к полу")
 			check_stages()
+
+/obj/frame/airlock
+	icon_state = "airlock_frame"
+	ru_name = "рама аирлока"
+	frame_type = /obj/machinery/airlock
+	var/bolts = 0
+	var/tofloor = 0
+	var/weld = 0
+
+	action_1()
+		if(bolts)
+			call_message(3, "болты [src.ru_name] затянуты")
+			return 1
+		else
+			return 0
+
+		return 0
+	action_2()
+		if(tofloor)
+			call_message(3, "[src.ru_name] прикручен к полу")
+			return 1
+		else
+			return 0
+
+	action_3()
+		if(weld)
+			call_message(3, "[src.ru_name] приварен")
+			return 1
+		else
+			return 0
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			bolts = !bolts
+			check_stages()
+			return
+		if(istype(I, /obj/item/tools/screwdriver))
+			tofloor = !tofloor
+			check_stages()
+			return
+		if(istype(I, /obj/item/tools/welder))
+			weld = !weld
+			check_stages()
+			return

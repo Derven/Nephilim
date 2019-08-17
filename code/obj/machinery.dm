@@ -15,6 +15,8 @@
 	need_voltage = 25
 	need_amperage = 3
 	max_VLTAMP = 500
+	construct_parts = list(/obj/item/stack/metal)
+	easy_deconstruct = 1
 
 	proc/open()
 		open = !open
@@ -29,6 +31,10 @@
 			i++
 			for(var/turf/floor/CARD in check_in_cardinal(1))
 				CARD.process()
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/wrench))
+			easy_deconstruct(usr)
 
 	attack_hand()
 		if(use_power())

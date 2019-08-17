@@ -59,6 +59,15 @@
 		cutting = 0
 		stitching = 6
 
+	wirecutters
+		icon_state = "wirecutters"
+		name = "wirecutters"
+		ru_name = "кусачки"
+
+		crushing = 0
+		cutting = 2
+		stitching = 1
+
 	welder
 		icon_state = "welder"
 		name = "welder"

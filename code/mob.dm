@@ -79,6 +79,30 @@
 	var/punch_intent = PANCHSBOKY
 	var/say_intent = SAY
 
+	proc/check_isogloves()
+		if(usr:get_slot("lhand"))
+			if(usr:get_slot("lhand"):active)
+				if(usr:get_slot("glove_left"):SLOT)
+					if(istype(usr:get_slot("glove_left"):SLOT, /obj/item/clothing/gloves/yglove))
+						return 1
+					else
+						return 0
+				else
+					return 0
+
+		if(usr:get_slot("rhand"))
+			if(usr:get_slot("rhand"):active)
+				if(usr:get_slot("glove_right"):SLOT)
+					if(istype(usr:get_slot("glove_right"):SLOT, /obj/item/clothing/gloves/yglove))
+						return 1
+					else
+						return 0
+				else
+					return 0
+
+		return 0
+
+
 	verb/say(t as text)
 		t = fix255(t)
 		var/mysay = ""
@@ -132,17 +156,17 @@
 
 	proc/death()
 		control = 0
+		sleep(2)
 		//nocontrol()
 		if(death == 0)
-			sleep(2)
-			process()
-		death = 1
-		if(client)
-			var/mob/dead/ghost/deadly_ghost = new /mob/dead/ghost(src.loc)
-			client.screen.Cut()
-			client = null
-			deadly_ghost.client = client
-			deadly_ghost.client.dir = NORTH
+			death = 1
+			if(client)
+				var/mob/dead/ghost/deadly_ghost = new /mob/dead/ghost(src.loc)
+				client.screen.Cut()
+				client = null
+				deadly_ghost.client = client
+				deadly_ghost.client.dir = NORTH
+				process()
 
 		message_to_usr("Наступила смерть")
 		nocontrol()

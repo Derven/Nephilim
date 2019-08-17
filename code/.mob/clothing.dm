@@ -7,11 +7,29 @@
 		def_cf = 0.5
 		temperature_def = 0.3
 
+		engiform
+			ru_name = "одежда инженера"
+			icon_state = "engiform"
+			def_cf = 0.7
+			temperature_def = 0.5
+
 	shoes
 		ru_name = "тапок"
 		icon_state = "blackshoes"
 		def_cf = 0.1
 		temperature_def = 0.1
+
+	gloves
+		ru_name = "перчатка"
+		icon_state = "yglove"
+		def_cf = 0.1
+		temperature_def = 0.1
+
+		yglove
+			ru_name = "изол€ционна€ перчатка"
+			icon_state = "yglove"
+			def_cf = 0.1
+			temperature_def = 0.1
 
 	socks
 		ru_name = "носки"

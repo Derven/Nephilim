@@ -71,6 +71,8 @@
 			src:disconnect()
 			src:process()
 			refresh_connector()
+		if(istype(src, /obj/electro/cable))
+			src:allcablesreset()
 
 		if(speed < 1)
 			speed = 0
