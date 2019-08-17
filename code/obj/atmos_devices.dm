@@ -236,6 +236,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 					for(var/obj/machinery/atmospherics/P in controlled)
 						if(P.atmosnet == atmosnet)
 							for(var/atom/movable/M in P)
+								world << P
 								M.MoveToVent(src, C.oxygen + C.plasma)
 
 				for(var/turf/floor/F in range(1, src))

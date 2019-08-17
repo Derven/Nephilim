@@ -20,11 +20,16 @@
 	icon = 'structure.dmi'
 	icon_state = "closet_1"
 	var/state = "closet"
+	ru_name = "шкаф"
 	var/close = 1
 	anchored = 0
 	density = 1
 	easy_deconstruct = 1
 	construct_parts = list(/obj/item/stack/metal, /obj/item/stack/metal)
+
+	oxycloset
+		icon_state = "oxycloset_1"
+		state = "oxycloset"
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/tools/wrench))

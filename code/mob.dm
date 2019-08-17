@@ -155,18 +155,15 @@
 					attackby(usr, usr:right_arm)
 
 	proc/death()
-		control = 0
-		sleep(2)
+		//sleep(2)
 		//nocontrol()
-		if(death == 0)
-			death = 1
+		if(death == 1)
 			if(client)
 				var/mob/dead/ghost/deadly_ghost = new /mob/dead/ghost(src.loc)
 				client.screen.Cut()
 				client = null
 				deadly_ghost.client = client
 				deadly_ghost.client.dir = NORTH
-				process()
 
 		message_to_usr("Наступила смерть")
 		nocontrol()
@@ -281,10 +278,10 @@
 			skin_head = ohead.check_skin()
 			muscle_head = ohead.check_muscle()
 		else
-			death = 1
 			bone_head = null
 			skin_head = null
 			muscle_head = null
+			death = 1
 
 		if(olungs)
 			olungs.process()

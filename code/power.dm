@@ -52,8 +52,28 @@ var/list/obj/machinery/machines = list()
 	var/reset = 0
 	var/zLevel = 0
 	var/marker = 0
-	layer = 2
+	layer = 1.5
 	var/real_resistance
+	var/on = 1
+
+	switcher
+		icon_state = "switcher_1"
+		resistance = 50
+		sq = 12
+		layer = 5
+		dir = 5
+
+		attack_hand()
+			if(istype(src, /obj/electro/cable/switcher))
+				on = !on
+				icon_state = "switcher_[on]"
+				world << "[powernet];[voltage];[amperage]"
+				allcablesreset()
+				process()
+				return
+
+			if(!isolation)
+				usr:powerdamage(voltage * amperage)
 
 	output
 		name = "out_cable"
@@ -70,19 +90,17 @@ var/list/obj/machinery/machines = list()
 			if(B.powernet == powernet)
 				return B
 
-	attack_hand()
-		if(!isolation)
-			usr:powerdamage(voltage * amperage)
-		world << "[powernet];[voltage];[amperage]"
-
 	attackby(var/mob/M, var/obj/item/I)
-		if(istype(I, /obj/item/tools/wirecutters))
-			call_message(3, "[src.ru_name] [anchored ? "откусывается" : "скручивается"]")
-			if(!M:check_isogloves())
-				usr:powerdamage(voltage * amperage)
-			anchored = !anchored
-			allcablesreset()
-			process()
+		if(!istype(src, /obj/electro/cable/switcher))
+			if(istype(I, /obj/item/tools/wirecutters))
+				call_message(3, "[src.ru_name] [anchored ? "откусывается" : "скручивается"]")
+				if(!M:check_isogloves())
+					usr:powerdamage(voltage * amperage)
+				anchored = !anchored
+				layer = initial(layer)
+				layer += !anchored
+				allcablesreset()
+				process()
 
 	proc/allcablesreset()
 		for(var/obj/electro/cable/B in controlled)
@@ -100,6 +118,7 @@ var/list/obj/machinery/machines = list()
 	icon_state = "copper"
 	resistance = 20
 	sq = 15
+	layer = 3
 
 /obj/electro/cable/iron
 	name = "iron_cable"
@@ -141,6 +160,7 @@ var/list/obj/machinery/machines = list()
 								return 1
 					else
 						return 0
+					return 0
 
 				if(C.amperage >= need_amperage && C.voltage >= need_voltage)
 					if(C.amperage * C.voltage > max_VLTAMP)
@@ -160,6 +180,7 @@ var/list/obj/machinery/machines = list()
 	real_resistance = resistance
 	wires += src
 	tocontrol()
+	layer = 1.5
 	..()
 
 /obj/electro/battery
@@ -228,6 +249,30 @@ var/list/obj/machinery/machines = list()
 
 /obj/electro/cable/process()
 	amperage = voltage / resistance
+	if(!on)
+		return
+
+	if(istype(src, /obj/electro/cable/switcher))
+		layer = 5
+		dir = 5
+		if(!src:on)
+			powernet = 0
+			for(var/obj/electro/cable/C in range(1, src))
+				C.powernet = 0
+				C.on = 0
+			return
+		else
+			for(var/obj/electro/cable/C in range(1, src))
+				C.on = 1
+
+		if(amperage > 20 || voltage > 500)
+			if(src:on)
+				src:on = !src:on
+				icon_state = "switcher_[src:on]"
+				call_message(5, "доносится щелчок")
+				allcablesreset()
+				process()
+			return
 
 	if(voltage > power_limit)
 		my_temperature = amperage - resistance - sq - LENGTH
@@ -260,11 +305,11 @@ var/list/obj/machinery/machines = list()
 	if(dir == 1 || dir == 2 || dir == 6 || dir == 10 || dir == 9 || dir == 5)
 
 		for(var/obj/electro/cable/A in get_step(src,NORTH))
-			if(A.powernet != 0)
+			if(A.powernet != 0 && A.on)
 				powernet = A.powernet
 
 		for(var/obj/electro/cable/A in get_step(src,SOUTH))
-			if(A.powernet != 0)
+			if(A.powernet != 0 && A.on)
 				powernet = A.powernet
 
 		for(var/obj/electro/powerbox/A in get_step(src,NORTH))
@@ -298,11 +343,11 @@ var/list/obj/machinery/machines = list()
 	if(dir == 4 || dir == 6 || dir == 10 || dir == 9 || dir == 5 || dir == 8)
 
 		for(var/obj/electro/cable/A in get_step(src,EAST))
-			if(A.powernet != 0)
+			if(A.powernet != 0 && A.on)
 				powernet = A.powernet
 
 		for(var/obj/electro/cable/A in get_step(src,WEST))
-			if(A.powernet != 0)
+			if(A.powernet != 0 && A.on)
 				powernet = A.powernet
 
 		for(var/obj/electro/powerbox/A in get_step(src,EAST))

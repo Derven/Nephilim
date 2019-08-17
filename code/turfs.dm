@@ -25,6 +25,7 @@
 	var/crated = 0
 
 	space
+		layer = 1
 		hull
 			icon_state = "hull"
 
