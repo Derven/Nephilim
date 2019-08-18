@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1566148573
+LAST_COMPILE_TIME: 1566163765
 DIR: backup code code\.mob code\obj code\obj\structure icons 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: icons\pipes.dmi;galaxy2.dmm;code\power.dm;icons\turfs.dmi;icons\items.dmi;code\obj\atmos_devices.dm;code\controller_hueroller.dm;code\mob.dm;code\ghost.dm;code\obj\machinery.dm;code\atmos.dm;code\obj\pipes.dm;icons\electro.dmi;icons\power.dmi;icons\computer.dmi;icons\landmark.dmi;icons\physicscable.dmi;icons\sci.dmi;icons\clothes_on_mob.dmi;code\obj\items.dm;code\obj\computer.dm;code\obj\stacks.dm;code\obj\science.dm
-FILE: galaxy2.dmm
+WINDOW: icons\pipes.dmi;galaxy2.dmm;code\obj\science.dm
+FILE: code\obj\science.dm
 */
 // END_INTERNALS

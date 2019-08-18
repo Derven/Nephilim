@@ -178,7 +178,16 @@
 "dv" = (/obj/item/stack/metal{amount = 25},/turf/floor{icon_state = "white"},/area)
 "dw" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/item/stack/glass{amount = 25},/turf/floor{icon_state = "white"},/area)
 "dx" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/obj/machinery/computer/autolathe,/turf/floor{icon_state = "white"},/area)
-"dy" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/turf/floor{icon_state = "white"},/area)
+"dy" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/obj/machinery/computer/scieng,/turf/floor{icon_state = "white"},/area)
+"dz" = (/obj/machinery/atmospherics/outer{dir = 8; freq = 1; icon_state = "vent"},/turf/floor{icon_state = "whitebot"},/area)
+"dA" = (/obj/machinery/atmospherics/pipe{dir = 4; icon_state = "pipe_atmos"; zLevel = 0},/turf/floor{icon_state = "white"},/area)
+"dB" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 10; zLevel = 0},/turf/floor{icon_state = "white"},/area)
+"dC" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/machinery/atmospherics/pipe,/turf/wall{icon_state = "wall0"},/area)
+"dD" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/machinery/atmospherics/inner,/turf/floor{icon_state = "white"},/area)
+"dE" = (/obj/machinery/atmospherics/outer{icon_state = "vent"; dir = 8},/turf/floor{icon_state = "white"},/area)
+"dF" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/machinery/atmospherics/pipe/manifold{icon_state = "pipe_tr"; dir = 1},/turf/floor{icon_state = "white"},/area)
+"dG" = (/obj/machinery/airlock,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/obj/machinery/atmospherics/pipe,/turf/floor{icon_state = "white"},/area)
+"dH" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/atmospherics/pipe,/turf/floor,/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -219,13 +228,13 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmdjdjdjdjdjdjdjdjabdydxdraVababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbmbmdjdjdjdjdjdjdjdjabdjdudsdjdvababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababdjdjdjdjdmdmdmdmdmdmdodmdmdtdmdmdwbwcJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabdjdjdjdjdjdjdjdjdjdjdjabdjdjdjdjdjdjdjcIabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbmbmbmabababbmbmbmabababbmbmbmabababdkbXababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcQayayayayayayayayayayayayayayayayayabdldmdnababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacOawcPayababababababababayayayayayayayayabdjdjdldnabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmciaybmcRagagagcWcGababababbmaybmabcHbxcIcJdodpabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmcSayabaAbmbmbscKcKafafafcLcMcMbYckcNagagbOagbOababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcTababcUcVbgdddeagabbmbmabayayayabaEcAbKdqaNcNagababaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabdjdjdjdjdjdjdjdjdjdjdjabdzdAdAdAdAdBdjcIabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbmbmbmabababbmbmbmabababbmbmbmababaAdkbXababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcQayayayayayayayayayayayayayayayayayaAdldmdDababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacOawcPayababababababababayayayayayayayayaAdjdEdFdnabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmciaybmcRagagagcWcGababababbmaybmabcHdCcIcJdGdpabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabmcSayabaAbmbmbscKcKafafafcLcMcMbYckcNcCcDbObUbOababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcTababcUcVbgdddeagabbmbmabayayayabaEcAbKdqdHcNagababaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZdfayayaydhboabcXawdgayayayayababagagbUaictagagagbmaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababcYaybmbmabdiabcvayayayayabadaNaNcwcBctagagagbmaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaAbmbmagagagababbmbmabababagagagbUagcCcDagagbmaaaaaaaaaaaaaaaaaaaaaaaaaa
