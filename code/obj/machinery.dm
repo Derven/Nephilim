@@ -154,3 +154,38 @@
 				for(var/turf/T in range(powerrange, src))
 					var/obj/gravity/G = new /obj/gravity(T)
 					iterationgravity.Add(G)
+
+/obj/machinery/sparkgenerator
+	icon = 'pipes.dmi'
+	icon_state = "sparkgenerator"
+	ru_name = "генератор искр"
+	anchored = 1
+
+	New()
+		..()
+		tocontrol()
+
+	process()
+		for(var/obj/electro/cable/C in src.loc)
+			powernet = C.powernet
+
+	proc/generate_spark()
+		call_message(5, "[ru_name] генерирует искры")
+		new /obj/effect/sparks(src.loc)
+
+/obj/machinery/sparkbutton
+	icon = 'pipes.dmi'
+	icon_state = "sparkbutton"
+	ru_name = "активатор искр"
+	anchored = 1
+
+	proc/generate_spark()
+		for(var/obj/electro/cable/C in src.loc)
+			powernet = C.powernet
+			if(powernet != 0)
+				for(var/obj/machinery/sparkgenerator/SG in world)
+					if(SG.powernet == powernet)
+						SG.generate_spark()
+
+	attack_hand(var/mob/M)
+		generate_spark()

@@ -17,7 +17,7 @@
 		world.Reboot()
 
 	verb/zup()
-		if(z + 1 < world.maxz)
+		if(z + 1 <= world.maxz)
 			loc = locate(x, y, z + 1)
 
 	verb/zdown()

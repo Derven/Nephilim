@@ -11,7 +11,7 @@ var/list/atom/controlled = list()
 	controlled.Remove(src)
 
 /datum/out_of_control
-	var/ticktime = 2
+	var/ticktime = 5
 	var/on = 1
 
 	New()
@@ -28,9 +28,9 @@ var/list/atom/controlled = list()
 							unit.process()
 
 	proc/checknhalt() //safety system
-		while(world.cpu > 60)
+		while(world.cpu > 30)
 			on = 0
 			//sleep(ticktime)
-		if(world.cpu < 60)
+		if(world.cpu < 30)
 			sleep(ticktime)
 			on = 1

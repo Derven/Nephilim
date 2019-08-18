@@ -20,6 +20,9 @@
 	var/myears = 1
 	var/blind = 0
 
+/mob/Stat()
+	stat("CPU",world.cpu)
+
 /mob/living/human
 	icon = 'icons/human.dmi'
 	icon_state = "brain"

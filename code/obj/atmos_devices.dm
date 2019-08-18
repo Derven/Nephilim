@@ -7,6 +7,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/oxygen = 0
 	var/nitrogen = 0
 	var/plasma = 0
+	var/water = 0
 	var/list/datum/reagents/chemical = list()
 	icon = 'pipes.dmi'
 	density = 1
@@ -20,6 +21,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/oxygen = 0
 	var/nitrogen = 0
 	var/plasma = 0
+	var/water = 0
 	var/list/datum/reagents/chemical = list()
 	icon = 'pipes.dmi'
 	density = 1
@@ -53,6 +55,16 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	nitrogen = 0
 	plasma = 500
 	icon_state = "canister_p"
+
+	high_volume
+		oxygen = 50000
+
+/obj/machinery/portable_atmospherics/canister/water
+	oxygen = 0
+	nitrogen = 0
+	plasma = 0
+	water = 100000
+	icon_state = "canister_bigwater"
 
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	oxygen = 0
@@ -113,6 +125,9 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 					if(oxygen > 0)
 						F.oxygen += 1
 						oxygen -= 1
+					if(water > 0)
+						F.water += 1
+						water -= 1
 
 	for(var/obj/machinery/portable_atmospherics/canister/Z in a_net.canisters)
 		if(Z.connected == 1 && Z.atmosnet == atmosnet) //если канистра подцеплена к какой-либо другой, то
@@ -252,6 +267,12 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 								F.plasma += volume
 								C.plasma -= volume
 
+							if(C.water > 0)
+								icon_state = "vent_work"
+								F.water += volume
+								C.water -= volume
+
+
 /obj/machinery/atmospherics/outer/New()
 	tocontrol()
 	process()
@@ -329,3 +350,8 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 								icon_state = "in_work"
 								F.plasma -= volume
 								C.plasma += volume
+
+							if(F.water > 0)
+								icon_state = "in_work"
+								F.water -= volume
+								C.water += volume

@@ -42,6 +42,7 @@
 #include "code\obj\landmarks.dm"
 #include "code\obj\machinery.dm"
 #include "code\obj\pipes.dm"
+#include "code\obj\science.dm"
 #include "code\obj\stacks.dm"
 #include "code\obj\tanks.dm"
 #include "code\obj\structure\ladder.dm"

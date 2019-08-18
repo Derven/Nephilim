@@ -399,7 +399,10 @@ var/list/obj/machinery/machines = list()
 
 	New()
 		..()
-		spawn(rand(1,2))
+		if(istype(src.loc, /turf))
+			src.loc:initiate_burning = 1
+		spawn(rand(4,6))
+			src.loc:initiate_burning = 0
 			del(src)
 
 /obj/decor/cable_part
@@ -431,6 +434,32 @@ var/list/obj/machinery/machines = list()
 					if(B.powernet == powernet)
 						if(prob(15))
 							B.full_charge += rand(50, 100)
+
+		attack_hand(usr)
+			return 0
+	TEG
+		New()
+			..()
+			tocontrol()
+
+		process()
+			var/temp_1
+			var/temp_2
+
+			var/turf/F = get_step(src, EAST)
+			temp_1 = F.temperature
+
+			var/turf/F2 = get_step(src, WEST)
+			temp_2 = F2.temperature
+
+			if(abs(temp_2 - temp_1) > 0)
+				for(var/obj/electro/battery/B in controlled)
+					if(B.powernet == powernet)
+						if(prob(50))
+							B.full_charge += min(abs(temp_1 - temp_2), 500)
+							icon_state = "generator_inwork"
+						else
+							icon_state = "generator"
 
 		attack_hand(usr)
 			return 0

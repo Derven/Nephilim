@@ -25,6 +25,12 @@ var/min_temperature = -380
 	var/temperature = -380
 	var/pressure = 0
 	var/water = 0
+	var/initiate_burning = 0
+
+/atom/movable
+	var/melting_temp = 100
+
+	proc/melt()
 
 /turf/floor
 	oxygen = 50
@@ -34,6 +40,54 @@ var/min_temperature = -380
 	pressure = 0
 	ru_name = "пол"
 	layer = 2
+
+	proc/melting()
+		for(var/atom/movable/M in src)
+			if(temperature > M.melting_temp)
+				M.melt()
+
+	proc/burning()
+		if(oxygen + plasma < 15)
+			temperature = temperature / 2
+			var/list/turf/TURFS = list()
+			TURFS = check_in_cardinal(1)
+			for(var/turf/floor/F in TURFS)
+				if(F.temperature > temperature)
+					oxygen += F.oxygen / 2
+					F.oxygen -= F.oxygen / 2
+
+					plasma += F.plasma / 2
+					F.plasma -= F.plasma / 2
+
+					F.temperature -= F.temperature / 4
+			return
+		if(oxygen > 0 && plasma > 0 && initiate_burning)
+			if(temperature < 100)
+				temperature += 100
+		if(temperature > 100)
+			melting()
+			var/list/turf/TURFS = list()
+			TURFS = check_in_cardinal(1)
+			for(var/turf/floor/F in TURFS)
+				if(F.temperature < temperature)
+					F.temperature += temperature / 2
+
+			if(water > 0)
+				temperature -= water * 3
+				water -= temperature
+
+
+			if(oxygen > 0)
+				oxygen--
+				temperature += rand(plasma + oxygen / 20)
+				co2++
+			if(plasma > 0)
+				plasma--
+				if(oxygen > 0)
+					temperature += rand(plasma + oxygen / 10)
+				oxygen++
+		if(temperature > 10000)
+			temperature = 10000
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(!istype(src, /turf/floor/openspess))
@@ -90,6 +144,8 @@ var/min_temperature = -380
 				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_3",layer = 7))
 			if(51 to 99999999)
 				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_4",layer = 7))
+		if(oxygen > 0 && temperature > 100)
+			overlays.Add(image(icon = src.icon,icon_state = "fire",layer = 2.1))
 
 
 	openspess
@@ -126,6 +182,7 @@ var/min_temperature = -380
 
 	process()
 		control = 0
+		burning()
 		var/list/turf/TURFS = list()
 		if(istype(src, /turf/floor/openspess))
 			TURFS = check_in_cardinal_Z(1)
