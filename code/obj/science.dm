@@ -112,17 +112,18 @@
 		if(href_list["ok"] == "build")
 			var/datum/sci_recipes/SCI = check_recipe(components)
 			if(SCI)
-				var/iquality = 0
+				var/scilevel = 0
 				for(var/obj/item/I in components)
 					for(var/part in SCI.parts)
 						if(ispath(I:type, part))
-							iquality += I.scilevel
+							scilevel += I.scilevel
 							components.Remove(I)
 
 				var/obj/item/I2 = new SCI.result(src.loc)
 				call_message(3, "[src] производит [I2.ru_name]")
 				if(SCI.quality)
-					I2.quality += iquality
+					I2.scilevel += scilevel
+
 				for(var/obj/machinery/computer/sci/SCICOMP in controlled)
 					if(SCICOMP.powernet == powernet)
 						if(!(I2.type in SCICOMP.production))
@@ -171,7 +172,6 @@
 
 //stock parts
 /obj/item
-	var/quality = 0
 	var/scilevel = 0
 	var/require_metal = 1
 	var/require_glass = 1
