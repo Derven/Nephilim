@@ -46,7 +46,7 @@
 				if(src:client)
 					src:client.shakecamera()
 		else
-			bumpedzero()
+			bumpedzero(Obstacle)
 
 	proc/MoveToVent(var/obj/target, var/pump_volume)
 		src.loc = target.loc
@@ -118,7 +118,10 @@
 		else
 			return 0
 
-	proc/bumpedzero()
+	proc/bumpedzero(var/atom/movable/M)
+		if(istype(src, /atom/movable) && istype(M, /atom/movable))
+			if(!M.anchored)
+				M.Move(get_step(M, src:dir))
 
 	proc/collisionBumped(var/speeedwagon)
 		..()

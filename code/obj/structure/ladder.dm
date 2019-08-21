@@ -31,6 +31,12 @@
 		icon_state = "oxycloset_1"
 		state = "oxycloset"
 
+	cryopod
+		ru_name = "криокамера"
+		icon_state = "cryopod_1"
+		state = "cryopod"
+		anchored = 1
+
 	attackby(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/tools/wrench))
 			easy_deconstruct(usr)

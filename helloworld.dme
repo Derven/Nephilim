@@ -11,6 +11,7 @@
 // END_FILE_DIR
 
 // BEGIN_PREFERENCES
+#define DEBUG
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
@@ -24,6 +25,7 @@
 #include "code\mob.dm"
 #include "code\mob_damage_system.dm"
 #include "code\power.dm"
+#include "code\shuttle.dm"
 #include "code\topics.dm"
 #include "code\turfs.dm"
 #include "code\.mob\client.dm"

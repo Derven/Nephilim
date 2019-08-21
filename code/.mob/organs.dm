@@ -516,7 +516,7 @@
 			bone.istate = "bone_chest"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton, /obj/hud/pullbutton)
+			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton, /obj/hud/pullbutton, /obj/hud/backpack)
 
 	rarm
 		name = "r_arm"
@@ -578,6 +578,7 @@
 		ru_name = "правая нога"
 		temp_factor = 0.7
 		icon_state = "skin_leg_r"
+		var/speeding = 1
 
 		init()
 			bone = new /datum/bone
@@ -602,6 +603,7 @@
 			temp_factor = 0.7
 			icon_state = "skin_roboleg_r"
 			silicon = 1
+			speeding = 2
 
 			crushing = 5
 			cutting = 2
@@ -630,6 +632,7 @@
 		ru_name = "левая нога"
 		temp_factor = 0.7
 		icon_state = "skin_leg_l"
+		var/speeding = 1
 
 		init()
 			bone = new /datum/bone
@@ -654,6 +657,7 @@
 			temp_factor = 0.7
 			icon_state = "skin_roboleg_l"
 			silicon = 1
+			speeding = 2
 
 			crushing = 5
 			cutting = 2

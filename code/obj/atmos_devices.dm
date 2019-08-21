@@ -39,7 +39,25 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/open = 0
 	var/connected = 0
 	var/id // Плохое дервенорешение
-	var/list/chemistry = list("blood")
+
+	attackby(var/mob/M, var/obj/item/I)
+		var/turf/T = src.loc
+		if(istype(I, /obj/item/tools/wrench))
+			if(connected == 0)
+				for(var/obj/machinery/atmospherics/connector/C in T)
+					if(T)
+						atmosnet = C.atmosnet
+						connected = 1
+						usr << "Ты подцепил канистру к коннектору"
+						return
+
+			if(connected == 1)
+				for(var/obj/machinery/atmospherics/connector/C in T)
+					if(T)
+						atmosnet = C.atmosnet
+						connected = 0
+						usr << "Ты отцепил канистру от коннектора"
+						return
 
 /obj/machinery/portable_atmospherics/canister/oxygen
 	oxygen = 500
@@ -79,24 +97,6 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	icon_state = "canister_empty"
 
 /obj/machinery/portable_atmospherics/canister/attack_hand()
-	var/turf/T = src.loc
-	world << "oxygen [oxygen]; plasma [plasma]; nitrogen [nitrogen]; atmosnet [atmosnet];"
-	if(connected == 0 && open == 0)
-		for(var/obj/machinery/atmospherics/connector/C in T)
-			if(T)
-				atmosnet = C.atmosnet
-				connected = 1
-				usr << "Ты подцепил канистру к коннектору"
-				return
-
-	if(connected == 1 && open == 1)
-		for(var/obj/machinery/atmospherics/connector/C in T)
-			if(T)
-				atmosnet = C.atmosnet
-				connected = 0
-				usr << "Ты отцепил канистру от коннектора"
-				return
-
 	if(open == 0)
 		open = 1
 		usr << "Ты открыл канистру"
@@ -178,6 +178,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 /obj/machinery/atmospherics/connector
 	icon_state = "connector"
 	anchored = 1
+	density = 0
 	on = 0
 	var/true_initial = 0
 
@@ -188,7 +189,6 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	for(var/obj/machinery/atmospherics/pipe/P in range(1, src)) //коннектор ищет трубы в радиусе 1 тайла от себя
 		if(P.atmosnet != 0)
 			atmosnet = P.atmosnet
-
 
 /obj/machinery/atmospherics/outer
 	icon_state = "vent"

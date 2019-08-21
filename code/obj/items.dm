@@ -9,6 +9,7 @@
 	var/stitching = 0
 	var/def_cf = 0
 	var/temperature_def = 0
+	var/weight = 0
 
 /obj/item/baton
 	icon = 'items.dmi'

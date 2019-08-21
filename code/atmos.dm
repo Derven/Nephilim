@@ -15,7 +15,7 @@
 
 //atmos
 var/pipenetid = 0
-var/veterok_pressure = 30
+var/veterok_pressure = 100
 var/min_temperature = -380
 
 /turf
@@ -188,6 +188,8 @@ var/min_temperature = -380
 			TURFS = check_in_cardinal_Z(1)
 			if(z > 1)
 				underlays.Cut()
+				var/turf/T = locate(x,y,z-1)
+				underlays.Add(T)
 				for(var/atom/A in locate(x,y,z-1))
 					if(!istype(A, /obj/electro/cable) && !istype(A, /obj/machinery/atmospherics))
 						underlays.Add(A)

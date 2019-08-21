@@ -217,24 +217,38 @@
 			ru_name = "продвинутый чип"
 
 proc/check_recipe(var/list/obj/item/list1)
-	var/ok = 0
-	for(var/SCI in typesof(/datum/sci_recipes))
-		var/datum/sci_recipes/SCI1 = new SCI()
-		var/list/LIST = list1.Copy()
-		for(var/part in SCI1.parts)
-			for(var/obj/item/l1 in list1)
-				if(ispath(l1:type, part))
-					ok++
-					list1.Remove(l1)
-					if(ok == length(SCI1.parts))
-						list1 = LIST.Copy()
-						return SCI1
+	var/list/datum/sci_recipes/recipes = get_recipes()
+	world << "debug"
+	for(var/recipe in recipes)
+		world << "debug2"
+		var/datum/sci_recipes/SCI = new recipe()
+		if(SCI:check_recipes(list1))
+			return SCI
+
+
+proc/get_recipes()
+	return typesof(/datum/sci_recipes)
 
 /datum/sci_recipes
 	name = "рецепт"
 	var/obj/item/result
-	var/list/obj/item/parts = list()
+	var/list/obj/item/parts = list(/area)
 	var/quality = 0
+
+	proc/check_recipes(var/list/LIST)
+		var/ok = 0
+		world << "debug4"
+		var/list/obj/item/LIST2 = LIST.Copy()
+		for(var/part in parts)
+			for(var/unit in LIST)
+				world << "[part]:[unit:type]"
+				if(ispath(unit:type, part))
+					ok++
+					LIST.Remove(unit)
+					world << ok
+		LIST = LIST2.Copy()
+		if(ok == length(parts))
+			return src
 
 /datum/sci_recipes/advanced_resistor
 	name = "продвинутый резистор"
@@ -250,3 +264,28 @@ proc/check_recipe(var/list/obj/item/list1)
 	name = "продвинутый чип"
 	result = /obj/item/stock_parts/chip/advanced_chip
 	parts = list(/obj/item/stock_parts/resistor, /obj/item/stock_parts/capacitor, /obj/item/stock_parts/chip)
+
+/datum/sci_recipes/battery
+	name = "small custom battery"
+	result = /obj/item/devicebattery/custom
+	parts = list(/obj/item/stock_parts/capacitor/advanced_capacitor, /obj/item/stock_parts/capacitor/advanced_capacitor, /obj/item/stock_parts/chip)
+
+/obj/item/devicebattery/custom
+	icon = 'computer.dmi'
+	icon_state = "battery_device"
+	ru_name = "простая батарея"
+	amperage = 1
+	voltage = 12
+	max_charge = 2000
+	charge_level = 2000
+	layer = 4
+
+	New()
+		..()
+		spawn(30)
+			max_charge = 100 * scilevel
+			charge_level = 100 * scilevel
+			if(max_charge < 2000)
+				color = "red"
+			else
+				color = "green"

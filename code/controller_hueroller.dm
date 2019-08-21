@@ -20,17 +20,24 @@ var/list/atom/controlled = list()
 
 	proc/processingme()
 		while(on)
-			checknhalt()
-			for(var/atom/unit in controlled)
-				if(unit)
-					if(unit.control == 1 && on)
-						spawn(ticktime)
-							unit.process()
+			if(checknhalt() == 1)
+				for(var/atom/unit in controlled)
+					if(unit)
+						if(unit.control == 1 && on)
+							spawn(ticktime)
+								unit.process()
+			else
+				sleep(ticktime - rand(1,2))
 
 	proc/checknhalt() //safety system
-		while(world.cpu > 30)
-			on = 0
-			//sleep(ticktime)
+		if(world.cpu > 30)
+			sleep(1)
+			if(world.cpu > 45)
+				sleep(2)
+			if(world.cpu > 65)
+				sleep(3)
+			return 0
+
 		if(world.cpu < 30)
 			sleep(ticktime)
-			on = 1
+			return 1

@@ -1,13 +1,30 @@
 client
+	var/inmove = 0
 	Move()
 		if(istype(mob, /mob/living/human))
-			if(mob:rest)
+			if(mob:rest || inmove == 1)
 				return
 			var/turf/oldloc = mob.loc
+			var/spd = 0
+			if(mob:right_leg)
+				spd += mob:right_leg:speeding
+			if(mob:left_leg)
+				spd += mob:left_leg:speeding
+			inmove = 1
+			if(spd < 0)
+				spd = 0
+			if(spd > 4)
+				spd = 5
+			sleep(4 - spd)
+			inmove = 0
 			..()
 			if(mob:pullmode)
-				if(mob:pulling.anchored == 0)
+				if(mob:pulling.anchored == 0 && istype(mob:pulling.loc, /turf))
 					mob:pulling.Move(oldloc)
+					if(get_dist(mob:pulling, mob) > 1)
+						usr:get_slot("pull"):color = null
+						mob:pullmode = !mob:pullmode
+						mob:pulling = null
 				else
 					usr:get_slot("pull"):color = null
 					mob:pullmode = !mob:pullmode

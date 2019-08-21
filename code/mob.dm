@@ -19,9 +19,31 @@
 /mob
 	var/myears = 1
 	var/blind = 0
+	var/list/obj/item/list_items = list()
 
 /mob/Stat()
 	stat("CPU",world.cpu)
+	//statpanel("debug contents",list_items)
+	if(get_slot("backpack"))
+		if(get_slot("backpack"):SLOT)
+			statpanel("backpack contents",get_slot("backpack"):SLOT:contents)
+		if(get_slot("uniform"):SLOT)
+			statpanel("uniform contents",get_slot("uniform"):SLOT:contents)
+		if(get_slot("lhand"):SLOT)
+			if(istype(get_slot("lhand"):SLOT, /obj/item/clothing/backpack/back))
+				statpanel("left hand backpack contents",get_slot("lhand"):SLOT:contents)
+			if(istype(get_slot("lhand"):SLOT, /obj/item/clothing/uniform))
+				statpanel("left hand uniform contents",get_slot("lhand"):SLOT:contents)
+			if(istype(get_slot("lhand"):SLOT, /obj/item/storage))
+				statpanel("left hand storage contents",get_slot("lhand"):SLOT:contents)
+
+		if(get_slot("rhand"):SLOT)
+			if(istype(get_slot("rhand"):SLOT, /obj/item/clothing/backpack/back))
+				statpanel("right hand backpack contents",get_slot("rhand"):SLOT:contents)
+			if(istype(get_slot("rhand"):SLOT, /obj/item/clothing/uniform))
+				statpanel("right hand uniform contents",get_slot("rhand"):SLOT:contents)
+			if(istype(get_slot("rhand"):SLOT, /obj/item/storage))
+				statpanel("right hand storage contents",get_slot("rhand"):SLOT:contents)
 
 /mob/living/human
 	icon = 'icons/human.dmi'
@@ -81,6 +103,233 @@
 	//panch
 	var/punch_intent = PANCHSBOKY
 	var/say_intent = SAY
+
+	mousedrop(var/atom/movable/over_object, var/atom/movable/over_location)
+		usr << browse(null,"window=[name]")
+		if(istype(over_object, /mob/living/human))
+			var/list/desc = list()
+			var/list/hrefs = list()
+			if(over_object:list_items["chestu"])
+				desc.Add("Униформа: [over_object:list_items["chestu"]:ru_name]")
+				hrefs.Add("chestu=\ref[over_object:list_items["chestu"]];over_object=\ref[over_object]")
+			if(over_object:list_items["chestback"])
+				desc.Add("Рюкзак: [over_object:list_items["chestback"]:ru_name]")
+				hrefs.Add("chestback=\ref[over_object:list_items["chestback"]];over_object=\ref[over_object]")
+			if(over_object:list_items["head"])
+				desc.Add("Шлем: [over_object:list_items["head"]:ru_name]")
+				hrefs.Add("head=\ref[over_object:list_items["head"]];over_object=\ref[over_object]")
+			if(over_object:list_items["rleg"])
+				desc.Add("Правый ботинок: [over_object:list_items["rleg"]:ru_name]")
+				hrefs.Add("rleg=\ref[over_object:list_items["rleg"]];over_object=\ref[over_object]")
+			if(over_object:list_items["lleg"])
+				desc.Add("Левый ботинок: [over_object:list_items["lleg"]:ru_name]")
+				hrefs.Add("lleg=\ref[over_object:list_items["lleg"]];over_object=\ref[over_object]")
+			if(over_object:list_items["rlegs"])
+				desc.Add("Правый носок: [over_object:list_items["rlegs"]:ru_name]")
+				hrefs.Add("rlegs=\ref[over_object:list_items["rlegs"]];over_object=\ref[over_object]")
+			if(over_object:list_items["llegs"])
+				desc.Add("Левый носок: [over_object:list_items["llegs"]:ru_name]")
+				hrefs.Add("llegs=\ref[over_object:list_items["llegs"]];over_object=\ref[over_object]")
+			if(over_object:list_items["tank"])
+				desc.Add("Баллон: [over_object:list_items["tank"]:ru_name]")
+				hrefs.Add("tank=\ref[over_object:list_items["tank"]];over_object=\ref[over_object]")
+			if(over_object:list_items["chests"])
+				desc.Add("Плащ: [over_object:list_items["chests"]:ru_name]")
+				hrefs.Add("chests=\ref[over_object:list_items["chests"]];over_object=\ref[over_object]")
+			if(over_object:list_items["chestb"])
+				desc.Add("Трусы: [over_object:list_items["chestb"]:ru_name]")
+				hrefs.Add("chestb=\ref[over_object:list_items["chestb"]];over_object=\ref[over_object]")
+			if(over_object:list_items["chestm"])
+				desc.Add("Майка: [over_object:list_items["chestm"]:ru_name]")
+				hrefs.Add("chestm=\ref[over_object:list_items["chestm"]];over_object=\ref[over_object]")
+			if(over_object:list_items["rarm"])
+				desc.Add("Правая перчатка: [over_object:list_items["rarm"]:ru_name]")
+				hrefs.Add("rarm=\ref[over_object:list_items["rarm"]];over_object=\ref[over_object]")
+			if(over_object:list_items["larm"])
+				desc.Add("Левая перчатка: [over_object:list_items["larm"]:ru_name]")
+				hrefs.Add("rarm=\ref[over_object:list_items["larm"]];over_object=\ref[over_object]")
+			usr << browse(nterface(desc, hrefs),"window=[name]")
+
+	proc/update_overlays()
+		overlays.Cut()
+		process()
+		for(var/part1 in list_items)
+			var/obj/item/I = list_items[part1]
+			if(I)
+				overlays.Add(image(icon = 'clothes_on_mob.dmi', icon_state = "[part1]_[I:icon_state]", layer = 8))
+
+	Topic(href,href_list[])
+		var/mob/living/human/H
+		if(href_list["over_object"])
+			H = locate(href_list["over_object"])
+		if(href_list["chestu"])
+			var/obj/item/I = locate(href_list["chestu"])
+			if(get_slot("uniform"):SLOT)
+				get_slot("uniform"):remove_from_slot(src, src.loc)
+				H.list_items["chestu"] = null
+			else
+				H.list_items["chestu"] = null
+				I.loc = src.loc
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["head"])
+			var/obj/item/I = locate(href_list["head"])
+			if(get_slot("helmet"):SLOT)
+				get_slot("helmet"):remove_from_slot(src, src.loc)
+				H.list_items["head"] = null
+			else
+				I.loc = src.loc
+				H.list_items["head"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["rleg"])
+			var/obj/item/I = locate(href_list["rleg"])
+			if(get_slot("shoes_right"):SLOT)
+				get_slot("shoes_right"):remove_from_slot(src, src.loc)
+				H.list_items["rleg"] = null
+			else
+				I.loc = src.loc
+				H.list_items["rleg"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["lleg"])
+			var/obj/item/I = locate(href_list["lleg"])
+			if(get_slot("shoes_left"):SLOT)
+				get_slot("shoes_left"):remove_from_slot(src, src.loc)
+				H.list_items["lleg"] = null
+			else
+				I.loc = src.loc
+				H.list_items["lleg"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["chestback"])
+			var/obj/item/I = locate(href_list["chestback"])
+			if(get_slot("backpack"):SLOT)
+				get_slot("backpack"):remove_from_slot(src, src.loc)
+				H.list_items["chestback"] = null
+			else
+				I.loc = src.loc
+				H.list_items["chestback"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["rlegs"])
+			var/obj/item/I = locate(href_list["rlegs"])
+			if(get_slot("socks_right"):SLOT)
+				get_slot("socks_right"):remove_from_slot(src, src.loc)
+				H.list_items["rlegs"] = null
+			else
+				I.loc = src.loc
+				H.list_items["rlegs"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["llegs"])
+			var/obj/item/I = locate(href_list["llegs"])
+			if(get_slot("socks_left"):SLOT)
+				get_slot("socks_left"):remove_from_slot(src, src.loc)
+				H.list_items["llegs"] = null
+			else
+				I.loc = src.loc
+				H.list_items["llegs"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["tank"])
+			var/obj/item/I = locate(href_list["tank"])
+			if(get_slot("tank"):SLOT)
+				get_slot("tank"):remove_from_slot(src, src.loc)
+				H.list_items["tank"] = null
+			else
+				I.loc = src.loc
+				H.list_items["tank"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["chests"])
+			var/obj/item/I = locate(href_list["chests"])
+			if(get_slot("suit"):SLOT)
+				get_slot("suit"):remove_from_slot(src, src.loc)
+				H.list_items["chests"] = null
+			else
+				I.loc = src.loc
+				H.list_items["chests"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["chestb"])
+			var/obj/item/I = locate(href_list["chestb"])
+			if(get_slot("boxers"):SLOT)
+				get_slot("boxers"):remove_from_slot(src, src.loc)
+				H.list_items["chestb"] = null
+			else
+				I.loc = src.loc
+				H.list_items["chestb"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["chestm"])
+			var/obj/item/I = locate(href_list["chestm"])
+			if(get_slot("mayka"):SLOT)
+				get_slot("mayka"):remove_from_slot(src, src.loc)
+				H.list_items["chestm"] = null
+			else
+				I.loc = src.loc
+				H.list_items["chestm"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["rarm"])
+			var/obj/item/I = locate(href_list["rarm"])
+			if(get_slot("glove_right"):SLOT)
+				get_slot("glove_right"):remove_from_slot(src, src.loc)
+				H.list_items["rarm"] = null
+			else
+				I.loc = src.loc
+				H.list_items["rarm"] = null
+
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
+		if(href_list["larm"])
+			var/obj/item/I = locate(href_list["larm"])
+			if(get_slot("glove_left"):SLOT)
+				get_slot("glove_left"):remove_from_slot(src, src.loc)
+				H.list_items["larm"] = null
+			else
+				I.loc = src.loc
+				H.list_items["larm"] = null
+
+			H.update_overlays()
+			usr << browse(null,"window=[name]")
+
 
 	proc/check_isogloves()
 		if(usr:get_slot("lhand"))

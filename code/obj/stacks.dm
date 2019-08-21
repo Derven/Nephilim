@@ -4,6 +4,7 @@
 	var/list/craft_table = list()
 	var/list/amounts = list()
 	var/list/rnames = list()
+	weight = 1
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(istype(I, src.type))

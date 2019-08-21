@@ -1,6 +1,80 @@
+#define SPACE 1
+#define INNER 2
+
 /obj/machinery
 	var/on = 0
 	layer = 3
+
+/obj/machinery/airlock_initiator
+	icon = 'icons/airlock.dmi'
+	icon_state = "initiator"
+	var/freq = 10
+	var/outer = INNER
+
+	attack_hand()
+		for(var/obj/machinery/airlock_space_controller/C in controlled)
+			if(C.freq == freq)
+				C.on = !C.on
+				C.outer = outer
+
+/obj/machinery/airlock_space_controller
+	var/freq = 10
+	icon = 'icons/airlock.dmi'
+	icon_state = "atmos_controller"
+	on = 0
+	var/outer = INNER
+	anchored = 1
+
+	New()
+		..()
+		tocontrol()
+
+	process()
+		if(on)
+			if(outer == INNER)
+				for(var/obj/machinery/airlock/space_shutter/SP in world)
+					if(SP.outer == SPACE && SP.freq == freq)
+						if(!SP.open)
+							SP.open()
+
+				if(src.loc:pressure < 500)
+					for(var/obj/machinery/atmospherics/outer/O in controlled)
+						if(O.freq == freq && !O.on)
+							O.on = 1
+					for(var/turf/floor/F in range(2, src))
+						F.temperature = 20
+				else
+					for(var/obj/machinery/airlock/space_shutter/SP in world)
+						if(SP.outer == INNER && SP.freq == freq)
+							if(SP.open)
+								SP.open()
+							call_message(3, "ƒверь на корабль открыта")
+							on = 0
+					for(var/obj/machinery/atmospherics/outer/O in controlled)
+						if(O.freq == freq && O.on)
+							O.on = 0
+
+			if(outer == SPACE)
+				for(var/obj/machinery/airlock/space_shutter/SP in world)
+					if(SP.outer == INNER && SP.freq == freq)
+						if(!SP.open)
+							SP.open()
+
+				if(src.loc:pressure > 50)
+					for(var/obj/machinery/atmospherics/inner/O in controlled)
+						if(O.freq == freq && !O.on)
+							O.on = 1
+				else
+					for(var/obj/machinery/airlock/space_shutter/SP in world)
+						if(SP.outer == SPACE && SP.freq == freq)
+							if(SP.open)
+								SP.open()
+							call_message(3, "ƒверь в безвоздушное пространство открыта")
+							on = 0
+					for(var/obj/machinery/atmospherics/inner/O in controlled)
+						if(O.freq == freq && O.on)
+							O.on = 0
+
 
 /obj/machinery/airlock
 	icon = 'icons/airlock.dmi'
@@ -17,6 +91,18 @@
 	max_VLTAMP = 500
 	construct_parts = list(/obj/item/stack/metal)
 	easy_deconstruct = 1
+
+	space_shutter
+		icon_state = "shutter_1"
+		door_state = "shutter"
+		var/freq = 10
+		var/outer = SPACE
+
+		inner
+			outer = INNER
+
+		attack_hand()
+			call_message(3, "Ёта дверь открываетс€ удаленно. ¬ доступе отказано.")
 
 	proc/open()
 		open = !open

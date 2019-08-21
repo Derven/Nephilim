@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1566165002
-DIR: backup code code\.mob code\obj code\obj\structure icons 
+LAST_COMPILE_TIME: 1566414557
+DIR: backup code code\obj icons 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: icons\pipes.dmi;galaxy2.dmm;code\obj\science.dm
-FILE: code\obj\science.dm
+WINDOW: icons\pipes.dmi;galaxy2.dmm;code\atmos.dm;code\shuttle.dm;code\area.dm;code\obj\computer.dm;icons\airlock.dmi;code\obj\machinery.dm;code\obj\atmos_devices.dm;icons\items.dmi;code\turfs.dm;code\controller_hueroller.dm;helloworld.dm
+FILE: code\controller_hueroller.dm
 */
 // END_INTERNALS

@@ -6,6 +6,7 @@
 		icon_state = "uniform"
 		def_cf = 0.5
 		temperature_def = 0.3
+		weight = 1
 
 		engiform
 			ru_name = "одежда инженера"
@@ -18,6 +19,18 @@
 		icon_state = "blackshoes"
 		def_cf = 0.1
 		temperature_def = 0.1
+
+	backpack/back
+		ru_name = "рюкзак"
+		icon_state = "backpack"
+		def_cf = 0.1
+		temperature_def = 0.1
+		weight = 2
+
+		attackby(var/mob/M, var/obj/item/I)
+			call_message(3, "[usr] вставляет [I.ru_name] в [ru_name]")
+			usr:drop()
+			I.Move(src)
 
 	gloves
 		ru_name = "перчатка"
@@ -60,3 +73,5 @@
 		icon_state = "spacehelm"
 		def_cf = 0.7
 		temperature_def = 2.7
+
+/obj/item/storage

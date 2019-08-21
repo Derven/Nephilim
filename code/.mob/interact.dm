@@ -107,7 +107,7 @@
 
 /atom/Click()
 	if(istype(usr, /mob/living))
-		if(get_dist(src, usr) <= 1 || istype(src, /obj/hud))
+		if(get_dist(src, usr) <= 1 || istype(src, /obj/hud) || istype(src.loc, /obj/item/clothing/backpack) || istype(src.loc, /obj/item/clothing/uniform))
 			if(usr:get_slot("lhand") || usr:get_slot("rhand"))
 				if(usr:get_slot("lhand"))
 					if(usr:get_slot("lhand"):active)
@@ -129,12 +129,13 @@
 				return
 
 /atom/MouseDrop(atom/over_object as mob|obj|turf|area)
-	spawn( 0 )
-		if (istype(over_object, /atom))
-			over_object.mousedrop(src, usr)
+	if(get_dist(src, over_object) < 2)
+		spawn( 0 )
+			if (istype(over_object, /atom))
+				over_object.mousedrop(src, usr)
+			return
+		..()
 		return
-	..()
-	return
 
 
 /atom/proc/call_message(var/myrange, var/msg)

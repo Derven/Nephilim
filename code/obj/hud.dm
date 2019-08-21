@@ -62,6 +62,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 			SLOT.loc = src
 			SLOT.layer = 35
 			src.overlays += SLOT
+			usr:list_items["[slotname]"] = SLOT
 
 	proc/remove_from_slot(var/mob/M, var/atom/aloc)
 		if(!silicon)
@@ -80,20 +81,35 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT = null
 				if(usr)
 					usr.overlays.Remove(slotimage)
+					if(usr:list_items)
+						usr:list_items["[slotname]"] = null
 				if(M)
 					M.overlays.Remove(slotimage)
+					if(M:list_items)
+						M:list_items["[slotname]"] = null
 
 	attackby(var/mob/M, var/obj/item/I)
-		SLOT = I
-		if(istype(SLOT, type_of_slot))
-			usr:drop()
-			put_to_slot()
+		if((!istype(src, /obj/hud/backpack) && !istype(src, /obj/hud/uniform)) || SLOT == null)
+			SLOT = I
+			if(istype(SLOT, type_of_slot))
+				usr:drop()
+				put_to_slot()
+			else
+				SLOT = null
 		else
-			SLOT = null
+			if(SLOT)
+				if(istype(SLOT, /obj/item/clothing/backpack/back))
+					if(length(SLOT.contents) < 5 && I.weight < 2)
+						usr:drop()
+						I.Move(SLOT)
+				if(istype(SLOT, /obj/item/clothing/uniform))
+					if(length(SLOT.contents) < 2 && I.weight < 1)
+						usr:drop()
+						I.Move(SLOT)
 
 	attack_hand()
 		if(SLOT)
-			remove_from_slot(usr.loc)
+			remove_from_slot(usr, usr.loc)
 
 	New(client/C)
 		C.screen += src
@@ -206,7 +222,20 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 					RH.active = !active
 					RH.icon_state = "rhand_[!active]"
 			else
-				SLOT.attackinhand(usr)
+				if(active)
+					SLOT.attackinhand(usr)
+				else
+					if(usr:get_slot("rhand", usr))
+						if(usr:get_slot("rhand", usr):SLOT)
+							var/obj/item/I = usr:get_slot("rhand", usr):SLOT
+							if(istype(SLOT, /obj/item/clothing/backpack/back) || istype(SLOT, /obj/item/storage))
+								if(length(SLOT.contents) < 5 && I.weight < 2)
+									usr:drop()
+									I.Move(SLOT)
+							if(istype(SLOT, /obj/item/clothing/uniform))
+								if(length(SLOT.contents) < 2  && I.weight < 1)
+									usr:drop()
+									I.Move(SLOT)
 
 		robohand
 			name = "lhand"
@@ -338,7 +367,20 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 					LH.active = !active
 					LH.icon_state = "lhand_[!active]"
 			else
-				SLOT.attackinhand(usr)
+				if(active)
+					SLOT.attackinhand(usr)
+				else
+					if(usr:get_slot("lhand", usr))
+						if(usr:get_slot("lhand", usr):SLOT)
+							var/obj/item/I = usr:get_slot("lhand", usr):SLOT
+							if(istype(SLOT, /obj/item/clothing/backpack/back) || istype(SLOT, /obj/item/storage))
+								if(length(SLOT.contents) < 5 && I.weight < 2)
+									usr:drop()
+									I.Move(SLOT)
+							if(istype(SLOT, /obj/item/clothing/uniform))
+								if(length(SLOT.contents) < 2 &&  I.weight < 1)
+									usr:drop()
+									I.Move(SLOT)
 
 		robohand
 			name = "rhand"
@@ -363,6 +405,15 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		slotname = "rleg"
 		slot_neutral = 0
 
+	backpack
+		name = "backpack"
+		icon_state = "backpack"
+		layer = 25
+		screen_loc = "8,2"
+		type_of_slot = /obj/item/clothing/backpack
+		slotname = "chestback"
+		slot_neutral = 0
+
 	socks_right
 		name = "socks_right"
 		icon_state = "socks"
@@ -383,6 +434,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT.loc = src
 				SLOT.layer = 35
 				src.overlays += SLOT
+				usr:list_items["[slotname]"] = SLOT
 
 	socks_left
 		name = "socks_left"
@@ -404,6 +456,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT.loc = src
 				SLOT.layer = 35
 				src.overlays += SLOT
+				usr:list_items["[slotname]"] = SLOT
 
 	shoes_left
 		name = "shoes_left"
@@ -431,6 +484,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT.loc = src
 				SLOT.layer = 35
 				src.overlays += SLOT
+				usr:list_items["[slotname]"] = SLOT
 	uniform
 		name = "uniform"
 		icon_state = "uniform"
@@ -460,6 +514,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT.loc = src
 				SLOT.layer = 35
 				src.overlays += SLOT
+				usr:list_items["[slotname]"] = SLOT
 
 	boxers
 		name = "boxers"
@@ -481,6 +536,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT.loc = src
 				SLOT.layer = 35
 				src.overlays += SLOT
+				usr:list_items["[slotname]"] = SLOT
 
 	tank
 		name = "tank"
@@ -499,6 +555,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT.loc = src
 				SLOT.layer = 35
 				src.overlays += SLOT
+				usr:list_items["[slotname]"] = SLOT
 
 		remove_from_slot(var/mob/M, var/atom/aloc)
 			if(usr)
@@ -521,8 +578,10 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT = null
 				if(usr)
 					usr.overlays.Remove(slotimage)
+					usr:list_items["[slotname]"] = null
 				if(M)
 					M.overlays.Remove(slotimage)
+					M:list_items["[slotname]"] = null
 
 	suit
 		name = "suit"
@@ -541,3 +600,4 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 				SLOT.loc = src
 				SLOT.layer = 35
 				src.overlays += SLOT
+				usr:list_items["[slotname]"] = SLOT
