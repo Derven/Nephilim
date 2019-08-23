@@ -22,6 +22,8 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/nitrogen = 0
 	var/plasma = 0
 	var/water = 0
+	var/temperature = 40
+
 	var/list/datum/reagents/chemical = list()
 	icon = 'pipes.dmi'
 	density = 1
@@ -119,15 +121,30 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 		for(var/atom/movable/A in F)
 			if(A.block_air == 0)
 				if(open == 1)
+
 					if(plasma > 0)
 						F.plasma += 1
 						plasma -= 1
+
 					if(oxygen > 0)
 						F.oxygen += 1
 						oxygen -= 1
+
 					if(water > 0)
 						F.water += 1
 						water -= 1
+
+					if(temperature < F.temperature)
+						temperature += F.temperature - temperature
+						F.temperature -= abs(F.temperature - temperature) / 2
+
+					if(F.temperature < temperature)
+						F.temperature += temperature - F.temperature
+						temperature -= abs(temperature - F.temperature) / 2
+
+					if(temperature < -180)
+						temperature = -180
+
 
 	for(var/obj/machinery/portable_atmospherics/canister/Z in a_net.canisters)
 		if(Z.connected == 1 && Z.atmosnet == atmosnet) //если канистра подцеплена к какой-либо другой, то
@@ -163,6 +180,22 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 					if(Z.plasma > 0)
 						Z.plasma -= 1
 						plasma += 1
+
+				if(water < Z.water)
+					if(Z.water > 0)
+						Z.water -= 1
+						water += 1
+
+				if(temperature < Z.temperature)
+					temperature += Z.temperature - temperature
+					Z.temperature -= abs(Z.temperature - temperature) / 2
+
+				if(Z.temperature < temperature)
+					Z.temperature += temperature - Z.temperature
+					temperature -= abs(temperature - Z.temperature) / 2
+
+				if(temperature < -180)
+					temperature = -180
 
 					//for(var/datum/reagents/REG in chemical)
 					//	move_one_unit(Z, REG)
@@ -272,6 +305,13 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 								F.water += volume
 								C.water -= volume
 
+							if(F.temperature < C.temperature)
+								F.temperature += C.temperature - F.temperature
+								C.temperature -= abs(C.temperature - F.temperature) / 2
+
+							if(C.temperature < -180)
+								C.temperature = -180
+
 
 /obj/machinery/atmospherics/outer/New()
 	tocontrol()
@@ -355,3 +395,10 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 								icon_state = "in_work"
 								F.water -= volume
 								C.water += volume
+
+							if(C.temperature < F.temperature)
+								C.temperature += F.temperature - C.temperature
+								F.temperature -= abs(F.temperature - C.temperature) / 2
+
+							if(C.temperature < -180)
+								C.temperature = -180

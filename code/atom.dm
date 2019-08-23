@@ -8,6 +8,19 @@
 	var/structurehealth = 100
 	var/reality = 1
 
+	afterattack(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/drill))
+			for(var/dz/DZ in src.loc)
+				if(transportid != DZ.id)
+					if(!istype(src, /mob))
+						anchored = 1
+						transportid = DZ.id
+						call_message(5, "[src.ru_name ? src.ru_name : src.name ] прикручивается к каркасу челнока")
+				else
+					anchored = 0
+					transportid = -1
+					call_message(5, "[src.ru_name ? src.ru_name : src.name ] откручивается от каркаса челнока")
+
 	verb/pull()
 		set src in range(1, usr)
 		if(istype(usr, /mob/living/human))
@@ -55,6 +68,9 @@
 		Move( get_step( src, pick(NORTH, SOUTH, WEST, EAST) ) )
 
 	Move()
+		if(istype(src, /mob))
+			if(src:buckled)
+				return 0
 		moving_vector = dir
 		if(reality)
 			density = 1

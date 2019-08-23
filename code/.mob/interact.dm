@@ -7,6 +7,9 @@
 /atom/proc/attackinhand(var/mob/M)
 	return 0
 
+/atom/proc/afterattack(var/mob/M, var/item/I)
+	return 0
+
 /atom/var/block_air = 0
 
 /atom/proc/check_in_cardinal_Z(var/atmos_block)
@@ -112,12 +115,14 @@
 				if(usr:get_slot("lhand"))
 					if(usr:get_slot("lhand"):active)
 						if(usr:get_slot("lhand"):SLOT != null)
+							afterattack(usr, usr:get_slot("lhand"):SLOT)
 							attackby(usr, usr:get_slot("lhand"):SLOT)
 							return
 
 				if(usr:get_slot("rhand"))
 					if(usr:get_slot("rhand"):active)
 						if(usr:get_slot("rhand"):SLOT != null)
+							afterattack(usr, usr:get_slot("rhand"):SLOT)
 							attackby(usr, usr:get_slot("rhand"):SLOT)
 							return
 			attack_hand(usr)

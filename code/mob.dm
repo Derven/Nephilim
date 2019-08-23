@@ -20,6 +20,7 @@
 	var/myears = 1
 	var/blind = 0
 	var/list/obj/item/list_items = list()
+	var/buckled = 0
 
 /mob/Stat()
 	stat("CPU",world.cpu)

@@ -87,6 +87,15 @@
 		cutting = 7
 		stitching = 5
 
+	drill
+		icon_state = "drill"
+		name = "drill"
+		ru_name = "дрель / шуруповерт"
+
+		crushing = 0
+		cutting = 0
+		stitching = 5
+
 	saw
 		icon_state = "saw"
 		name = "saw"

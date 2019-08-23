@@ -92,6 +92,31 @@
 	construct_parts = list(/obj/item/stack/metal)
 	easy_deconstruct = 1
 
+	firedoor
+		icon_state = "firedoor_0"
+		door_state = "firedoor"
+		density = 0
+		opacity = 0
+		block_air = 0
+		open = 0
+
+		attack_hand()
+			call_message(3, "Активируется защитная гермодверь.")
+			open()
+
+		New()
+			..()
+			tocontrol()
+
+		process()
+			if(use_power() && !istype(src.loc, /turf/wall))
+				if(src.loc:oxygen < 30 || src.loc:plasma > 20 || src.loc:water > 5 || src.loc:temperature > 70 || src.loc:temperature < 15)
+					if(!open)
+						open()
+				else
+					if(open)
+						open()
+
 	space_shutter
 		icon_state = "shutter_1"
 		door_state = "shutter"
@@ -128,6 +153,47 @@
 			open()
 		else
 			call_message(3, "Дверь обесточена")
+
+/obj/machinery/shieldair
+	icon = 'airlock.dmi'
+	icon_state = "shieldair"
+	anchored = 1
+	need_voltage = 45
+	need_amperage = 3
+	max_VLTAMP = 500000
+
+
+/obj/machinery/airlock/shielddoor
+	icon_state = "shielddoor_1"
+	door_state = "shielddoor"
+	mouse_opacity = 0
+	density = 0
+	opacity = 0
+
+	New()
+		..()
+		tocontrol()
+
+	process()
+		for(var/obj/machinery/shieldair/SHAIR in src.loc)
+			if(SHAIR.use_power())
+				if(!open)
+					open()
+			else
+				if(open)
+					open()
+
+	open()
+		open = !open
+		block_air = open
+		icon_state = "[door_state]_[open]"
+		loc:process()
+		var/i = 0
+		var/g = rand(10,20)
+		while(i < g)
+			i++
+			for(var/turf/floor/CARD in check_in_cardinal(1))
+				CARD.process()
 
 /obj/machinery/power_block
 	icon = 'computer.dmi'

@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1566414557
-DIR: backup code code\obj icons 
+LAST_COMPILE_TIME: 1566587491
+DIR: backup code code\.mob code\obj code\obj\structure icons 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: icons\pipes.dmi;galaxy2.dmm;code\atmos.dm;code\shuttle.dm;code\area.dm;code\obj\computer.dm;icons\airlock.dmi;code\obj\machinery.dm;code\obj\atmos_devices.dm;icons\items.dmi;code\turfs.dm;code\controller_hueroller.dm;helloworld.dm
-FILE: code\controller_hueroller.dm
+WINDOW: icons\pipes.dmi;galaxy2.dmm;code\obj\atmos_devices.dm;icons\airlock.dmi;code\obj\machinery.dm;code\atmos.dm;code\turfs.dm;code\multitile.dm;icons\turfs.dmi;icons\items.dmi;code\obj\items.dm;code\mob.dm;code\mob_damage_system.dm;code\.mob\interact.dm;code\atom.dm;code\obj\structure\ladder.dm;icons\structure.dmi;code\obj\structure\lattice.dm;code\obj\structure\chair.dm;code\obj\structure\preparing_table.dm;code\obj\landmarks.dm
+FILE: galaxy2.dmm
 */
 // END_INTERNALS

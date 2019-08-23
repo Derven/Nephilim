@@ -63,5 +63,5 @@
 				M2.loc = src.loc
 		else
 			for(var/atom/movable/M2 in src.loc)
-				if(M.anchored == 0)
+				if(M.anchored == 0 && !istype(M2, /dz))
 					M2.loc = src
