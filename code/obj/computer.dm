@@ -643,3 +643,47 @@
 			if(freq < 0)
 				freq = 0
 			attack_hand(usr)
+
+////SHUTTLE
+
+/obj/machinery/computer/shuttle
+	icon = 'computer.dmi'
+	icon_state = "computer_shuttle"
+	ru_name = "навигационный компьютер"
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 10
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 5000
+	var/freq = 15
+	defaultmainboard = /obj/item/mainboard/shuttle
+
+	process()
+		if(MAINBOARD)
+			if(checkoverlay == 0)
+				overlays.Add(MAINBOARD)
+				checkoverlay = 1
+			use_power()
+		else
+			overlays.Cut()
+			//nocontrol()
+
+/obj/item/mainboard/shuttle
+	icon = 'computer.dmi'
+	icon_state = "mainboard_shuttle"
+	ru_name = "главная плата навигационного компьютера"
+	comptype = /obj/machinery/computer/shuttle
+
+/obj/machinery/engine
+	icon = 'computer.dmi'
+	icon_state = "engine"
+	ru_name = "ионный двигатель"
+
+	process()
+		if(transportid != -1)
+			for(var/dz/DZ in world)
+				if(DZ.id == transportid && DZ.center == 1)
+					dir = DZ.dir

@@ -52,5 +52,6 @@
 #include "code\obj\structure\ladder.dm"
 #include "code\obj\structure\lattice.dm"
 #include "code\obj\structure\preparing_table.dm"
+#include "code\obj\structure\shuttle_wall.dm"
 // END_INCLUDE
 

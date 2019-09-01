@@ -559,6 +559,12 @@
 			death()
 			if(!rest)
 				rest()
+		var/chair = 0
+		for(var/obj/structure/chair/C in src.loc)
+			chair = 1
+		if(!chair)
+			buckled = 0
+
 
 	proc/blood_process()
 		reagents.remove_reagent("blood", 2)  //поглощение мозгом крови насыщенной кислородом

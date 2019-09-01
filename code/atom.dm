@@ -16,10 +16,16 @@
 						anchored = 1
 						transportid = DZ.id
 						call_message(5, "[src.ru_name ? src.ru_name : src.name ] прикручивается к каркасу челнока")
+						if(istype(src, /obj/structure/shuttle_wall))
+							DZ.hardness += src.hardness
 				else
 					anchored = 0
+					if(transportid == DZ.id)
+						if(istype(src, /obj/structure/shuttle_wall))
+							DZ.hardness = initial(DZ.hardness)
 					transportid = -1
 					call_message(5, "[src.ru_name ? src.ru_name : src.name ] откручивается от каркаса челнока")
+
 
 	verb/pull()
 		set src in range(1, usr)

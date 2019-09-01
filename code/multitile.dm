@@ -2,20 +2,21 @@
 	var/transportid = -1
 
 	proc/rotate_(cx, cy)
-		dir = turn(dir, 90)
-		loc = locate(cx + (x - cx) * cos(90) - (y - cy) * sin(90), cy + (y - cy) * cos(90) + (x - cx) * sin(90), z)
+		spawn(2)
+			dir = turn(dir, 90)
+			loc = locate(cx + (x - cx) * cos(90) - (y - cy) * sin(90), cy + (y - cy) * cos(90) + (x - cx) * sin(90), z)
 
-	proc/MOVETO(var/curdir)
-		if(curdir == "north")
+	proc/MOVETO(var/cdir)
+		if(cdir == NORTH)
 			loc = locate(x, y + 1, z)
 
-		if(curdir == "south")
+		if(cdir == SOUTH)
 			loc = locate(x, y - 1, z)
 
-		if(curdir == "west")
+		if(cdir == WEST)
 			loc = locate(x - 1, y, z)
 
-		if(curdir == "east")
+		if(cdir == EAST)
 			loc = locate(x + 1, y, z)
 
 proc/rotate_my_car(var/id)
@@ -31,25 +32,79 @@ proc/rotate_my_car(var/id)
 		if(DZ.id == id)
 			DZ.rotate_me(center_x, center_y)
 
+proc/SHUTTLEMOVE(var/id, var/cdir)
+	for(var/dz/DZ in world)
+		if(DZ.id == id)
+			DZ.drive(cdir)
+
 /dz
 	parent_type = /obj //zone for moving multitile transport
 	icon = 'turfs.dmi'
 	icon_state = "shuttle"
+	ru_name = "каркас транспорта"
 	anchored = 1
-	dir = EAST
+	dir = WEST
 	var
 		id = 0 //id of transport
 		center = 0
-		curdir = "east" //west, south, east
 		list/obj/partslist = list()
 	layer = 1
 
-	proc/rotate_me(cx, cy)
+	Del()
 		for(var/atom/movable/M in src.loc)
+			M.anchored = 0
+			M.dir = pick(NORTH, SOUTH, WEST, EAST)
+			collision(M, rand(10,20))
+			M.Move(get_step(src.loc, M.dir))
+		for(var/turf/wall/W in src.loc)
+			W.collision(src, rand(10,20))
+		..()
+
+	proc/rotate_me(cx, cy)
+		var/turf/oldloc = src.loc
+		rotate_(cx, cy)
+		for(var/atom/movable/M in oldloc)
 			if(!istype(M, /dz) && M.transportid == id)
 				M.rotate_(cx, cy)
-		rotate_(cx, cy)
+		for(var/atom/movable/M in src.loc)
+			if((!istype(M, /dz) && M.transportid != id) && M.density == 1)
+				call_message(5, "[src.ru_name] сталкивается с [M.ru_name]")
+				if(M.hardness >= hardness)
+					del(src)
+				else
+					M.dir = pick(NORTH, SOUTH, WEST, EAST)
+					M.anchored = 0
+					collision(M, rand(10,20))
+					M.Move(get_step(src.loc, M.dir))
+
+		if(istype(src.loc, /turf/wall))
+			call_message(5, "[src.ru_name] сталкивается с чем-то твердым")
+			del(src)
+
+	proc/drive(var/cdir)
+		for(var/atom/movable/M in src.loc)
+			if(!istype(M, /dz) && M.transportid == id)
+				M.MOVETO(cdir)
+		MOVETO(cdir)
+		for(var/atom/movable/M in src.loc)
+			if((!istype(M, /dz) && M.transportid != id) && M.density == 1)
+				call_message(5, "[src.ru_name] сталкивается с [M.ru_name]")
+				if(M.hardness >= hardness)
+					del(src)
+				else
+					M.dir = pick(NORTH, SOUTH, WEST, EAST)
+					M.anchored = 0
+					collision(M, rand(10,20))
+					M.Move(get_step(src.loc, M.dir))
+
+		if(istype(src.loc, /turf/wall))
+			call_message(5, "[src.ru_name] сталкивается с чем-то твердым")
+			del(src)
 
 	verb/rotate_car()
 		set src in usr.loc
 		rotate_my_car(id)
+
+	verb/driver()
+		set src in usr.loc
+		SHUTTLEMOVE(id, dir)

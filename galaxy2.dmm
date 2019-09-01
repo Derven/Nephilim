@@ -72,7 +72,7 @@
 "bt" = (/obj/item/clothing/backpack,/turf/floor,/area)
 "bu" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor,/area)
 "bv" = (/obj/structure/closet,/obj/item/clothing/socks,/obj/item/clothing/socks,/obj/item/clothing/mayka,/obj/item/clothing/boxers,/obj/item/clothing/uniform/basic,/obj/item/clothing/shoes,/obj/item/clothing/shoes,/turf/floor,/area)
-"bw" = (/dz{id = 55; transportid = 55},/turf/floor/plating,/area)
+"bw" = (/dz{id = 55; transportid = 55},/obj/structure/shuttle_wall/window{transportid = 55},/turf/floor/plating,/area)
 "bx" = (/obj/structure/closet/cryopod,/turf/floor{icon_state = "delivery"},/area)
 "by" = (/obj/machinery/atmospherics/outer/high_volume{freq = 2},/turf/floor/plating,/area)
 "bz" = (/obj/machinery/atmospherics/outer/high_volume{dir = 1; freq = 4; icon_state = "vent"},/turf/floor,/area)
@@ -199,7 +199,7 @@
 "dQ" = (/obj/item/tools/wrench,/turf/floor/plating,/area)
 "dR" = (/obj/landmark,/turf/floor,/area)
 "dS" = (/obj/item/tools/drill,/turf/floor,/area)
-"dT" = (/dz{center = 1; id = 55; transportid = 55},/turf/floor/plating,/area)
+"dT" = (/dz{center = 1; id = 55; transportid = 55},/obj/machinery/power_block{transportid = 55},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; transportid = 55; zLevel = 0},/obj/machinery/computer/shuttle{transportid = 55},/turf/floor/plating,/area)
 "dU" = (/obj/structure/chair,/turf/floor,/area)
 "dV" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/floor,/area)
 "dW" = (/obj/machinery/computer/atmos{freq = 3},/obj/machinery/power_block,/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor,/area)
@@ -209,6 +209,13 @@
 "ea" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/structure/chair{icon_state = "chair"; dir = 1},/turf/floor,/area)
 "eb" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/structure/chair{icon_state = "chair"; dir = 1},/turf/floor,/area)
 "ec" = (/obj/electro/cable/copper{dir = 1; icon_state = "copper"; zLevel = -1},/obj/structure/chair{icon_state = "chair"; dir = 8},/turf/floor,/area)
+"ed" = (/dz{center = 1; id = 55; transportid = 55},/obj/structure/chair{dir = 8; icon_state = "chair"; transportid = 55},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; transportid = 55; zLevel = 0},/obj/electro/cable/copper{dir = 10; icon_state = "copper"; transportid = 55},/turf/floor/plating,/area)
+"ee" = (/dz{id = 55; transportid = 55},/obj/structure/shuttle_wall{transportid = 55},/turf/floor/plating,/area)
+"ef" = (/dz{id = 55; transportid = 55},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; transportid = 55; zLevel = 0},/obj/machinery/power_block{transportid = 55},/obj/machinery/engine{transportid = 55},/turf/floor/plating,/area)
+"eg" = (/dz{id = 55; transportid = 55},/obj/machinery/power_block{transportid = 55},/obj/electro/cable/copper{dir = 1; icon_state = "copper"; transportid = 55; zLevel = 1},/obj/machinery/airlock{transportid = 55},/turf/floor/plating,/area)
+"eh" = (/dz{id = 55; transportid = 55},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; transportid = 55; zLevel = 0},/obj/electro/battery/smes{transportid = 55},/obj/structure/shuttle_wall{transportid = 55},/turf/floor/plating,/area)
+"ei" = (/dz{id = 55; transportid = 55},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; transportid = 55; zLevel = 0},/obj/structure/chair{dir = 8; icon_state = "chair"; transportid = 55},/turf/floor/plating,/area)
+"ej" = (/mob/living/human,/turf/floor/plating,/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -245,9 +252,9 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawawawawawawawabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawawbwbwbwawawbQaaaaaaabababacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawawbwdTbwawawbQaaaaaaabdydycqcqababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawawbwbwbwawawbQbQbQbQabdSaHbuaHafababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawbwbwbweeeeeebQaaaaaaabababacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagejbwdTedeiehefbQaaaaaaabdydycqcqababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawbwbwegeeeeeebQbQbQbQabdSaHbuaHafababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakaoaVaVaVaVaVaVaVaVaWaVaVahbCbCcNbCbCalamanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawawawawawawawawabapaqajaHaHbibjbjaZaHarabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacababbQbQbQabdMbQasacacacababasatauababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
