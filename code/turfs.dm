@@ -47,6 +47,10 @@
 		New()
 			CRATE = new /atom/movable()
 			tocontrol()
+			if(z >= 1 && z < world.maxz)
+				var/turf/T = locate(x,y,z+1)
+				if(istype(T, /turf/space))
+					T = new /turf/space/hull(locate(x,y,z+1))
 			..()
 
 		plating
@@ -64,10 +68,16 @@
 
 		New()
 			..()
+			if(z >= 1 && z < world.maxz)
+				var/turf/T = locate(x,y,z+1)
+				if(istype(T, /turf/space))
+					T = new /turf/space/hull(locate(x,y,z+1))
 			relative_wall_neighbours()
 
 		Del()
 			..()
+			if(z - 1 >= 1)
+				src = new /turf/floor/openspess(locate(x,y,z))
 			relative_wall_neighbours()
 
 		attackby(var/mob/M, var/obj/item/I)

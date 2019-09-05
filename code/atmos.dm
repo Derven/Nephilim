@@ -71,12 +71,9 @@ var/min_temperature = -380
 			for(var/turf/floor/F in TURFS)
 				if(F.temperature < temperature)
 					F.temperature += temperature / 2
-
 			if(water > 0)
 				temperature -= water * 3
 				water -= temperature
-
-
 			if(oxygen > 0)
 				oxygen--
 				temperature += rand(plasma + oxygen / 20)
@@ -108,7 +105,10 @@ var/min_temperature = -380
 					call_message(5, "[ru_name] разваривается")
 					new /obj/structure/lattice( locate(src.x, src.y, src.z) )
 					new /obj/item/stack/metal(locate(src.x, src.y, src.z))
-					new /turf/space(locate(src.x, src.y, src.z))
+					if(z > 1)
+						new /turf/floor/openspess(locate(src.x, src.y, src.z))
+					else
+						new /turf/space(locate(src.x, src.y, src.z))
 					for(var/obj/item/I2 in CRATE)
 						I2.loc = src
 					call_message(5, "ниша в полу открывается")

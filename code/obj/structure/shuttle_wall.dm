@@ -20,3 +20,10 @@
 	ru_name = "обшивка корпуса (стекло)"
 	icon_state = "pwindow"
 	icon = 'turfs.dmi'
+
+/obj/structure/shuttle_wall/inner
+	density = 0
+	opacity = 0
+	ru_name = "внутренн€€ обшивка корпуса"
+	icon_state = null
+	icon =  null
