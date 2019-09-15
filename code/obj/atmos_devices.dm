@@ -82,6 +82,16 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	high_volume
 		oxygen = 50000
 
+/obj/machinery/portable_atmospherics/canister/phosphorus
+	//oxygen = 0
+	//nitrogen = 0
+	//plasma = 500
+	reagent_name = "phosphorus"
+	icon_state = "canister_p"
+
+	high_volume
+		oxygen = 50000
+
 /obj/machinery/portable_atmospherics/canister/water
 	//oxygen = 0
 	//nitrogen = 0

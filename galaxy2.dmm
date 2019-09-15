@@ -69,7 +69,7 @@
 "bq" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor/plating,/area)
 "br" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 6; zLevel = 0},/turf/floor,/area)
 "bs" = (/obj/machinery/atmospherics/connector{dir = 4},/obj/machinery/portable_atmospherics/canister/water,/turf/floor/plating,/area)
-"bt" = (/obj/item/clothing/backpack,/turf/floor,/area)
+"bt" = (/obj/machinery/portable_atmospherics/canister/phosphorus,/turf/floor,/area)
 "bu" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor,/area)
 "bv" = (/obj/structure/closet,/obj/item/clothing/socks,/obj/item/clothing/socks,/obj/item/clothing/mayka,/obj/item/clothing/boxers,/obj/item/clothing/uniform/basic,/obj/item/clothing/shoes,/obj/item/clothing/shoes,/turf/floor,/area)
 "bw" = (/dz{id = 55; transportid = 55},/obj/structure/shuttle_wall/window{transportid = 55},/turf/floor/plating,/area)

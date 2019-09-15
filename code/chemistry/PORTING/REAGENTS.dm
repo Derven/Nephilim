@@ -1,6 +1,4 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
+
 
 //The reaction procs must ALWAYS set src = null, this detaches the proc from the object (the reagent)
 //so that it can continue working when the reagent is deleted while the proc is still active.
@@ -37,12 +35,22 @@ datum
 				return
 
 			reaction_turf(var/turf/T, var/volume)
-				src = null
+				for(var/atom/movable/M in T)
+					if(istype(M, /mob/living/human))
+						reaction_mob(M, volume)
+					else
+						reaction_obj(M, volume)
+				//src = null
 				return
 
 			on_mob_life(var/mob/M)
 				holder.remove_reagent(src.id, 0.4) //By default it slowly disappears.
 				return
+
+		acid
+			name = "acid"
+			id = "acid"
+			reagent_state = GAS
 
 		nothing
 			name = "nothing"
@@ -102,6 +110,10 @@ datum
 			name = "phosphorus"
 			id = "phosphorus"
 
+			reaction_mob(var/mob/living/human/M, var/volume) //By default we have a chance to transfer some
+				M.chemdamage(rand(LITE_CHEM, MEDIUM_CHEM))
+				return
+
 		potassium
 			name = "potassium"
 			id = "potassium"
@@ -113,6 +125,7 @@ datum
 		water
 			name = "water"
 			id = "water"
+			reagent_state = LIQUID
 
 		plasma
 			name = "plasma"

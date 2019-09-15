@@ -16,6 +16,11 @@
 #define MEDIUM_UDAR 700
 #define HARD_UDAR 1000
 
+//chem damage
+#define LITE_CHEM 30
+#define MEDIUM_CHEM 70
+#define HARD_CHEM 100
+
 /mob
 	var/myears = 1
 	var/blind = 0

@@ -50,6 +50,26 @@ var/global/list/chemical_reactions_list = list(/datum/chemical_reaction/homuncul
 
 				return the_name
 
+			get_master_reagent_state()
+				var/the_state = null
+				var/the_volume = 0
+				for(var/datum/reagent/A in reagent_list)
+					if(A.volume > the_volume)
+						the_volume = A.volume
+						the_state = A.reagent_state
+
+				return the_state
+
+			luquid_master_reagent_state()
+				for(var/datum/reagent/A in reagent_list)
+					if(initial(A.reagent_state) != SOLID)
+						A.reagent_state = LIQUID
+
+			gas_master_reagent_state()
+				for(var/datum/reagent/A in reagent_list)
+					if(initial(A.reagent_state) != SOLID && initial(A.reagent_state) != LIQUID)
+						A.reagent_state = GAS
+
 			trans_to(var/obj/target, var/amount=1, var/multiplier=1)
 				var/total_transfered = 0
 				var/current_list_element = 1

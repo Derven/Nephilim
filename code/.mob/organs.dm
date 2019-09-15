@@ -198,6 +198,12 @@
 			if(istype(src, /obj/item/organ/lungs))
 				if(!owner.oxygen_tank)
 					if(istype(owner.loc, /turf))
+						if(istype(owner.loc, /turf/floor))
+							if(owner.loc:reagents.get_master_reagent_state() == LIQUID)
+								owner.oxyloss = 300
+								if(prob(10))
+									owner.call_message(5, "[owner] захлебывается ")
+
 						if((owner.loc:reagents.get_reagent_amount("oxygen") < 20 || owner.loc:reagents.get_reagent_amount("plasma") > 20 || owner.loc:reagents.get_reagent_amount("water") > 50) && owner.oxyloss < 100)
 							owner.oxyloss += 1
 							if(prob(2))
@@ -220,9 +226,9 @@
 
 
 				if(owner.oxyloss >= 100)
-					if(prob(10))
+					if(prob(owner.oxyloss / 5))
 						owner.call_message(5, "[owner] задыхается ")
-						owner.health -= rand(0,5)
+						owner.health -= rand(1,5)
 
 				if(src:muscle.health <= 30)
 					owner.call_message(5, "[owner] кашляет")

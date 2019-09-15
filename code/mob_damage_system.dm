@@ -23,6 +23,46 @@
 	collisionBumped(var/speeedwagon)
 		impactdamage(speeedwagon)
 
+
+	proc/chemdamage(var/damage)
+		switch(damage)
+			if(0 to LITE_CHEM)
+				return 0
+			if(LITE_CHEM to MEDIUM_CHEM)
+				for(var/obj/item/organ/O in src)
+					if(O.skin.name)
+						O.skin.health -= round(damage / 20)
+					O.muscle.health -= round(damage / 20)
+				call_message(5, "[src] получает небольшой химический ожог")
+
+			if(MEDIUM_CHEM to HARD_CHEM)
+				for(var/obj/item/organ/O in src)
+					if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
+						if(O.skin.name)
+							O.skin.health -= round(damage / 15)
+						O.muscle.health -= round(damage / 15)
+					else
+						O.muscle.health -= round(damage / 100)
+						sleep(7)
+						if(prob(99))
+							O.muscle.health -= 99
+				call_message(5, "[src] получает серьезный химический ожог")
+
+			if(HARD_CHEM to 999999999)
+				for(var/obj/item/organ/O in src)
+					if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
+						if(O.skin.name)
+							O.skin.health -= round(damage / 10)
+						O.muscle.health -= round(damage / 10)
+					else
+						O.muscle.health -= round(damage / 150)
+						sleep(7)
+						if(prob(99))
+							O.muscle.health -= 99
+				call_message(5, "[src] получает невероятный химический ожог")
+
+		return 0
+
 	proc/powerdamage(var/damage)
 		switch(damage)
 			if(0 to LITE_UDAR)

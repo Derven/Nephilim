@@ -177,6 +177,9 @@ var/min_temperature = -380
 	process()
 		control = 0
 		burning()
+		if(reagents)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				R.reaction_turf(src, reagents.get_reagent_amount(R.name))
 		var/list/turf/TURFS = list()
 		if(istype(src, /turf/floor/openspess))
 			TURFS = check_in_cardinal_Z(1)
@@ -224,6 +227,10 @@ var/min_temperature = -380
 				if((FLOOR.temperature > temperature) && FLOOR.temperature - temperature > 1)
 					temperature += 1
 					FLOOR.temperature -= 1
+				if(FLOOR.temperature > -130)
+					reagents.luquid_master_reagent_state()
+				else
+					reagents.gas_master_reagent_state()
 				/*
 				if((FLOOR.water > water) && FLOOR.water - water > 1)
 					water += 1
