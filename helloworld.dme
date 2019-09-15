@@ -16,7 +16,7 @@
 
 // BEGIN_INCLUDE
 #include "helloworld.dm"
-#include "nephilim.dmm"
+#include "galaxy2.dmm"
 #include "code\atmos.dm"
 #include "code\atom.dm"
 #include "code\controller_hueroller.dm"

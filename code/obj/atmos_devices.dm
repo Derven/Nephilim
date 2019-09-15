@@ -41,6 +41,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/open = 0
 	var/connected = 0
 	var/id // Плохое дервенорешение
+	var/reagent_name = null
 
 	attackby(var/mob/M, var/obj/item/I)
 		var/turf/T = src.loc
@@ -62,40 +63,44 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 						return
 
 /obj/machinery/portable_atmospherics/canister/oxygen
-	oxygen = 500
-	nitrogen = 0
-	plasma = 0
+	//oxygen = 500
+	//nitrogen = 0
+	//plasma = 0
+	reagent_name = "oxygen"
 	icon_state = "canister_o"
 
 	high_volume
 		oxygen = 50000
 
 /obj/machinery/portable_atmospherics/canister/plasma
-	oxygen = 0
-	nitrogen = 0
-	plasma = 500
+	//oxygen = 0
+	//nitrogen = 0
+	//plasma = 500
+	reagent_name = "plasma"
 	icon_state = "canister_p"
 
 	high_volume
 		oxygen = 50000
 
 /obj/machinery/portable_atmospherics/canister/water
-	oxygen = 0
-	nitrogen = 0
-	plasma = 0
+	//oxygen = 0
+	//nitrogen = 0
+	//plasma = 0
+	reagent_name = "water"
 	water = 100000
 	icon_state = "canister_bigwater"
 
 /obj/machinery/portable_atmospherics/canister/nitrogen
-	oxygen = 0
-	nitrogen = 500
-	plasma = 0
+	//oxygen = 0
+	//nitrogen = 500
+	//plasma = 0
+	reagent_name = "nitrogen"
 	icon_state = "canister_n"
 
 /obj/machinery/portable_atmospherics/canister/empty
-	oxygen = 0
-	nitrogen = 0
-	plasma = 0
+	//oxygen = 0
+	//nitrogen = 0
+	//plasma = 0
 	icon_state = "canister_empty"
 
 /obj/machinery/portable_atmospherics/canister/attack_hand()
@@ -113,6 +118,11 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	//id = rand(1,999)
 	a_net.canisters += src //добавляем канистру в список канистр при создании
 	tocontrol()
+	if(reagent_name != null)
+		var/datum/reagents/R = new/datum/reagents(1000)
+		reagents = R
+		R.my_atom = src
+		R.add_reagent("[reagent_name]", 500)
 	process()
 	..()
 
@@ -121,7 +131,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 		for(var/atom/movable/A in F)
 			if(A.block_air == 0)
 				if(open == 1)
-
+					/*
 					if(plasma > 0)
 						F.plasma += 1
 						plasma -= 1
@@ -133,6 +143,8 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 					if(water > 0)
 						F.water += 1
 						water -= 1
+					*/
+					reagents.trans_to(F, 1, 1)
 
 					if(temperature < F.temperature)
 						temperature += F.temperature - temperature
@@ -280,16 +292,17 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 			atmosnet = P.atmosnet
 		for(var/obj/machinery/portable_atmospherics/canister/C in world)
 			if(C.connected == 1 && C.atmosnet == atmosnet)
-				if(C.oxygen + C.plasma > 30)
+				if(C.reagents.get_total_amount() > 30)
 					for(var/obj/machinery/atmospherics/P in controlled)
 						if(P.atmosnet == atmosnet)
 							for(var/atom/movable/M in P)
 								world << P
-								M.MoveToVent(src, C.oxygen + C.plasma)
+								M.MoveToVent(src, reagents.get_total_amount())
 
 				for(var/turf/floor/F in range(1, src))
 					for(var/atom/movable/A in F)
 						if(A.block_air == 0)
+							/*
 							if(C.oxygen > volume)
 								icon_state = "vent_work"
 								F.oxygen += volume
@@ -304,6 +317,9 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 								icon_state = "vent_work"
 								F.water += volume
 								C.water -= volume
+							*/
+							C.reagents.trans_to(F, volume, 1)
+							icon_state = "in_work"
 
 							if(F.temperature < C.temperature)
 								F.temperature += C.temperature - F.temperature
@@ -381,6 +397,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 				for(var/turf/floor/F in range(1, src))
 					for(var/atom/movable/A in F)
 						if(A.block_air == 0)
+							/*
 							if(F.oxygen >= volume)
 								icon_state = "in_work"
 								F.oxygen -= volume
@@ -395,6 +412,9 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 								icon_state = "in_work"
 								F.water -= volume
 								C.water += volume
+							*/
+							F.reagents.trans_to(C, volume, 1)
+							icon_state = "in_work"
 
 							if(C.temperature < F.temperature)
 								C.temperature += F.temperature - C.temperature

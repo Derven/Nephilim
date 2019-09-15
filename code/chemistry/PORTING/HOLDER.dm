@@ -250,6 +250,13 @@ var/global/list/chemical_reactions_list = list(/datum/chemical_reaction/homuncul
 
 				return 0
 
+			get_total_amount()
+				var/SUM = 0
+				for(var/A in reagent_list)
+					var/datum/reagent/R = A
+					SUM += R.volume
+				return SUM
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 

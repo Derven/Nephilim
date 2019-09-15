@@ -19,12 +19,12 @@ var/veterok_pressure = 100
 var/min_temperature = -380
 
 /turf
-	var/oxygen = 0
-	var/co2 = 0
-	var/plasma = 0
+	//var/oxygen = 0
+	//var/co2 = 0
+	//var/plasma = 0
 	var/temperature = -380
 	var/pressure = 0
-	var/water = 0
+	//var/water = 0
 	var/initiate_burning = 0
 
 /atom/movable
@@ -33,9 +33,9 @@ var/min_temperature = -380
 	proc/melt()
 
 /turf/floor
-	oxygen = 50
-	co2 = 0
-	plasma = 0
+	//oxygen = 50
+	//co2 = 0
+	//plasma = 0
 	temperature = 20
 	pressure = 0
 	ru_name = "пол"
@@ -47,21 +47,15 @@ var/min_temperature = -380
 				M.melt()
 
 	proc/burning()
-		if(oxygen + plasma < 15)
+		if(!reagents.has_reagent("oxygen", 15))
 			temperature = temperature / 2
 			var/list/turf/TURFS = list()
 			TURFS = check_in_cardinal(1)
 			for(var/turf/floor/F in TURFS)
 				if(F.temperature > temperature)
-					oxygen += F.oxygen / 2
-					F.oxygen -= F.oxygen / 2
-
-					plasma += F.plasma / 2
-					F.plasma -= F.plasma / 2
-
 					F.temperature -= F.temperature / 4
 			return
-		if(oxygen > 0 && plasma > 0 && initiate_burning)
+		if(reagents.get_reagent_amount("oxygen") > 0 && reagents.get_reagent_amount("plasma") > 0 && initiate_burning)
 			if(temperature < 100)
 				temperature += 100
 		if(temperature > 100)
@@ -71,18 +65,18 @@ var/min_temperature = -380
 			for(var/turf/floor/F in TURFS)
 				if(F.temperature < temperature)
 					F.temperature += temperature / 2
-			if(water > 0)
-				temperature -= water * 3
-				water -= temperature
-			if(oxygen > 0)
-				oxygen--
-				temperature += rand(plasma + oxygen / 20)
-				co2++
-			if(plasma > 0)
-				plasma--
-				if(oxygen > 0)
-					temperature += rand(plasma + oxygen / 10)
-				oxygen++
+			if(reagents.get_reagent_amount("water") > 0)
+				temperature -= reagents.get_reagent_amount("water") * 3
+				reagents.remove_reagent("water", temperature)
+			if(reagents.get_reagent_amount("oxygen") > 0)
+				reagents.remove_reagent("oxygen", 1)
+				temperature += rand(reagents.get_reagent_amount("plasma") + reagents.get_reagent_amount("oxygen") / 20)
+				reagents.add_reagent("co2", 1)
+			if(reagents.get_reagent_amount("plasma") > 0)
+				reagents.remove_reagent("plasma", 1)
+				if(reagents.get_reagent_amount("oxygen") > 0)
+					temperature += rand(reagents.get_reagent_amount("plasma") + reagents.get_reagent_amount("oxygen") / 10)
+				reagents.add_reagent("oxygen", 1)
 		if(temperature > 10000)
 			temperature = 10000
 
@@ -133,9 +127,9 @@ var/min_temperature = -380
 
 	proc/overlayupdate()
 		overlays.Cut()
-		if(water > 0)
+		if(reagents.get_reagent_amount("water") > 0)
 			overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_0",layer = 3))
-		switch(water)
+		switch(reagents.get_reagent_amount("water"))
 			if(1 to 10)
 				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_1",layer = 7))
 			if(11 to 30)
@@ -144,7 +138,7 @@ var/min_temperature = -380
 				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_3",layer = 7))
 			if(51 to 99999999)
 				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_4",layer = 7))
-		if(oxygen > 0 && temperature > 100)
+		if(reagents.get_reagent_amount("oxygen") > 0 && temperature > 100)
 			overlays.Add(image(icon = src.icon,icon_state = "fire",layer = 2.1))
 
 
@@ -200,16 +194,21 @@ var/min_temperature = -380
 
 		for(var/turf/FLOOR in TURFS)
 			if(istype(FLOOR, /turf/floor))
-				FLOOR.pressure = round((FLOOR.oxygen + FLOOR.co2 + FLOOR.plasma + FLOOR.water) * FLOOR.temperature / 2)
-				pressure = round((oxygen + co2 + plasma + water) * temperature / 2)
+				FLOOR.pressure = FLOOR.reagents.get_total_amount() * round(FLOOR.temperature / 2)//round((FLOOR.oxygen + FLOOR.co2 + FLOOR.plasma + FLOOR.water) * FLOOR.temperature / 2)
+				pressure =  reagents.get_total_amount() * round(temperature / 2)//round((oxygen + co2 + plasma + water) * temperature / 2)
 
 				if(pressure > FLOOR.pressure)
 					if(abs(pressure - FLOOR.pressure) > veterok_pressure)
 						move_veterok(FLOOR)
+
 				if(FLOOR.pressure > pressure)
 					if(abs(pressure - FLOOR.pressure) > veterok_pressure)
 						FLOOR:move_veterok(src)
 
+				if(FLOOR.reagents.get_total_amount() > reagents.get_total_amount())
+					FLOOR.reagents.trans_to(src, 1, 1)
+
+				/*
 				if((FLOOR.oxygen > oxygen) && FLOOR.oxygen - oxygen > 1)
 					oxygen += 1
 					FLOOR.oxygen -= 1
@@ -221,18 +220,21 @@ var/min_temperature = -380
 				if((FLOOR.plasma > plasma) && FLOOR.plasma - plasma > 1)
 					plasma += 1
 					FLOOR.plasma -= 1
-
+				*/
 				if((FLOOR.temperature > temperature) && FLOOR.temperature - temperature > 1)
 					temperature += 1
 					FLOOR.temperature -= 1
-
+				/*
 				if((FLOOR.water > water) && FLOOR.water - water > 1)
 					water += 1
 					FLOOR.water -= 1
-
+				*/
 			if(istype(FLOOR, /turf/space))
 				move_veterok(FLOOR)
 
+
+				reagents.clear_reagents()
+				/*
 				if(oxygen > 0)
 					oxygen -= 5
 					if(oxygen < 0)
@@ -250,7 +252,7 @@ var/min_temperature = -380
 
 				if(water > 0)
 					water = 0
-
+				*/
 				if(temperature > min_temperature)
 					temperature -= 50
 		control = 1

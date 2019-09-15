@@ -29,6 +29,12 @@
 		hull
 			icon_state = "hull"
 
+		New()
+			..()
+			var/datum/reagents/R = new/datum/reagents(1000)
+			reagents = R
+			R.my_atom = src
+
 	floor
 		icon_state = "floor"
 
@@ -38,11 +44,11 @@
 		hot
 			temperature = 800
 
-		water
-			water = 10000
+		//water
+			//water = 10000
 
 		attack_hand()
-			world << "[oxygen];[temperature];[pressure]"
+			world << "[reagents.get_reagent_amount("oxygen")];[temperature];[pressure]"
 
 		New()
 			CRATE = new /atom/movable()
@@ -51,6 +57,11 @@
 				var/turf/T = locate(x,y,z+1)
 				if(istype(T, /turf/space))
 					T = new /turf/space/hull(locate(x,y,z+1))
+				var/datum/reagents/R = new/datum/reagents(1000)
+				reagents = R
+				R.my_atom = src
+				R.add_reagent("oxygen", 50)
+				R.add_reagent("nitrogen", 10)
 			..()
 
 		plating

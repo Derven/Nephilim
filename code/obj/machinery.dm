@@ -110,7 +110,7 @@
 
 		process()
 			if(use_power() && !istype(src.loc, /turf/wall))
-				if(src.loc:oxygen < 30 || src.loc:plasma > 20 || src.loc:water > 5 || src.loc:temperature > 70 || src.loc:temperature < 15)
+				if(src.loc:reagents.get_reagent_amount("oxygen") < 30 || src.loc:reagents.get_reagent_amount("plasma") > 20 || src.loc:reagents.get_reagent_amount("water") > 5 || src.loc:temperature > 70 || src.loc:temperature < 15)
 					if(!open)
 						open()
 				else
