@@ -154,7 +154,7 @@
 			if(over_object:list_items["larm"])
 				desc.Add("Левая перчатка: [over_object:list_items["larm"]:ru_name]")
 				hrefs.Add("rarm=\ref[over_object:list_items["larm"]];over_object=\ref[over_object]")
-			usr << browse(nterface(desc, hrefs),"window=[name]")
+			special_browse(usr, nterface(desc, hrefs))
 
 	proc/update_overlays()
 		overlays.Cut()

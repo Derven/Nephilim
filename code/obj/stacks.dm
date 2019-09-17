@@ -30,7 +30,7 @@
 		for(var/d in craft_table)
 			myhrefs.Add("craft=[d]")
 
-		M << browse(nterface(descr, myhrefs),"window=[name]")
+		special_browse(M, nterface(descr, myhrefs))
 
 	Topic(href,href_list[])
 		if(href_list["craft"])

@@ -17,11 +17,25 @@
 			restartN.Add(usr.key)
 			usr << "\blue Pls, no."
 */
+/atom/proc/special_browse(var/mob/M, var/ibody)
+	M << browse(ibody,"window=[name]")
+	M << browse_rsc('zaebok.png',"space.png")
+	winset(M, name, "alpha=225")
+
 /atom/proc/nterface(var/desc, var/hrefs)
-	var/msg = "<html><body>"
+	var/msg = {"<html><body background=\"space.png\" vlink=\"#8FE8CA\" link=\"#8FE8CA\" alink=\"#8FE8CA\">
+	<style>
+	a{
+    	text-decoration: none;
+    }
+    a:hover{
+    	text-decoration: none;
+    	color: #E0F9E6;
+    }
+    </style>"}
 	var/i = 0
 	for(var/d in desc)
 		i++
-		msg += "<a href='?src=\ref[src];[hrefs[i]]'>[d]</a><br>"
+		msg += "<b><a href='?src=\ref[src];[hrefs[i]]'>&#x203A; [d]</a></b><br>"
 	msg += "</body></html>"
 	return msg

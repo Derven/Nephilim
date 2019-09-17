@@ -53,5 +53,8 @@
 #include "code\obj\structure\lattice.dm"
 #include "code\obj\structure\preparing_table.dm"
 #include "code\obj\structure\shuttle_wall.dm"
+#include "skin\interface.dm"
+#include "skin\stylesheet.dm"
+#include "skin\skin.dmf"
 // END_INCLUDE
 

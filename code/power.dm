@@ -120,6 +120,24 @@ var/list/obj/machinery/machines = list()
 	sq = 15
 	layer = 3
 
+/obj/electro/cable/termo
+	name = "radiator"
+	ru_name = "радиатор"
+	icon_state = "radiator"
+	resistance = 15
+	sq = 15
+	layer = 6
+	on = 1
+	temperature_limit = 3000
+
+	attack_hand()
+		on = !on
+		call_message(3, "[on ? "включается" : "выключается"]")
+
+	proc/toatmos()
+		if(on)
+			src.loc:temperature += my_temperature / 10
+
 /obj/electro/cable/iron
 	name = "iron_cable"
 	icon_state = "iron"
@@ -180,7 +198,8 @@ var/list/obj/machinery/machines = list()
 	real_resistance = resistance
 	wires += src
 	tocontrol()
-	layer = 1.5
+	if(!istype(src, /obj/electro/cable/termo))
+		layer = 1.5
 	..()
 
 /obj/electro/battery
@@ -273,6 +292,12 @@ var/list/obj/machinery/machines = list()
 				allcablesreset()
 				process()
 			return
+
+	if(istype(src, /obj/electro/cable/termo))
+		my_temperature = amperage - resistance - sq - LENGTH
+		if(my_temperature < 0)
+			my_temperature = 0
+		src:toatmos()
 
 	if(voltage > power_limit)
 		my_temperature = amperage - resistance - sq - LENGTH

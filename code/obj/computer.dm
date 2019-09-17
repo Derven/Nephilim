@@ -113,7 +113,7 @@
 				hrefs.Add("reserve=remove")
 				hrefs.Add("reserve=fulltime")
 				hrefs.Add("reserve=ticks")
-				M << browse(nterface(powerstat, hrefs),"window=[name]")
+				special_browse(M, nterface(powerstat, hrefs))
 
 	Topic(href,href_list[])
 		if(href_list["reserve"] == "add")
@@ -215,8 +215,7 @@
 
 			descr.Add("Металла [metal]; Стекла [glass]")
 			myhrefs.Add("null=null")
-
-			M << browse(nterface(descr, myhrefs),"window=[name]")
+			special_browse(M, nterface(descr, myhrefs))
 
 	Topic(href,href_list[])
 		if(href_list["production"])
@@ -567,7 +566,7 @@
 				var/list/hrefs = list()
 				powerstat.Add(fix1103("Включить/выключить гравитационные ловушки в сети"))
 				hrefs.Add("gravity=ok")
-				M << browse(nterface(powerstat, hrefs),"window=[name]")
+				special_browse(M, nterface(powerstat, hrefs))
 
 	Topic(href,href_list[])
 		if(href_list["gravity"] == "ok")
@@ -629,7 +628,7 @@
 					hrefs.Add("amachine=\ref[A]")
 				stats.Add("Сменить частоту ([freq])")
 				hrefs.Add("freq=input")
-				M << browse(nterface(stats, hrefs),"window=[name]")
+				special_browse(M, nterface(stats, hrefs))
 
 	Topic(href,href_list[])
 		if(href_list["amachine"])
