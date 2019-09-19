@@ -57,11 +57,11 @@
 				var/turf/T = locate(x,y,z+1)
 				if(istype(T, /turf/space))
 					T = new /turf/space/hull(locate(x,y,z+1))
-				var/datum/reagents/R = new/datum/reagents(1000)
-				reagents = R
-				R.my_atom = src
-				R.add_reagent("oxygen", 50)
-				R.add_reagent("nitrogen", 10)
+			var/datum/reagents/R = new/datum/reagents(1000)
+			reagents = R
+			R.my_atom = src
+			R.add_reagent("oxygen", 50)
+			R.add_reagent("nitrogen", 10)
 			..()
 
 		plating

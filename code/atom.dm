@@ -74,6 +74,8 @@
 		Move( get_step( src, pick(NORTH, SOUTH, WEST, EAST) ) )
 
 	Move()
+		if(init)
+			return
 		if(istype(src, /mob))
 			if(src:buckled)
 				return 0

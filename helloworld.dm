@@ -1,6 +1,7 @@
 /*
 	These are simple defaults for your project.
  */
+var/init = 0
 
 world
 	fps = 25		// 25 frames per second
@@ -10,8 +11,11 @@ world
 	mob = /mob/living/human
 	map_format = TILED_ICON_MAP
 	loop_checks = 0
+
 	New()
 		..()
+		init = 1
+		init = !init
 		new /datum/out_of_control
 
 // Make objects move 8 pixels per tick when walking

@@ -215,7 +215,6 @@
 "eg" = (/dz{id = 55; transportid = 55},/obj/machinery/power_block{transportid = 55},/obj/electro/cable/copper{dir = 1; icon_state = "copper"; transportid = 55; zLevel = 1},/obj/machinery/airlock{transportid = 55},/turf/floor/plating,/area)
 "eh" = (/dz{id = 55; transportid = 55},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; transportid = 55; zLevel = 0},/obj/electro/battery/smes{transportid = 55},/obj/structure/shuttle_wall{transportid = 55},/turf/floor/plating,/area)
 "ei" = (/dz{id = 55; transportid = 55},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; transportid = 55; zLevel = 0},/obj/structure/chair{dir = 8; icon_state = "chair"; transportid = 55},/obj/structure/shuttle_wall/inner{transportid = 55},/turf/floor/plating,/area)
-"ej" = (/obj/electro/cable/termo{dir = 4},/turf/floor,/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -255,7 +254,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawbwbwbweeeeeebQaaaaaaabababacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawbwdTedeiehefbQaaaaaaabdydycqcqababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawbwbwegeeeeeebQbQbQbQabdSaHbuaHafababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakaoaVaVaVaVaVaVaVaVaWaVaVahbCejcNbCbCalamanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakaoaVaVaVaVaVaVaVaVaWaVaVahbCaScNbCbCalamanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeagawawawawawawawawabapaqajaHaHbibjbjaZaHarabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacababbQbQbQabdMbQasacacacababasatauababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabavawawawawawawawabdOdwcVdPawawawawawasaxaiayababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

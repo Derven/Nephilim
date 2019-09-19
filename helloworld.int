@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1568732031
+LAST_COMPILE_TIME: 1568903933
 DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons skin 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: icons\pipes.dmi;code\.mob\organs.dm;code\obj\machinery.dm;code\power.dm;icons\structure.dmi;icons\electro.dmi;icons\physicscable.dmi;galaxy2.dmm;skin\interface.dm;code\mob.dm;code\obj\computer.dm;code\topics.dm;code\obj\stacks.dm
-FILE: code\mob.dm
+WINDOW: icons\pipes.dmi;code\.mob\organs.dm;code\obj\machinery.dm;code\power.dm;icons\structure.dmi;icons\electro.dmi;icons\physicscable.dmi;galaxy2.dmm;nephilim.dmm;code\obj\structure\lattice.dm;code\atmos.dm;code\mob.dm;code\.mob\interact.dm;code\atom.dm;code\obj\structure\ladder.dm;code\obj\stacks.dm;code\obj\atmos_devices.dm
+FILE: code\obj\structure\lattice.dm
 */
 // END_INTERNALS

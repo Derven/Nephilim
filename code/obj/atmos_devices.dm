@@ -42,6 +42,7 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/connected = 0
 	var/id // Плохое дервенорешение
 	var/reagent_name = null
+	ru_name = "канистра(баллон)"
 
 	attackby(var/mob/M, var/obj/item/I)
 		var/turf/T = src.loc

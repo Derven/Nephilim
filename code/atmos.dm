@@ -47,38 +47,39 @@ var/min_temperature = -380
 				M.melt()
 
 	proc/burning()
-		if(!reagents.has_reagent("oxygen", 15))
-			temperature = temperature / 2
-			var/list/turf/TURFS = list()
-			TURFS = check_in_cardinal(1)
-			for(var/turf/floor/F in TURFS)
-				if(F.temperature > temperature)
-					F.temperature -= F.temperature / 4
-			return
-		if(reagents.get_reagent_amount("oxygen") > 0 && reagents.get_reagent_amount("plasma") > 0 && initiate_burning)
-			if(temperature < 100)
-				temperature += 100
-		if(temperature > 100)
-			melting()
-			var/list/turf/TURFS = list()
-			TURFS = check_in_cardinal(1)
-			for(var/turf/floor/F in TURFS)
-				if(F.temperature < temperature)
-					F.temperature += temperature / 2
-			if(reagents.get_reagent_amount("water") > 0)
-				temperature -= reagents.get_reagent_amount("water") * 3
-				reagents.remove_reagent("water", temperature)
-			if(reagents.get_reagent_amount("oxygen") > 0)
-				reagents.remove_reagent("oxygen", 1)
-				temperature += rand(reagents.get_reagent_amount("plasma") + reagents.get_reagent_amount("oxygen") / 20)
-				reagents.add_reagent("co2", 1)
-			if(reagents.get_reagent_amount("plasma") > 0)
-				reagents.remove_reagent("plasma", 1)
+		if(reagents)
+			if(!reagents.has_reagent("oxygen", 15))
+				temperature = temperature / 2
+				var/list/turf/TURFS = list()
+				TURFS = check_in_cardinal(1)
+				for(var/turf/floor/F in TURFS)
+					if(F.temperature > temperature)
+						F.temperature -= F.temperature / 4
+				return
+			if(reagents.get_reagent_amount("oxygen") > 0 && reagents.get_reagent_amount("plasma") > 0 && initiate_burning)
+				if(temperature < 100)
+					temperature += 100
+			if(temperature > 100)
+				melting()
+				var/list/turf/TURFS = list()
+				TURFS = check_in_cardinal(1)
+				for(var/turf/floor/F in TURFS)
+					if(F.temperature < temperature)
+						F.temperature += temperature / 2
+				if(reagents.get_reagent_amount("water") > 0)
+					temperature -= reagents.get_reagent_amount("water") * 3
+					reagents.remove_reagent("water", temperature)
 				if(reagents.get_reagent_amount("oxygen") > 0)
-					temperature += rand(reagents.get_reagent_amount("plasma") + reagents.get_reagent_amount("oxygen") / 10)
-				reagents.add_reagent("oxygen", 1)
-		if(temperature > 10000)
-			temperature = 10000
+					reagents.remove_reagent("oxygen", 1)
+					temperature += rand(reagents.get_reagent_amount("plasma") + reagents.get_reagent_amount("oxygen") / 20)
+					reagents.add_reagent("co2", 1)
+				if(reagents.get_reagent_amount("plasma") > 0)
+					reagents.remove_reagent("plasma", 1)
+					if(reagents.get_reagent_amount("oxygen") > 0)
+						temperature += rand(reagents.get_reagent_amount("plasma") + reagents.get_reagent_amount("oxygen") / 10)
+					reagents.add_reagent("oxygen", 1)
+			if(temperature > 10000)
+				temperature = 10000
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(!istype(src, /turf/floor/openspess))
@@ -126,20 +127,21 @@ var/min_temperature = -380
 						call_message(5, "ниша в полу открываетс€")
 
 	proc/overlayupdate()
-		overlays.Cut()
-		if(reagents.get_reagent_amount("water") > 0)
-			overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_0",layer = 3))
-		switch(reagents.get_reagent_amount("water"))
-			if(1 to 10)
-				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_1",layer = 7))
-			if(11 to 30)
-				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_2",layer = 7))
-			if(31 to 50)
-				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_3",layer = 7))
-			if(51 to 99999999)
-				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_4",layer = 7))
-		if(reagents.get_reagent_amount("oxygen") > 0 && temperature > 100)
-			overlays.Add(image(icon = src.icon,icon_state = "fire",layer = 2.1))
+		if(reagents)
+			overlays.Cut()
+			if(reagents.get_reagent_amount("water") > 0)
+				overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_0",layer = 3))
+			switch(reagents.get_reagent_amount("water"))
+				if(1 to 10)
+					overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_1",layer = 7))
+				if(11 to 30)
+					overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_2",layer = 7))
+				if(31 to 50)
+					overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_3",layer = 7))
+				if(51 to 99999999)
+					overlays.Add(image(icon = src.icon,icon_state = "wateroverlay_4",layer = 7))
+			if(reagents.get_reagent_amount("oxygen") > 0 && temperature > 100)
+				overlays.Add(image(icon = src.icon,icon_state = "fire",layer = 2.1))
 
 
 	openspess
@@ -148,6 +150,8 @@ var/min_temperature = -380
 		layer = 8
 
 		Crossed(atom/movable/O2)
+			for(var/obj/structure/catwalk/C in src)
+				return
 			if(z > 1)
 				if(istype(O2, /mob))
 					O2:message_to_usr("¬ы падаете вниз!")
@@ -196,7 +200,7 @@ var/min_temperature = -380
 			overlayupdate()
 
 		for(var/turf/FLOOR in TURFS)
-			if(istype(FLOOR, /turf/floor))
+			if(istype(FLOOR, /turf/floor) && FLOOR.reagents)
 				FLOOR.pressure = FLOOR.reagents.get_total_amount() * round(FLOOR.temperature / 2)//round((FLOOR.oxygen + FLOOR.co2 + FLOOR.plasma + FLOOR.water) * FLOOR.temperature / 2)
 				pressure =  reagents.get_total_amount() * round(temperature / 2)//round((oxygen + co2 + plasma + water) * temperature / 2)
 

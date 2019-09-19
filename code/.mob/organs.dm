@@ -238,11 +238,11 @@
 		if(owner)
 			switch(skin.health)
 				if(15 to 3000)
-					oskin = image(icon = 'icons/human.dmi',icon_state = "[skin.istate]",layer = 4)
+					oskin = image(icon = 'icons/human.dmi',icon_state = "[skin.istate]",layer = owner.layer + 2)
 				if(5 to 15)
-					oskin = image(icon = 'icons/human.dmi',icon_state = "[skin.damagedstate]",layer = 4)
+					oskin = image(icon = 'icons/human.dmi',icon_state = "[skin.damagedstate]",layer = owner.layer + 2)
 				if(-999 to 5)
-					oskin = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
+					oskin = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
 
 			return oskin
 
@@ -251,15 +251,15 @@
 		if(owner)
 			switch(muscle.health)
 				if(50 to 10000)
-					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.istate]",layer = 4)
+					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.istate]",layer = owner.layer + 2)
 				if(30 to 50)
-					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.damagedstate]",layer = 4)
+					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.damagedstate]",layer = owner.layer + 2)
 				if(-999 to 5)
 					del_hud()
 					if(name == "chest" || name == "l_leg" || name == "r_leg")
 						if(!owner.rest)
 							owner.rest()
-					omuscle = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
+					omuscle = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
 
 					var/obj/item/organ/O = new src.type(owner.loc)
 					O.muscle.health = muscle.health
@@ -278,13 +278,13 @@
 		if(owner)
 			switch(bone.health)
 				if(5 to 10000)
-					obone = image(icon = 'icons/human.dmi',icon_state = "[bone.istate]",layer = 4)
+					obone = image(icon = 'icons/human.dmi',icon_state = "[bone.istate]",layer = owner.layer + 2)
 				if(-999 to 5)
 					if(name == "chest" || name == "l_leg" || name == "r_leg")
 						if(!owner.rest)
 							owner.rest()
 					del_hud()
-					obone = image(icon = 'icons/human.dmi',icon_state = "null",layer = 4)
+					obone = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
 			return obone
 
 	proc/check_pain()
