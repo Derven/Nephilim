@@ -114,6 +114,138 @@
 		cutting = 2
 		stitching = 0
 
+	tankgun
+		icon_state = "tankgun"
+		name = "tankgun"
+		ru_name = "пневмострел"
+		var/obj/item/tank/ballon = null //баллон
+		var/obj/item/bullet = null //снаряд
+
+		attackby(var/mob/M, var/obj/item/I)
+			if(istype(I, /obj/item/tank))
+				if(!ballon)
+					ballon = I
+					usr:drop()
+					I.loc = src
+					var/icon/I2 = new('items.dmi', "tankgun")
+					var/icon/J = new('items.dmi', "oxygen")
+					I2.Blend(J, ICON_OVERLAY)
+					icon = I2
+
+
+				else
+					if(!bullet)
+						bullet = I
+						usr:drop()
+						I.loc = src
+			else
+				if(!bullet)
+					bullet = I
+					usr:drop()
+					I.loc = src
+
+		verb/detach_tank()
+			set src in world
+			if(usr:get_slot("rhand"):SLOT == src || usr:get_slot("lhand"):SLOT == src)
+				ballon.loc = usr.loc
+				ballon = null
+				icon = initial(icon)
+				usr:get_slot("lhand", usr):refresh_slot()
+				usr:get_slot("rhand", usr):refresh_slot()
+
+		verb/detach_bullet()
+			set src in world
+			if(usr:get_slot("rhand"):SLOT == src || usr:get_slot("lhand"):SLOT == src)
+				bullet.loc = usr.loc
+				bullet = null
+				usr:get_slot("lhand", usr):refresh_slot()
+				usr:get_slot("rhand", usr):refresh_slot()
+
+		proc/pew()
+			if(ballon.get_pressure() > 100)
+				bullet.damage_zone = usr:damagezone
+				bullet.speed = round(ballon.get_pressure() / 9)
+				bullet.loc = get_step(usr.loc, get_dir(bullet.target, src))
+				bullet.Move(get_step(src, get_dir(bullet.target, src)))
+				ballon.minus_pressure(ballon.get_pressure() / 9)
+				bullet = null
+	tasergun
+		icon_state = "taser"
+		name = "taser"
+		ru_name = "тазер"
+		var/obj/item/devicebattery/DB = null //батарейка
+		var/obj/energy_sphere/bullet
+		amperage = 1
+		voltage = 1
+		var/maxvltamp = 1700
+
+		attackinhand(var/mob/M)
+			M << browse(null,"window=[name]")
+			var/list/powerstat = list()
+			var/list/hrefs = list()
+			powerstat.Add(fix1103("Вольтаж заряда: [voltage]"))
+			powerstat.Add(fix1103("Сила тока заряда: [amperage]"))
+			powerstat.Add(fix1103("Заряд батареи: [DB ? DB.charge_level : "батарея отсутствует"]"))
+			hrefs.Add("voltage=1")
+			hrefs.Add("amperage=1")
+			hrefs.Add("null=null")
+			special_browse(M, nterface(powerstat, hrefs))
+
+		Topic(href,href_list[])
+			if(href_list["amperage"] == "1")
+				amperage = input(usr, "Выставить силу тока","ваше значение",amperage) as num
+				if(amperage <= 0)
+					amperage = 1
+			if(href_list["voltage"] == "1")
+				voltage = input(usr, "Выставить напряжение","ваше значение",voltage) as num
+				if(voltage <= 0)
+					voltage = 1
+			attackinhand(usr)
+
+		attackby(var/mob/M, var/obj/item/I)
+			if(istype(I, /obj/item/devicebattery))
+				if(!DB)
+					DB = I
+					usr:drop()
+					I.loc = src
+					var/icon/I2 = new('items.dmi', "taser")
+					var/icon/J = new('computer.dmi', I.icon_state)
+					I2.Blend(J, ICON_OVERLAY)
+					icon = I2
+					attackinhand(usr)
+
+		verb/detach_battery()
+			set src in world
+			if(usr:get_slot("rhand"):SLOT == src || usr:get_slot("lhand"):SLOT == src)
+				DB.loc = usr.loc
+				DB = null
+				icon = initial(icon)
+				usr:get_slot("lhand", usr):refresh_slot()
+				usr:get_slot("rhand", usr):refresh_slot()
+
+		proc/pew()
+			if(DB)
+				if(DB.charge_level > 0 && DB.charge_level > amperage * voltage)
+					if(amperage * voltage > maxvltamp)
+						usr:call_message(5, "На [ru_name] был подан большой ток, все вокруг искрит.")
+						usr:drop()
+						usr:powerdamage((amperage * voltage) / 2)
+					DB.charge_level -= amperage * voltage
+					bullet = new /obj/energy_sphere(get_step(usr.loc, get_dir(target, src)))
+					bullet.target = target
+					target = null
+					bullet.speed = 50
+					bullet.amperage = amperage
+					bullet.voltage = voltage
+					bullet.Move(get_step(src, get_dir(bullet.target, src)))
+					bullet = null
+
+/obj/energy_sphere
+	icon = 'items.dmi'
+	icon_state = "electrode"
+	voltage = 1
+	amperage = 1
+
 /obj/item/unconnected_cable
 	name = "copper_cable"
 	ru_name = "неподключенный кабель"

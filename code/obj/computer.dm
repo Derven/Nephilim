@@ -48,10 +48,14 @@
 			if(checkoverlay == 0)
 				overlays.Add(MAINBOARD)
 				checkoverlay = 1
-			use_power()
+			if(use_power())
+				ul_SetLuminosity(2, 3, 2)
+			else
+				ul_SetLuminosity(0, 0, 0)
 		else
 			overlays.Cut()
 			nocontrol()
+			ul_SetLuminosity(0, 0, 0)
 
 /obj/machinery/computer/eng
 	icon = 'computer.dmi'
@@ -91,9 +95,13 @@
 						if(reservedfortime < B.full_charge)
 							B.full_charge -= reservedfortime
 							B.charge += reservedfortime
-			use_power()
+			if(use_power())
+				ul_SetLuminosity(2, 3, 2)
+			else
+				ul_SetLuminosity(0, 0, 0)
 		else
 			overlays.Cut()
+			ul_SetLuminosity(0, 0, 0)
 			//nocontrol()
 
 	attack_hand(var/mob/M)
@@ -611,9 +619,13 @@
 			if(checkoverlay == 0)
 				overlays.Add(MAINBOARD)
 				checkoverlay = 1
-			use_power()
+			if(use_power())
+				ul_SetLuminosity(2, 3, 2)
+			else
+				ul_SetLuminosity(0, 0, 0)
 		else
 			overlays.Cut()
+			ul_SetLuminosity(0, 0, 0)
 			//nocontrol()
 
 	attack_hand(var/mob/M)

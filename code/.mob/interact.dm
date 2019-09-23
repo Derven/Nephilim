@@ -131,7 +131,44 @@
 				usr:throwmode = !usr:throwmode
 				usr:drop(turn(get_dir(src,usr), 180), rand(3,4))
 				usr:get_slot("throw"):color = null
+				if(usr:get_slot("rhand"))
+					if(usr:get_slot("rhand"):active)
+						usr:get_slot("rhand").overlays.Cut()
+				if(usr:get_slot("lhand"))
+					if(usr:get_slot("lhand"):active)
+						usr:get_slot("lhand").overlays.Cut()
 				return
+
+		if(get_dist(src, usr) > 1 && get_dist(src, usr) < 127)
+
+			if(usr:get_slot("rhand"))
+				if(usr:get_slot("rhand"):active)
+					if(istype(usr:get_slot("rhand"):SLOT, /obj/item/tools/tankgun))
+						var/obj/item/tools/tankgun/tankgun = usr:get_slot("rhand"):SLOT
+						if(tankgun.bullet)
+							tankgun.bullet.target = src
+							tankgun.pew()
+					if(istype(usr:get_slot("rhand"):SLOT, /obj/item/tools/tasergun))
+						var/obj/item/tools/tasergun/tasergun = usr:get_slot("rhand"):SLOT
+						tasergun.target = src
+						tasergun.pew()
+
+			if(usr:get_slot("lhand"))
+				if(usr:get_slot("lhand"):active)
+					if(istype(usr:get_slot("lhand"):SLOT, /obj/item/tools/tankgun))
+						var/obj/item/tools/tankgun/tankgun = usr:get_slot("rhand"):SLOT
+						if(tankgun.bullet)
+							tankgun.bullet.target = src
+							tankgun.pew()
+					if(istype(usr:get_slot("rhand"):SLOT, /obj/item/tools/tasergun))
+						var/obj/item/tools/tasergun/tasergun = usr:get_slot("rhand"):SLOT
+						tasergun.target = src
+						tasergun.pew()
+
+	if(usr:get_slot("lhand", usr))
+		usr:get_slot("lhand", usr):refresh_slot()
+	if(usr:get_slot("rhand", usr))
+		usr:get_slot("rhand", usr):refresh_slot()
 
 /atom/MouseDrop(atom/over_object as mob|obj|turf|area)
 	if(get_dist(src, over_object) < 2)
@@ -141,7 +178,6 @@
 			return
 		..()
 		return
-
 
 /atom/proc/call_message(var/myrange, var/msg)
 	for(var/mob/HEAR in range(myrange, src))

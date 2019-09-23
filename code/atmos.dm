@@ -40,6 +40,7 @@ var/min_temperature = -380
 	pressure = 0
 	ru_name = "пол"
 	layer = 2
+	var/initi = 0
 
 	proc/melting()
 		for(var/atom/movable/M in src)
@@ -148,6 +149,15 @@ var/min_temperature = -380
 		icon_state = "openspace"
 		ru_name = "дыра в полу"
 		layer = 8
+
+		attackby(var/mob/M, var/obj/item/I)
+			for(var/obj/structure/catwalk/CW in src)
+				return
+			if(istype(I, /obj/item/stack/metal))
+				I:amount -= 1
+				I:check_amount(usr)
+				call_message(5, "[ru_name] крепится навес")
+				new /obj/structure/catwalk(src)
 
 		Crossed(atom/movable/O2)
 			for(var/obj/structure/catwalk/C in src)

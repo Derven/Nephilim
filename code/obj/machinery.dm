@@ -331,6 +331,10 @@
 	ru_name = "активатор искр"
 	anchored = 1
 
+	New()
+		..()
+		tocontrol()
+
 	proc/generate_spark()
 		for(var/obj/electro/cable/C in src.loc)
 			powernet = C.powernet
@@ -341,3 +345,40 @@
 
 	attack_hand(var/mob/M)
 		generate_spark()
+
+/obj/machinery/light
+	icon = 'lighting.dmi'
+	icon_state = "lighting"
+	name = "lamp"
+	ru_name = "лампа"
+	anchored = 1
+
+	need_voltage = 12
+	need_amperage = 2
+	max_VLTAMP = 1000000
+
+	New()
+		..()
+		tocontrol()
+
+	process()
+		if(use_power())
+			icon_state = "lighting"
+			ul_SetLuminosity(5, 5, 5)
+		else
+			icon_state = "nolighting"
+			ul_SetLuminosity(0, 0, 0)
+
+
+	east
+		pixel_x = 32
+
+	west
+		pixel_x = -32
+
+	south
+		pixel_y = -32
+
+	north
+		pixel_y = 32
+

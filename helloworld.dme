@@ -17,11 +17,13 @@
 // BEGIN_INCLUDE
 #include "helloworld.dm"
 #include "nephilim.dmm"
+#include "code\area.dm"
 #include "code\atmos.dm"
 #include "code\atom.dm"
 #include "code\controller_hueroller.dm"
 #include "code\fix255.dm"
 #include "code\ghost.dm"
+#include "code\luna_porting.dm"
 #include "code\mob.dm"
 #include "code\mob_damage_system.dm"
 #include "code\multitile.dm"

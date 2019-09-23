@@ -19,11 +19,19 @@
 				I:check_amount(M)
 				del(src)
 
+/obj/structure/strange_machine
+	icon = 'structure.dmi'
+	name = "machinery"
+	ru_name = "странное устройство"
+	density = 1
+	anchored = 1
+
 /obj/structure/catwalk
 	icon = 'structure.dmi'
 	icon_state = "catwalk"
 	layer = 8
 	var/destroyed = 0
+	anchored = 1
 
 	New()
 		..()
@@ -32,8 +40,8 @@
 				if(M != src)
 					M.layer = M.layer + 10
 
-	attack_hand()
-		destroy()
+	//attack_hand()
+	//	destroy()
 
 	proc/fall()
 		..()
@@ -73,7 +81,7 @@
 		del(src)
 
 	Crossed(atom/movable/O2)
-		O2.layer = 10
+		O2.layer = layer + 1
 
 	Uncrossed(atom/movable/O2)
 		..()

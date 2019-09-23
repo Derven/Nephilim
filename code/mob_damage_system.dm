@@ -7,21 +7,30 @@
 				O = ORGAN.damagezone_to_organ(zone)
 				O.attackby(M, I)
 
-	proc/impactdamage(var/damage)
-		for(var/obj/item/organ/O in src)
-			if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
-				if(istype(O, /obj/item/organ/eyes))
-					return 0
-				if(O.skin.name)
-					O.skin.health -= round(damage / 2)
-				if(O.bone.name)
-					O.bone.health -= round(damage)
-				O.muscle.health -= round(damage / 2)
-			else
-				O.muscle.health -= round(damage / 2)
+	proc/impactdamage(var/damage, var/zone)
+		if(zone == null)
+			for(var/obj/item/organ/O in src)
+				if(!istype(O, /obj/item/organ/lungs) && !istype(O, /obj/item/organ/heart))
+					if(istype(O, /obj/item/organ/eyes))
+						return 0
+					if(O.skin.name)
+						O.skin.health -= round(damage / 2)
+					if(O.bone.name)
+						O.bone.health -= round(damage)
+					O.muscle.health -= round(damage / 2)
+				else
+					O.muscle.health -= round(damage / 2)
+		else
+			for(var/obj/item/organ/O in src)
+				if(O.damagezone_to_organ(zone) != null)
+					if(O.skin.name)
+						O.skin.health -= round(damage / 2)
+					if(O.bone.name)
+						O.bone.health -= round(damage)
+					O.muscle.health -= round(damage / 2)
 
-	collisionBumped(var/speeedwagon)
-		impactdamage(speeedwagon)
+	collisionBumped(var/speeedwagon, var/zone)
+		impactdamage(speeedwagon, zone)
 
 
 	proc/chemdamage(var/damage)
@@ -64,6 +73,7 @@
 		return 0
 
 	proc/powerdamage(var/damage)
+		stuned += round(damage)
 		switch(damage)
 			if(0 to LITE_UDAR)
 				return 0

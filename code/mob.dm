@@ -105,6 +105,20 @@
 	var/obj/item/organ/stomach/ostomach
 	var/obj/item/organ/eyes/eyes
 	var/throwmode = 0
+	var/stuned = 0
+
+	proc/stun()
+		if(stuned > 0)
+			if(!rest)
+				rest()
+			while(stuned > 0)
+				stuned -= 1
+				pixel_x += rand(-3,3)
+				pixel_y += rand(-3,3)
+				sleep(1)
+				pixel_x = initial(pixel_x)
+				pixel_y = initial(pixel_y)
+
 
 	//panch
 	var/punch_intent = PANCHSBOKY
@@ -571,6 +585,7 @@
 			chair = 1
 		if(!chair)
 			buckled = 0
+		stun()
 
 
 	proc/blood_process()

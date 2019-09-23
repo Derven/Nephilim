@@ -30,6 +30,7 @@
 			icon_state = "hull"
 
 		New()
+			ul_UpdateLight()
 			..()
 			var/datum/reagents/R = new/datum/reagents(1000)
 			reagents = R
@@ -51,6 +52,7 @@
 			world << "[reagents.get_reagent_amount("oxygen")];[temperature];[pressure]"
 
 		New()
+			ul_UpdateLight()
 			CRATE = new /atom/movable()
 			tocontrol()
 			if(z >= 1 && z < world.maxz)

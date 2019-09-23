@@ -157,8 +157,8 @@
 		if(istype(I, /obj/item/stack/glass))
 			if(glassed == 0)
 				glassed = 1
-				usr:drop()
-				I.loc = src
+				I:amount -= 1
+				I:check_amount(usr)
 			else
 				call_message(3, "к [src.ru_name] уже подключен дисплей")
 			check_stages()

@@ -41,6 +41,13 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 	var/slot_neutral = 1
 	var/slot_level = 1
 
+	proc/refresh_slot()
+		if(!SLOT)
+			overlays.Cut()
+		else
+			overlays.Cut()
+			overlays.Add(SLOT)
+
 	proc/put_to_slot()
 		if(istype(SLOT, type_of_slot))
 			if(!istype(src, /obj/hud/lhand) && !istype(src, /obj/hud/rhand))
@@ -236,6 +243,11 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 								if(length(SLOT.contents) < 2  && I.weight < 1)
 									usr:drop()
 									I.Move(SLOT)
+							if(!istype(SLOT, /obj/item/clothing/uniform) && !istype(SLOT, /obj/item/clothing/backpack/back))
+								if(usr:get_slot("rhand", usr):SLOT)
+									SLOT.attackby(usr, usr:get_slot("rhand", usr):SLOT)
+									usr:get_slot("lhand", usr):refresh_slot()
+									usr:get_slot("rhand", usr):refresh_slot()
 
 		robohand
 			name = "lhand"
@@ -313,16 +325,18 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		name = "drop"
 		icon_state = "drop"
 		layer = 25
-		screen_loc = "4,2"
+		screen_loc = "6,2"
 
 		Click()
 			usr:drop()
+			usr:get_slot("lhand", usr):refresh_slot()
+			usr:get_slot("rhand", usr):refresh_slot()
 
 	throwbutton
 		name = "throw"
 		icon_state = "throw"
 		layer = 25
-		screen_loc = "6,2"
+		screen_loc = "7,2"
 
 		Click()
 			usr:throwmode = !usr:throwmode
@@ -381,7 +395,11 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 								if(length(SLOT.contents) < 2 &&  I.weight < 1)
 									usr:drop()
 									I.Move(SLOT)
-
+							if(!istype(SLOT, /obj/item/clothing/uniform) && !istype(SLOT, /obj/item/clothing/backpack/back))
+								if(usr:get_slot("lhand", usr):SLOT)
+									SLOT.attackby(usr, usr:get_slot("lhand", usr):SLOT)
+									usr:get_slot("lhand", usr):refresh_slot()
+									usr:get_slot("rhand", usr):refresh_slot()
 		robohand
 			name = "rhand"
 			icon_state = "rhand_0"
@@ -542,7 +560,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		name = "tank"
 		icon_state = "oxygenslot"
 		layer = 25
-		screen_loc = "5,2"
+		screen_loc = "9,2"
 		slotname = "tank"
 		type_of_slot = /obj/item/tank
 

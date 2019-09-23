@@ -7,6 +7,7 @@
 	var/accelerate = 0
 	var/structurehealth = 100
 	var/reality = 1
+	var/atom/target = null
 
 	afterattack(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/tools/drill))
@@ -58,13 +59,47 @@
 
 	Bump(atom/Obstacle)
 		if(Obstacle.collision(src, 0) > 0)
-			Obstacle.collisionBumped(Obstacle.collision(src, 1))
-			collisionBumped(Obstacle.collision(src, 0))
-			call_message(5, "[src.ru_name ? src.ru_name : src.name ] сталкивается с [Obstacle.ru_name] ")
-			if(istype(src, /mob/living))
-				if(src:client)
-					src:client.shakecamera()
+			if(istype(Obstacle, /obj/energy_sphere))
+				if(istype(src, /mob/living/human))
+					src:powerdamage(Obstacle:amperage * Obstacle:voltage)
+				if(Obstacle:target)
+					Obstacle:target = null
+				new /obj/effect/sparks(Obstacle.loc)
+				del(Obstacle)
+			if(istype(src, /obj/energy_sphere))
+				if(istype(Obstacle, /mob/living/human))
+					Obstacle:powerdamage(src:amperage * src:voltage)
+				if(target)
+					target = null
+				new /obj/effect/sparks(src.loc)
+				del(src)
+			else
+				Obstacle.collisionBumped(Obstacle.collision(src, 1), damage_zone)
+				if(target)
+					target = null
+				collisionBumped(Obstacle.collision(src, 0), damage_zone)
+				damage_zone = null
+				call_message(5, "[src.ru_name ? src.ru_name : src.name ] сталкивается с [Obstacle.ru_name] ")
+				if(istype(src, /mob/living))
+					if(src:client)
+						src:client.shakecamera()
 		else
+			if(istype(Obstacle, /obj/energy_sphere))
+				if(istype(src, /mob/living/human))
+					src:powerdamage(Obstacle:amperage * Obstacle:voltage)
+				if(Obstacle:target)
+					Obstacle:target = null
+				new /obj/effect/sparks(Obstacle.loc)
+				del(Obstacle)
+			if(istype(src, /obj/energy_sphere))
+				if(istype(Obstacle, /mob/living/human))
+					Obstacle:powerdamage(src:amperage * src:voltage)
+				if(target)
+					target = null
+				new /obj/effect/sparks(src.loc)
+				del(src)
+			if(target)
+				target = null
 			bumpedzero(Obstacle)
 
 	proc/MoveToVent(var/obj/target, var/pump_volume)
@@ -110,8 +145,16 @@
 				if(istype(src, /mob/living))
 					if(src:client)
 						src:client.dir = NORTH
-				step(src,moving_vector,0)
-				dir = moving_vector
+				if(!target)
+					step(src,moving_vector,0)
+					dir = moving_vector
+				else
+					step(src,get_dir(src, target),0)
+					dir = get_dir(src, target)
+					if(src.loc == target || src.loc == target.loc)
+						target = null
+						step(src,moving_vector,0)
+						dir = moving_vector
 		density = initial(density)
 
 
@@ -119,6 +162,7 @@
 /atom
 	var/ru_name
 	var/hardness = 1
+	var/damage_zone = null
 
 	proc/collision(var/atom/movable/M, var/impacted)
 		if((M.speed + M.accelerate) * M.hardness > 0)

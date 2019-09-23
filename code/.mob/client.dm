@@ -2,7 +2,7 @@ client
 	var/inmove = 0
 	Move()
 		if(istype(mob, /mob/living/human))
-			if(mob:rest || inmove == 1)
+			if(mob:rest || inmove == 1 || mob:stuned > 0)
 				return
 			var/turf/oldloc = mob.loc
 			var/spd = 0
