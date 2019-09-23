@@ -53,7 +53,7 @@
 "ba" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/atmospherics/pipe/newpipe,/turf/floor/plating,/area)
 "bb" = (/obj/machinery/atmospherics/connector,/obj/machinery/portable_atmospherics/canister/water,/turf/floor/plating,/area)
 "bc" = (/obj/machinery/airlock,/obj/machinery/power_block,/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/airlock/firedoor,/turf/floor,/area)
-"bd" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/floor,/area)
+"bd" = (/obj/structure/closet,/turf/floor,/area)
 "be" = (/obj/machinery/airlock,/obj/machinery/power_block,/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/machinery/airlock/firedoor,/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor,/area)
 "bf" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/wall{icon_state = "wall0"},/area)
 "bg" = (/obj/electro/cable/switcher,/turf/wall{icon_state = "wall0"},/area)
@@ -74,6 +74,7 @@
 "bv" = (/obj/structure/chair{icon_state = "chair"; dir = 4},/obj/machinery/light/west,/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor,/area)
 "bw" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
 "bx" = (/obj/structure/strange_machine{icon_state = "cryoshit"},/turf/floor,/area)
+"by" = (/obj/item/tank/oxygen,/turf/floor,/area)
 "bz" = (/obj/structure/strange_machine{icon_state = "cryoshit"},/obj/electro/cable/copper,/turf/floor,/area)
 "bA" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
 "bB" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
@@ -105,6 +106,14 @@
 "cb" = (/obj/structure/strange_machine{icon_state = "cryoconsol"},/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor,/area)
 "cc" = (/obj/landmark,/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor,/area)
 "cd" = (/obj/machinery/light/south,/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor,/area)
+"ce" = (/obj/item/clothing/helmet/space,/turf/floor,/area)
+"cf" = (/obj/item/clothing/uniform/basic,/turf/floor,/area)
+"cg" = (/obj/item/clothing/suit/spacesuit,/turf/floor,/area)
+"ch" = (/obj/item/clothing/backpack/back,/turf/floor,/area)
+"ci" = (/obj/structure/closet/oxycloset,/turf/floor,/area)
+"cj" = (/obj/item/clothing/gloves,/turf/floor,/area)
+"ck" = (/obj/structure/chair{icon_state = "chair"; dir = 4},/obj/item/clothing/gloves,/turf/floor,/area)
+"cl" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/obj/item/clothing/boxers,/turf/floor,/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -133,12 +142,12 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeafadafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafafacacahahahacacahahahacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeafagaiajakapawacaxayakakacaUaUabacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacalacaXbibmakacakazavaAacababbnacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacakakamacacacaBacacacaCacacacababboacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacakakakakaMaNaObpbtbqabaDbFbnacababboacabababababacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaFaiaGakakakakanaPaHbGaraoaIaobraJabaWbobcababababbnacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacakakaqacacacaKacacacaCacaYacaVbdbsbeababababboacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeafagaiajakapawacaxayakakacaUaUbdacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacalacaXbibmakacakazavaAacbyabbnacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacakakamacacacaBacacacaCacacaccebyboacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacakakakakaMaNaObpbtbqabaDbFbnaccfcgboacchciciciabacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaFaiaGakakakakanaPaHbGaraoaIaobraJcjaWbobcabchababbnacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacakakaqacacacaKacacacaCacaYacckclbsbeababchabboacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacalacaXavbmakacaZauavbaacaVaDabbfbgbDbDbEbuacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacakakasaiatapbhaLacaZakakbbacbvbwaQacabababboabababacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacakakakakacacbjacacacacacacacacacaCacacbxbSbTaEabababacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

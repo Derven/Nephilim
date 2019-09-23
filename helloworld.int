@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1569239099
+LAST_COMPILE_TIME: 1569239117
 DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons skin 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
 WINDOW: icons\pipes.dmi;code\.mob\organs.dm;code\obj\machinery.dm;code\power.dm;icons\structure.dmi;icons\electro.dmi;galaxy2.dmm;nephilim.dmm;code\obj\structure\lattice.dm
-FILE: code\obj\structure\lattice.dm
+FILE: nephilim.dmm
 */
 // END_INTERNALS
