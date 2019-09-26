@@ -31,6 +31,8 @@ obj
 	var/name = "datum"
 	var/istate = "0"
 
+var/list/cardinal = list(SOUTH, NORTH, WEST, EAST)
+
 #define SOLID 1
 #define LIQUID 2
 #define GAS 3

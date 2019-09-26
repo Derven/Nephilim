@@ -430,6 +430,18 @@ var/list/obj/machinery/machines = list()
 			src.loc:initiate_burning = 0
 			del(src)
 
+/obj/effect/smoke
+	name = "spaks"
+	icon = 'effects.dmi'
+	icon_state = "smoke"
+	opacity = 1
+
+	New()
+		..()
+		if(istype(src.loc, /turf))
+			spawn(rand(4,6))
+				del(src)
+
 /obj/decor/cable_part
 	name = "cable"
 	icon = 'power.dmi'

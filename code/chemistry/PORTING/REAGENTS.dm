@@ -98,6 +98,26 @@ datum
 			name = "lightgas"
 			id = "lightgas"
 
+		secgas //слезоточивый газ
+			name = "secgas"
+			id = "secgas"
+
+			reaction_mob(var/mob/living/human/M, var/volume) //By default we have a chance to transfer some
+				M.cry(rand(1,3))
+				return
+
+			reaction_turf(var/turf/T, var/volume)
+				if(prob(10))
+					new /obj/effect/smoke(T)
+				holder.remove_reagent(src.id, rand(0.1,0.4))
+				for(var/atom/movable/M in T)
+					if(istype(M, /mob/living/human))
+						reaction_mob(M, volume)
+					else
+						reaction_obj(M, volume)
+				//src = null
+				return
+
 		psilocybin
 			name = "psilocybin"
 			id = "psilocybin"

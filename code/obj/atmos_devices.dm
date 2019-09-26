@@ -73,6 +73,10 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	high_volume
 		oxygen = 50000
 
+/obj/machinery/portable_atmospherics/canister/secgas
+	icon_state = "canister_p"
+	reagent_name = "secgas"
+
 /obj/machinery/portable_atmospherics/canister/plasma
 	//oxygen = 0
 	//nitrogen = 0

@@ -59,6 +59,8 @@
 
 	Bump(atom/Obstacle)
 		if(Obstacle.collision(src, 0) > 0)
+			if(istype(src, /obj/item/impactgrenage))
+				src:gimpact()
 			if(istype(Obstacle, /obj/energy_sphere))
 				if(istype(src, /mob/living/human))
 					src:powerdamage(Obstacle:amperage * Obstacle:voltage)

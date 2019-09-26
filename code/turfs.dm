@@ -26,12 +26,17 @@
 
 	space
 		layer = 1
+		icon = 'space.dmi'
+
 		hull
+			icon = 'turfs.dmi'
 			icon_state = "hull"
 
 		New()
-			ul_UpdateLight()
+			if(!istype(src, /turf/space/hull))
+				icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 			..()
+			ul_SetLuminosity(0, 0, 1)
 			var/datum/reagents/R = new/datum/reagents(1000)
 			reagents = R
 			R.my_atom = src

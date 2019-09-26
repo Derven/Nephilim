@@ -1,4 +1,14 @@
 /mob/living/human
+	proc/cry(var/time)
+		while(time > 0)
+			time--
+			sleep(rand(1,2))
+			for(var/obj/item/organ/O in src)
+				if(istype(O, /obj/item/organ/eyes) && O.muscle.health >= 50)
+					var/obj/hud/HUD = get_slot("blind", src)
+					if(HUD)
+						HUD.icon_state = pick("blind_1", "blind_2")
+					call_message(5, "глаза [src] слезятся ")
 
 	proc/interact_withorgan(var/obj/item/I, var/zone, var/mob/M)
 		var/obj/item/organ/O

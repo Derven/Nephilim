@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1569239117
+LAST_COMPILE_TIME: 1569513517
 DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons skin 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: icons\pipes.dmi;code\.mob\organs.dm;code\obj\machinery.dm;code\power.dm;icons\structure.dmi;icons\electro.dmi;galaxy2.dmm;nephilim.dmm;code\obj\structure\lattice.dm
+WINDOW: icons\items.dmi;icons\constructing.dmi;icons\power.dmi;icons\physicscable.dmi;icons\computer.dmi;icons\helm.dmi;icons\turfs.dmi;code\obj\structure\shuttle_wall.dm;code\obj\structure\table.dm;icons\ULIcons.dmi;icons\table.dmi;code\obj\structure\lattice.dm;helloworld.dm;code\obj\items.dm;code\mob_damage_system.dm;code\atom.dm;code\.mob\interact.dm;code\mob.dm;code\ghost.dm;icons\space.dmi;code\turfs.dm;code\chemistry\PORTING\REAGENTS.dm;code\obj\hud.dm;code\.mob\organs.dm;icons\HUD.dmi;code\obj\atmos_devices.dm;code\chemistry\PORTING\HOLDER.dm;icons\effects.dmi;code\power.dm;nephilim.dmm
 FILE: nephilim.dmm
 */
 // END_INTERNALS

@@ -149,6 +149,18 @@ var/min_temperature = -380
 		icon_state = "openspace"
 		ru_name = "дыра в полу"
 		layer = 8
+		temperature = 20
+
+		New()
+			ul_UpdateLight()
+			CRATE = new /atom/movable()
+			tocontrol()
+			var/datum/reagents/R = new/datum/reagents(1000)
+			reagents = R
+			R.my_atom = src
+			R.add_reagent("oxygen", 50)
+			R.add_reagent("nitrogen", 10)
+			..()
 
 		attackby(var/mob/M, var/obj/item/I)
 			for(var/obj/structure/catwalk/CW in src)
