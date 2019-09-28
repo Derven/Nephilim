@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1569665109
+LAST_COMPILE_TIME: 1569666000
 DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons skin 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: icons\items.dmi;icons\constructing.dmi;icons\power.dmi;icons\physicscable.dmi;icons\computer.dmi;icons\helm.dmi;icons\turfs.dmi;code\obj\structure\shuttle_wall.dm;code\obj\structure\table.dm;icons\ULIcons.dmi;icons\table.dmi;nephilim.dmm;code\obj\items.dm;code\mob.dm;code\.mob\client.dm;code\atom.dm;code\obj\structure\chair.dm;code\turfs.dm;code\atmos.dm;code\obj\landmarks.dm;code\obj\items_structure.dm;code\obj\science.dm;code\obj\stacks.dm;code\obj\tanks.dm;code\obj\structure\lattice.dm;galaxy2.dmm;code\obj\machinery.dm
+WINDOW: icons\items.dmi;icons\constructing.dmi;icons\power.dmi;icons\physicscable.dmi;icons\computer.dmi;icons\helm.dmi;icons\turfs.dmi;code\obj\structure\shuttle_wall.dm;code\obj\structure\table.dm;icons\ULIcons.dmi;icons\table.dmi;nephilim.dmm;code\obj\items.dm;code\mob.dm;code\.mob\client.dm;code\atom.dm;code\obj\structure\chair.dm;code\turfs.dm;code\atmos.dm;code\obj\landmarks.dm;code\obj\items_structure.dm;code\obj\science.dm;code\obj\stacks.dm;code\obj\tanks.dm;code\obj\structure\lattice.dm;galaxy2.dmm;code\obj\machinery.dm;icons\structure.dmi
 FILE: nephilim.dmm
 */
 // END_INTERNALS
