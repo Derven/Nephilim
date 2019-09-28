@@ -51,6 +51,17 @@
 			if(istype(get_slot("rhand"):SLOT, /obj/item/storage))
 				statpanel("right hand storage contents",get_slot("rhand"):SLOT:contents)
 
+/proc/do_after(mob/living/human/M as mob, time as num)
+	var/turf/T = M.loc
+	var/old_resting = M:rest
+	var/i = 0
+	while(M.loc == T && old_resting == M:rest)
+		sleep(1)
+		i++
+		if(i == time)
+			return 1
+	return 0
+
 /mob/living/human
 	icon = 'icons/human.dmi'
 	icon_state = "brain"
@@ -66,6 +77,8 @@
 
 	var/pullmode = 0
 	var/atom/movable/pulling
+	var/atom/movable/handcuffed
+	var/handcuffs = 0
 
 	var/image/list/humanparts = list()
 	var/image/lungs
@@ -393,6 +406,13 @@
 				call_message(7, "<b><i><h2>[usr] [mysay], \"[t]\"</h2></b></i>")
 
 	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/handcuffs))
+			if(!handcuffs)
+				call_message(5, "[usr] надевает наручники на [src]")
+				handcuffs = 1
+				M:drop()
+				I.loc = src
+
 		var/damage_target = ""
 		var/method = ""
 		switch(M:punch_intent)

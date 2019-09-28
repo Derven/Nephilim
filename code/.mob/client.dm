@@ -1,7 +1,18 @@
+/proc/check_handcuffed(var/mob/living/human/M)
+	for(var/mob/living/human/H in controlled)
+		if(H.handcuffed == M)
+			return H
+
 client
 	var/inmove = 0
 	Move()
 		if(istype(mob, /mob/living/human))
+			if(mob:handcuffed)
+				if(mob:handcuffed.anchored == 1)
+					return
+				else
+					mob:pullmode = 1
+					mob:pulling = mob:handcuffed
 			if(mob:rest || inmove == 1 || mob:stuned > 0)
 				return
 			var/turf/oldloc = mob.loc
@@ -18,6 +29,9 @@ client
 			sleep(4 - spd)
 			inmove = 0
 			..()
+			var/mob/living/human/Han = check_handcuffed(mob)
+			if(Han)
+				Han.Move(oldloc)
 			if(mob:pullmode)
 				if(mob:pulling.anchored == 0 && istype(mob:pulling.loc, /turf))
 					mob:pulling.Move(oldloc)

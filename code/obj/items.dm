@@ -11,6 +11,21 @@
 	var/temperature_def = 0
 	var/weight = 0
 
+/obj/item/handcuffs
+	icon = 'items.dmi'
+	icon_state = "handcuffs"
+	name = "handcuffs"
+	ru_name = "наручники"
+
+	verb/resist()
+		set src in usr
+		usr:message_to_usr("Вы пытаетесь освободиться от наручников!")
+		if(do_after(usr, 45))
+			usr:handcuffs = 0
+			usr:handcuffed = null
+			src.loc = usr.loc
+			usr:message_to_usr("Вы освободились от наручников!")
+
 /obj/item/baton
 	icon = 'items.dmi'
 	icon_state = "baton"
@@ -34,6 +49,21 @@
 		amperage = 1
 		voltage = 1
 		var/maxvltamp = 1700
+
+		flash
+			icon = 'items.dmi'
+			icon_state = "flash"
+			name = "flash"
+			ru_name = "слепящее устройство"
+
+			vzhvzh(var/mob/living/human/H)
+				if(DB.charge_level > 0 && DB.charge_level > amperage * voltage)
+					//H.powerdamage(amperage * voltage)
+					H.cry((amperage * voltage) / 25)
+					if(amperage * voltage > 500)
+						if(H.eyes)
+							H.eyes.muscle.health -= (amperage * voltage) / 25
+					DB.charge_level -= amperage * voltage
 
 		attackinhand(var/mob/M)
 			M << browse(null,"window=[name]")
@@ -71,7 +101,7 @@
 					DB = I
 					usr:drop()
 					I.loc = src
-					var/icon/I2 = new('items.dmi', "stunbaton")
+					var/icon/I2 = new(initial(src.icon), initial(src.icon_state))
 					var/icon/J = new('computer.dmi', I.icon_state)
 					I2.Blend(J, ICON_OVERLAY)
 					icon = I2

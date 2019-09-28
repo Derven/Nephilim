@@ -9,6 +9,16 @@
 	var/reality = 1
 	var/atom/target = null
 
+	verb/buckle_to()
+		set src in range(1, usr)
+		if(!istype(src, /obj/item))
+			for(var/mob/living/human/H in range(1,usr))
+				if(H.handcuffs)
+					if(H != src)
+						H.handcuffed = src
+						call_message(3, "[H.name] приковывается к [src.ru_name ? src.ru_name : src.name ]")
+						return
+
 	afterattack(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/tools/drill))
 			for(var/dz/DZ in src.loc)

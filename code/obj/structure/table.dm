@@ -61,10 +61,10 @@
 			if (NT && ET)
 				src.overlays += "NE"
 
-	attackby(var/obj/item/W, var/mob/simulated/living/humanoid/user)
+	attackby(var/mob/simulated/living/humanoid/user, var/obj/item/W)
 		if(!istype(W, /obj/item/tools/wrench))
 			usr:drop()
-			W.Move(src.loc)
+			W.loc = src.loc
 		else
 			call_message(3, "[usr] разбирает [ru_name ? ru_name : name]")
 			new /obj/item/stack/metal(src.loc)

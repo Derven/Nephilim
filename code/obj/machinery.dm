@@ -16,6 +16,11 @@
 			if(C.freq == freq)
 				C.on = !C.on
 				C.outer = outer
+	justid
+		attack_hand()
+			for(var/obj/machinery/airlock/space_shutter/SP in world)
+				if(SP.outer == outer && SP.freq == freq)
+					SP.open()
 
 /obj/machinery/airlock_space_controller
 	var/freq = 10
