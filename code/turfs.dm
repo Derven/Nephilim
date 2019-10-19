@@ -32,14 +32,33 @@
 			icon = 'turfs.dmi'
 			icon_state = "hull"
 
+		dirt
+			temperature = 20
+			icon = 'turfs.dmi'
+			icon_state = "dirt"
+			luminosity = 0
+
 		New()
-			if(!istype(src, /turf/space/hull))
-				icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
-			..()
-			ul_SetLuminosity(0, 0, 1)
-			var/datum/reagents/R = new/datum/reagents(1000)
-			reagents = R
-			R.my_atom = src
+			if(istype(src, /turf/space/dirt))
+				..()
+				if(z >= 1 && z < world.maxz)
+					var/turf/T = locate(x,y,z+1)
+					if(istype(T, /turf/space))
+						T = new /turf/space/hull(locate(x,y,z+1))
+				var/datum/reagents/R = new/datum/reagents(1000)
+				reagents = R
+				R.my_atom = src
+				pressure = 500
+				R.add_reagent("oxygen", 50)
+				R.add_reagent("nitrogen", 10)
+			else
+				if(!istype(src, /turf/space/hull) && !istype(src, /turf/space/dirt))
+					icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
+					..()
+					ul_SetLuminosity(0, 0, 1)
+					var/datum/reagents/R = new/datum/reagents(1000)
+					reagents = R
+					R.my_atom = src
 
 	floor
 		icon_state = "floor"

@@ -436,7 +436,7 @@
 			interact_withorgan(I, M:damagezone, M)
 
 		if(istype(I, /obj/item/baton/stunbaton))
-			I:vzhvzh(M)
+			I:vzhvzh(src)
 
 	attack_hand(usr)
 		if(usr:get_slot("lhand") || usr:get_slot("rhand"))
@@ -586,6 +586,7 @@
 
 		if(ostomach)
 			ostomach.process()
+			ostomach.check_muscle()
 
 	proc/overlayupd()
 		for(var/image/A in humanparts)

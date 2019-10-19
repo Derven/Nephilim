@@ -5,6 +5,7 @@
 
 client
 	var/inmove = 0
+
 	Move()
 		if(istype(mob, /mob/living/human))
 			if(mob:handcuffed)

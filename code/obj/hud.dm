@@ -129,6 +129,65 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		type_of_slot = null
 		mouse_opacity = 0
 
+	temp
+		name = "temp"
+		icon_state = "temp1"
+		layer = 24
+		screen_loc = "14,11"
+		type_of_slot = null
+
+		proc/check_temp(var/temp)
+			switch(temp)
+				if(-9999 to -30)
+					icon_state = "temp-4"
+				if(-30 to -20)
+					icon_state = "temp-3"
+				if(-20 to -10)
+					icon_state = "temp-2"
+				if(-10 to 0)
+					icon_state = "temp-1"
+				if(0 to 10)
+					icon_state = "temp0"
+				if(10 to 25)
+					icon_state = "temp1"
+				if(25 to 40)
+					icon_state = "temp2"
+				if(40 to 70)
+					icon_state = "temp3"
+				if(70 to 9999999999)
+					icon_state = "temp4"
+
+	oxy
+		name = "oxy"
+		icon_state = "oxy1"
+		layer = 24
+		screen_loc = "14,10"
+		type_of_slot = null
+
+		proc/check_oxy(var/oxy)
+			if(oxy > 0)
+				icon_state = "oxy0"
+			else
+				icon_state = "oxy1"
+
+	nutrition
+		name = "nutrition"
+		icon_state = "nutrition1"
+		layer = 24
+		screen_loc = "14,9"
+		type_of_slot = null
+
+		proc/check_nutrtion(var/hungry)
+			switch(hungry)
+				if(-99999 to 0)
+					icon_state = "nutrition1"
+				if(0 to 35)
+					icon_state = "nutrition2"
+				if(35 to 65)
+					icon_state = "nutrition3"
+				if(65 to 10000)
+					icon_state = "nutrition4"
+
 	punch_intent
 		name = "punch_intent"
 		icon_state = "punch_intent_0"

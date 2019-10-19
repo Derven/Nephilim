@@ -152,6 +152,9 @@
 
 	proc/check_temperature()
 		if(istype(owner.loc, /turf))
+			var/obj/hud/temp/HUD = owner.get_slot("temp", owner)
+			if(HUD)
+				HUD.check_temp(owner.loc:temperature)
 			if(owner.loc:temperature - owner.bodytemp > 40)
 				if((speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def > 0)
 					owner.bodytemp += round(owner.loc:temperature - owner.bodytemp / (speed_of_zamerzanie + temp_factor)) - owner.clothes_temperature_def
@@ -196,6 +199,9 @@
 						HUD.icon_state = "blind_0"
 
 			if(istype(src, /obj/item/organ/lungs))
+				var/obj/hud/oxy/HUD = owner.get_slot("oxy", owner)
+				if(HUD)
+					HUD.check_oxy(owner.oxyloss)
 				if(!owner.oxygen_tank)
 					if(istype(owner.loc, /turf))
 						if(istype(owner.loc, /turf/floor))
@@ -408,7 +414,7 @@
 				owner = loc
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
-			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind)
+			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind, /obj/hud/temp)
 
 	lungs
 		name = "lungs"
@@ -431,7 +437,7 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
-			IHUD = list(/obj/hud/oxygen)
+			IHUD = list(/obj/hud/oxygen, /obj/hud/oxy)
 
 	eyes
 		name = "eyes"
@@ -484,6 +490,55 @@
 		name = "stomach"
 		ru_name = "желудок"
 		temp_factor = 0.0
+		var/hungry = 0
+		var/obj/item/content
+
+		verb/clear_stomach()
+			set src in usr
+			owner.message_to_usr("вы пытаетесь вызвать рвоту...")
+			if(do_after(usr, 15))
+				vomit()
+
+		proc/vomit()
+			owner.message_to_usr("вас серьезно мутит")
+			hungry += rand(0,10)
+			if(content)
+				content.loc = owner.loc
+				content = null
+				new /obj/effect/vomit(owner.loc)
+			owner.message_to_usr("вас стошнило!")
+
+		process(var/image/oskin, var/image/omuscle, var/image/obone)
+			if(owner)
+				if(prob(rand(0,2)))
+					check_pain()
+
+				if(prob(3))
+					hungry++
+
+				var/obj/hud/nutrition/HUD = owner.get_slot("nutrition", owner)
+				if(HUD)
+					HUD.check_nutrtion(hungry)
+
+				if(content)
+					if(content.eatable)
+						hungry -= content.nutrition
+						content.reagents.trans_to(owner, content.reagents.get_total_amount())
+						del(content)
+					else
+						if(prob(25))
+							owner.message_to_usr("с вашим животом что-то не так")
+						if(prob(2))
+							vomit()
+
+				if(hungry < -40)
+					if(prob(round((hungry * -1)/2)))
+						vomit()
+
+				if(muscle.health < 50)
+					if(prob(100 - muscle.health))
+						vomit()
+
 
 		init()
 			bone = new /datum/bone
@@ -500,6 +555,7 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
+			IHUD = list(/obj/hud/nutrition)
 
 	chest
 		name = "chest"

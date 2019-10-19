@@ -120,6 +120,13 @@ var/list/obj/machinery/machines = list()
 	sq = 15
 	layer = 3
 
+/obj/electro/cable/copper/phone
+	name = "phone_cable"
+	icon_state = "phone"
+	resistance = 20
+	sq = 15
+	layer = 3
+
 /obj/electro/cable/termo
 	name = "radiator"
 	ru_name = "радиатор"
@@ -164,11 +171,25 @@ var/list/obj/machinery/machines = list()
 	proc/use_power()
 		if(use_power == 1)
 			for(var/obj/electro/cable/C in src.loc)
-				powernet = C.powernet
-				for(var/obj/machinery/power_block/PB in src.loc)
-					if(PB.out_amperage >= need_amperage && PB.out_voltage >= need_voltage)
-						if(PB.out_amperage * PB.out_voltage > max_VLTAMP)
-							world << "[PB.out_amperage];[PB.out_voltage]"
+				if(!istype(C, /obj/electro/cable/copper/phone))
+					powernet = C.powernet
+					for(var/obj/machinery/power_block/PB in src.loc)
+						if(PB.out_amperage >= need_amperage && PB.out_voltage >= need_voltage)
+							if(PB.out_amperage * PB.out_voltage > max_VLTAMP)
+								world << "[PB.out_amperage];[PB.out_voltage]"
+								burnmachine()
+								use_power = 0
+								return 0
+							else
+								if(C.return_smes())
+									C.return_smes():full_charge -= need_amperage * need_voltage
+									return 1
+						else
+							return 0
+						return 0
+
+					if(C.amperage >= need_amperage && C.voltage >= need_voltage)
+						if(C.amperage * C.voltage > max_VLTAMP)
 							burnmachine()
 							use_power = 0
 							return 0
@@ -176,19 +197,6 @@ var/list/obj/machinery/machines = list()
 							if(C.return_smes())
 								C.return_smes():full_charge -= need_amperage * need_voltage
 								return 1
-					else
-						return 0
-					return 0
-
-				if(C.amperage >= need_amperage && C.voltage >= need_voltage)
-					if(C.amperage * C.voltage > max_VLTAMP)
-						burnmachine()
-						use_power = 0
-						return 0
-					else
-						if(C.return_smes())
-							C.return_smes():full_charge -= need_amperage * need_voltage
-							return 1
 			return 0
 		else
 			return 0
@@ -416,6 +424,11 @@ var/list/obj/machinery/machines = list()
 	if(reset == 1) //сброс
 		powernet = 0
 		reset = 0
+
+/obj/effect/vomit
+	name = "vomit"
+	icon = 'effects.dmi'
+	icon_state = "vomit"
 
 /obj/effect/sparks
 	name = "spaks"

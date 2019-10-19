@@ -262,7 +262,7 @@ var/min_temperature = -380
 					water += 1
 					FLOOR.water -= 1
 				*/
-			if(istype(FLOOR, /turf/space))
+			if(istype(FLOOR, /turf/space) && !istype(FLOOR, /turf/space/dirt))
 				move_veterok(FLOOR)
 
 
