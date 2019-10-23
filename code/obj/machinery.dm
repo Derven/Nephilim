@@ -329,6 +329,7 @@
 	proc/generate_spark()
 		call_message(5, "[ru_name] генерирует искры")
 		new /obj/effect/sparks(src.loc)
+		new /obj/effect/sparks(src.loc)
 
 /obj/machinery/sparkbutton
 	icon = 'pipes.dmi'

@@ -4,7 +4,7 @@
 #define HARD_DAMAGE 3
 
 /datum/bone
-	var/health = 100
+	var/health = 150
 	var/broken = 0
 	name = "bone"
 
@@ -20,14 +20,14 @@
 		health = 200
 
 /datum/organ
-	var/health = 100
+	var/health = 120
 	name = "organ"
 	proc/myfunc()
 		return 0
 
 /datum/skin
 	name = "skin"
-	var/health = 30
+	var/health = 60
 	var/damagedstate = ""
 
 	robo
@@ -156,25 +156,25 @@
 			if(HUD)
 				HUD.check_temp(owner.loc:temperature)
 			if(owner.loc:temperature - owner.bodytemp > 40)
-				if((speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def > 0)
+				if((speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def + owner:DNA.temp_defense > 0)
 					owner.bodytemp += round(owner.loc:temperature - owner.bodytemp / (speed_of_zamerzanie + temp_factor)) - owner.clothes_temperature_def
 			if(owner.loc:temperature - owner.bodytemp < -20)
-				if((speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def > 0)
+				if((speed_of_zamerzanie + temp_factor) - owner.clothes_temperature_def + owner:DNA.temp_defense > 0)
 					owner.bodytemp -= round(owner.loc:temperature - owner.bodytemp / (speed_of_zamerzanie + temp_factor)) + owner.clothes_temperature_def
 
-			if( (owner.loc:temperature - owner.bodytemp < -30 && owner.clothes_temperature_def < speed_of_zamerzanie + temp_factor))
+			if( (owner.loc:temperature - owner.bodytemp < -30 && owner.clothes_temperature_def + owner:DNA.temp_defense < speed_of_zamerzanie + temp_factor))
 				if(silicon == 0)
 					skin.health -= rand(1,3) - owner.clothes_temperature_def
 					muscle.health -= rand(5,10) - owner.clothes_temperature_def
 
-			if( (owner.loc:temperature - owner.bodytemp >= 90 && owner.clothes_temperature_def < speed_of_zamerzanie + temp_factor) || owner.bodytemp > 50)
+			if( (owner.loc:temperature - owner.bodytemp >= 90 && owner.clothes_temperature_def + owner:DNA.temp_defense < speed_of_zamerzanie + temp_factor) || owner.bodytemp > 50)
 				if(silicon == 0)
 					skin.health -= rand(1,3) - owner.clothes_temperature_def
 					muscle.health -= rand(5,10) - owner.clothes_temperature_def
 
 	process(var/image/oskin, var/image/omuscle, var/image/obone)
 		if(owner)
-			if(prob(rand(0,2)))
+			if(prob(rand(0,2) - owner:DNA.pain_sensitive))
 				check_pain()
 
 			check_temperature()
@@ -189,7 +189,7 @@
 					owner.reagents.add_reagent("blood", 2)
 
 			if(istype(src, /obj/item/organ/eyes))
-				if(muscle.health < 50)
+				if(muscle.health < 50 && owner:DNA.eyes < 2)
 					var/obj/hud/HUD = owner.get_slot("blind", owner)
 					if(HUD)
 						HUD.icon_state = "blind_1"
@@ -205,12 +205,12 @@
 				if(!owner.oxygen_tank)
 					if(istype(owner.loc, /turf))
 						if(istype(owner.loc, /turf/floor))
-							if(owner.loc:reagents.get_master_reagent_state() == LIQUID)
+							if(owner.loc:reagents.get_master_reagent_state() == LIQUID && !owner:DNA.jabre)
 								owner.oxyloss = 300
 								if(prob(10))
 									owner.call_message(5, "[owner] захлебывается ")
 
-						if((owner.loc:reagents.get_reagent_amount("oxygen") < 20 || owner.loc:reagents.get_reagent_amount("plasma") > 20 || owner.loc:reagents.get_reagent_amount("water") > 50) && owner.oxyloss < 100)
+						if((owner.loc:reagents.get_reagent_amount(owner:DNA.breath_type) < 20 || owner.loc:reagents.get_reagent_amount("plasma") > 20 || owner.loc:reagents.get_reagent_amount("water") > 50) && owner.oxyloss < 100)
 							owner.oxyloss += 1
 							if(prob(2))
 								owner.call_message(5, "[owner] кашляет")
@@ -221,7 +221,7 @@
 				else
 					if(owner)
 						if(owner.get_slot("tank", owner))
-							if((owner.get_slot("tank", owner):SLOT:oxygen < 20 || owner.get_slot("tank", owner):SLOT:plasma > 20) && owner.oxyloss < 100)
+							if(((owner.get_slot("tank", owner):SLOT:oxygen < 20 && owner:DNA.breath_type == "oxygen") || owner.get_slot("tank", owner):SLOT:plasma > 20) && owner.oxyloss < 100)
 								owner.oxyloss += 1
 								if(prob(2))
 									owner.call_message(5, "[owner] кашляет")
@@ -249,7 +249,14 @@
 					oskin = image(icon = 'icons/human.dmi',icon_state = "[skin.damagedstate]",layer = owner.layer + 2)
 				if(-999 to 5)
 					oskin = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
-
+			if(owner:DNA.metabolism > 0)
+				if(skin.health < initial(skin.health))
+					world << skin.health
+					skin.health += owner:DNA.metabolism * rand(1,3)
+					if(owner:ostomach)
+						owner:ostomach.hungry += owner:DNA.metabolism
+					else
+						owner.health--
 			return oskin
 
 	proc/check_muscle()
@@ -277,6 +284,14 @@
 						owner.health = 0
 					del(src)
 
+			if(owner:DNA.metabolism > 0)
+				if(muscle.health < initial(muscle.health))
+					muscle.health += owner:DNA.metabolism * rand(1,3)
+					if(owner:ostomach)
+						owner:ostomach.hungry += owner:DNA.metabolism
+					else
+						owner.health--
+
 			return omuscle
 
 	proc/check_bone()
@@ -293,6 +308,13 @@
 					obone = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
 			return obone
 
+			if(owner:DNA.metabolism > 1)
+				if(bone.health < initial(bone.health))
+					bone.health += owner:DNA.metabolism * rand(1,3)
+					if(owner:ostomach)
+						owner:ostomach.hungry += owner:DNA.metabolism
+					else
+						owner.health--
 	proc/check_pain()
 		if(owner)
 			if(skin.name != null)
@@ -341,16 +363,14 @@
 		ru_name = "левая рука"
 		temp_factor = 0.7
 		icon_state = "skin_arm_l"
-
 		crushing = 2
 		cutting = 1
 		stitching = 1
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
-
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 			bone.name = "кости в левой руке"
 			muscle.name = "мускулатура левой руки"
 			skin.name = "кожа на левой руке"
@@ -361,6 +381,12 @@
 			bone.istate = "bone_arm_l"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				crushing += owner:DNA.strength
+				cutting += owner:DNA.blades
+				stitching += owner:DNA.kogti
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
 
 		roboarm
@@ -375,9 +401,9 @@
 			stitching = 1
 
 			init()
-				bone = new /datum/bone/robo
-				muscle = new /datum/muscle/robo
-				skin = new /datum/skin/robo
+				if(!bone) bone = new /datum/bone/robo
+				if(!muscle) muscle = new /datum/muscle/robo
+				if(!skin) skin = new /datum/skin/robo
 
 				bone.name = "каркас в левой руке"
 				muscle.name = "приводы левой руки"
@@ -398,9 +424,9 @@
 		icon_state = "skin_head"
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 
 			bone.name = "череп"
 			muscle.name = "ткани на голове"
@@ -412,6 +438,9 @@
 			bone.istate = "bone_head"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
 			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind, /obj/hud/temp)
@@ -423,9 +452,9 @@
 		icon_state = "lungs"
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 
 			bone.name = null
 			muscle.name = "легкие"
@@ -437,6 +466,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/oxygen, /obj/hud/oxy)
 
 	eyes
@@ -446,9 +478,9 @@
 		icon_state = ""
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 
 			bone.name = null
 			muscle.name = "глаза"
@@ -460,6 +492,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list()
 
 
@@ -472,9 +507,9 @@
 		icon_state = "heart"
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 			bone.name = null
 			muscle.name = "сердце"
 			skin.name = null
@@ -485,6 +520,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 
 	stomach
 		name = "stomach"
@@ -539,11 +577,10 @@
 					if(prob(100 - muscle.health))
 						vomit()
 
-
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 
 			bone.name = null
 			muscle.name = "желудок"
@@ -555,6 +592,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/nutrition)
 
 	chest
@@ -564,9 +604,9 @@
 		icon_state = "skin_chest"
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 
 			bone.name = "позвоночник и ребра"
 			muscle.name = "мускулатура тела"
@@ -578,6 +618,9 @@
 			bone.istate = "bone_chest"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton, /obj/hud/pullbutton, /obj/hud/backpack)
 
 	rarm
@@ -591,9 +634,9 @@
 		stitching = 1
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 
 			bone.name = "кости в правой руке"
 			muscle.name = "мускулатура правой руки"
@@ -605,6 +648,12 @@
 			bone.istate = "bone_arm_r"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				crushing += owner:DNA.strength
+				cutting += owner:DNA.blades
+				stitching += owner:DNA.kogti
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/rhand, /obj/hud/glove_right)
 
 		roboarm
@@ -619,10 +668,9 @@
 			stitching = 1
 
 			init()
-				bone = new /datum/bone/robo
-				muscle = new /datum/muscle/robo
-				skin = new /datum/skin/robo
-
+				if(!bone) bone = new /datum/bone/robo
+				if(!muscle) muscle = new /datum/muscle/robo
+				if(!skin) skin = new /datum/skin/robo
 				bone.name = "каркас в правой руке"
 				muscle.name = "приводы правой руки"
 				skin.name = "покрытие на правой руке"
@@ -643,10 +691,9 @@
 		var/speeding = 1
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
-
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 			bone.name = "кости в правой ноге"
 			muscle.name = "мускулатура правой ноги"
 			skin.name = "кожа на правой ноге"
@@ -657,6 +704,10 @@
 			bone.istate = "bone_leg_r"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				speeding += owner:DNA.speeding
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/shoes_right, /obj/hud/socks_right)
 
 		roboleg
@@ -672,9 +723,9 @@
 			stitching = 1
 
 			init()
-				bone = new /datum/bone/robo
-				muscle = new /datum/muscle/robo
-				skin = new /datum/skin/robo
+				if(!bone) bone = new /datum/bone/robo
+				if(!muscle) muscle = new /datum/muscle/robo
+				if(!skin) skin = new /datum/skin/robo
 
 				bone.name = "каркас в правой ноге"
 				muscle.name = "приводы правой ноге"
@@ -697,9 +748,9 @@
 		var/speeding = 1
 
 		init()
-			bone = new /datum/bone
-			muscle = new /datum/muscle
-			skin = new /datum/skin
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 
 			bone.name = "кости в левой ноге"
 			muscle.name = "мускулатура левой ноги"
@@ -711,6 +762,10 @@
 			bone.istate = "bone_leg_l"
 			if(istype(loc, /mob/living/human))
 				owner = loc
+				speeding += owner:DNA.speeding
+				muscle.health += owner:DNA.muscles
+				skin.health += owner:DNA.skin
+				bone.health += owner:DNA.bones
 			IHUD = list(/obj/hud/shoes_left, /obj/hud/socks_left)
 
 		roboleg
@@ -726,9 +781,9 @@
 			stitching = 1
 
 			init()
-				bone = new /datum/bone/robo
-				muscle = new /datum/muscle/robo
-				skin = new /datum/skin/robo
+				if(!bone) bone = new /datum/bone/robo
+				if(!muscle) muscle = new /datum/muscle/robo
+				if(!skin) skin = new /datum/skin/robo
 
 				bone.name = "каркас в левой ноге"
 				muscle.name = "приводы в левой ноге"

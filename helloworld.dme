@@ -16,11 +16,12 @@
 
 // BEGIN_INCLUDE
 #include "helloworld.dm"
-#include "nephilim.dmm"
+#include "hephilim255.dmm"
 #include "code\area.dm"
 #include "code\atmos.dm"
 #include "code\atom.dm"
 #include "code\controller_hueroller.dm"
+#include "code\DNA.dm"
 #include "code\fix255.dm"
 #include "code\ghost.dm"
 #include "code\iamrobot.dm"

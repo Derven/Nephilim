@@ -98,6 +98,17 @@ datum
 			name = "lightgas"
 			id = "lightgas"
 
+		mayonnaise //is spicy
+			name = "mayonnaise"
+			id = "mayonnaise"
+
+			reaction_obj(var/obj/O, var/volume) //By default we transfer a small part of the reagent to the object
+				if(istype(O, /obj/item))
+					if(!O:eatable)
+						O:eatable = 1
+					O:nutrition += 5
+					holder.remove_reagent(src.id, holder.get_reagent_amount(src.id))
+
 		secgas //слезоточивый газ
 			name = "secgas"
 			id = "secgas"

@@ -698,3 +698,111 @@
 			for(var/dz/DZ in world)
 				if(DZ.id == transportid && DZ.center == 1)
 					dir = DZ.dir
+
+///TELEPOrTER
+/obj/machinery/computer/teleporter
+	icon = 'computer.dmi'
+	icon_state = "telemachine"
+	ru_name = "телепортационный компьютер"
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 10
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 5000
+	var/tx = 0
+	var/ty = 0
+	defaultmainboard = /obj/item/mainboard/tele
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(okinterface() && use_power())
+			var/list/stats = list()
+			var/list/hrefs = list()
+			for(var/obj/machinery/telepad/A in range(1, src))
+				stats.Add(fix1103("[A.ru_name] - доступна"))
+				hrefs.Add("amachine=\ref[A]")
+			stats.Add("задать координаты ([tx];[ty])")
+			hrefs.Add("xy=input")
+			stats.Add("отправить с платформы")
+			hrefs.Add("send=ok")
+			special_browse(M, nterface(stats, hrefs))
+
+	Topic(href,href_list[])
+		if(href_list["amachine"])
+			attack_hand(usr)
+		if(href_list["xy"] == "input")
+			tx = input("Выбрать сдвиг по X c учетом погрешности.","Ваш сдвиг",tx)
+			ty = input("Выбрать сдвиг по Y c учетом погрешности.","Ваш сдвиг",ty)
+			if(tx > world.maxx)
+				tx = 0
+			if(ty > world.maxy)
+				ty = 0
+			attack_hand(usr)
+		if(href_list["send"] == "ok")
+			for(var/obj/machinery/telepad/A in range(1, src))
+				for(var/atom/movable/M in A.loc)
+					if(!M.anchored)
+						M.loc = locate(x + tx + rand(1,5), y + ty + rand(1,5), 1)
+						new /obj/effect/sparks(src.loc)
+						if(istype(M, /mob/living/human))
+							if(M.loc.density == 1)
+								for(var/obj/item/organ/O in M)
+									O.loc = locate(M.x + rand(-2,2), M.y + rand(-2,2), M.z)
+								M:organsnull()
+								M:death()
+								del(M)
+
+
+	process()
+		if(MAINBOARD)
+			if(checkoverlay == 0)
+				overlays.Add(MAINBOARD)
+				checkoverlay = 1
+			use_power()
+		else
+			overlays.Cut()
+			//nocontrol()
+
+/obj/machinery/telepad
+	icon = 'computer.dmi'
+	icon_state = "telepad"
+	ru_name = "телеплатформа"
+	anchored = 1
+
+/obj/item/mainboard/tele
+	icon = 'computer.dmi'
+	icon_state = "mainboard_telemachine"
+	ru_name = "главная плата телепортационного компьютера"
+	comptype = /obj/machinery/computer/shuttle
+
+//genetics
+
+/obj/machinery/computer/genetics
+	icon = 'computer.dmi'
+	ru_name = "генетический компьютер"
+	icon_state = "computer_frame"
+	anchored = 1
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 10
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 5000
+	var/obj/machinery/genetics_machine/GM
+	defaultmainboard = /obj/item/mainboard/genetics
+
+/obj/item/mainboard/genetics
+	icon = 'computer.dmi'
+	icon_state = "mainboard_genetics"
+	ru_name = "главная плата генетического компьютера"
+	comptype = /obj/machinery/computer/shuttle
+
+/obj/machinery/genetics_machine
+	icon = 'computer.dmi'
+	icon_state = "scanner"
+	ru_name = "генетический модификатор"

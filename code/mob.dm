@@ -27,14 +27,17 @@
 	var/list/obj/item/list_items = list()
 	var/buckled = 0
 
-/mob/Stat()
+/mob/living/human/Stat()
 	stat("CPU",world.cpu)
+	stat("difftime",difftime)
 	//statpanel("debug contents",list_items)
-	if(get_slot("backpack"))
-		if(get_slot("backpack"):SLOT)
-			statpanel("backpack contents",get_slot("backpack"):SLOT:contents)
-		if(get_slot("uniform"):SLOT)
-			statpanel("uniform contents",get_slot("uniform"):SLOT:contents)
+	if(ochest)
+		if(get_slot("backpack"))
+			if(get_slot("backpack"):SLOT)
+				statpanel("backpack contents",get_slot("backpack"):SLOT:contents)
+			if(get_slot("uniform"):SLOT)
+				statpanel("uniform contents",get_slot("uniform"):SLOT:contents)
+	if(get_slot("lhand"))
 		if(get_slot("lhand"):SLOT)
 			if(istype(get_slot("lhand"):SLOT, /obj/item/clothing/backpack/back))
 				statpanel("left hand backpack contents",get_slot("lhand"):SLOT:contents)
@@ -42,7 +45,7 @@
 				statpanel("left hand uniform contents",get_slot("lhand"):SLOT:contents)
 			if(istype(get_slot("lhand"):SLOT, /obj/item/storage))
 				statpanel("left hand storage contents",get_slot("lhand"):SLOT:contents)
-
+	if(get_slot("rhand"))
 		if(get_slot("rhand"):SLOT)
 			if(istype(get_slot("rhand"):SLOT, /obj/item/clothing/backpack/back))
 				statpanel("right hand backpack contents",get_slot("rhand"):SLOT:contents)
@@ -74,6 +77,8 @@
 	var/clothes_temperature_def = 0
 	var/damagezone = "damage_chest"
 	var/harm_intent = 0
+
+	var/datum/dna/DNA
 
 	var/pullmode = 0
 	var/atom/movable/pulling
@@ -508,6 +513,18 @@
 		ohead = new /obj/item/organ/head(src)
 		eyes = new /obj/item/organ/eyes(src)
 
+	proc/organsnull()
+		left_arm = null
+		right_arm = null
+		ochest = null
+		left_leg = null
+		eyes = null
+		right_leg = null
+		ohead = null
+		olungs = null
+		oheart = null
+		ostomach = null
+
 	proc/humanupd()
 		humanparts_upd()
 		if(left_arm)
@@ -624,6 +641,8 @@
 		reagents = R
 		R.my_atom = src
 		R.add_reagent("blood", 300)
+		DNA = new /datum/dna
+		DNA.owner = src
 		tocontrol()
 		generate()
 		..()

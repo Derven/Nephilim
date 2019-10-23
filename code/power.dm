@@ -437,10 +437,12 @@ var/list/obj/machinery/machines = list()
 
 	New()
 		..()
+		sleep(2)
 		if(istype(src.loc, /turf))
-			src.loc:initiate_burning = 1
-		spawn(rand(4,6))
-			src.loc:initiate_burning = 0
+			for(var/turf/floor/F in range(1, src))
+				F:initiate_burning = 1
+				spawn(4)
+					F:initiate_burning = 0
 			del(src)
 
 /obj/effect/smoke
