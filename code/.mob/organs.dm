@@ -251,7 +251,6 @@
 					oskin = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
 			if(owner:DNA.metabolism > 0)
 				if(skin.health < initial(skin.health))
-					world << skin.health
 					skin.health += owner:DNA.metabolism * rand(1,3)
 					if(owner:ostomach)
 						owner:ostomach.hungry += owner:DNA.metabolism
@@ -384,9 +383,9 @@
 				crushing += owner:DNA.strength
 				cutting += owner:DNA.blades
 				stitching += owner:DNA.kogti
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
 
 		roboarm
@@ -438,9 +437,9 @@
 			bone.istate = "bone_head"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
 			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind, /obj/hud/temp)
@@ -466,9 +465,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/oxygen, /obj/hud/oxy)
 
 	eyes
@@ -492,9 +491,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list()
 
 
@@ -520,9 +519,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 
 	stomach
 		name = "stomach"
@@ -592,9 +591,9 @@
 			bone.istate = null
 			if(istype(loc, /mob/living/human))
 				owner = loc
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/nutrition)
 
 	chest
@@ -618,9 +617,9 @@
 			bone.istate = "bone_chest"
 			if(istype(loc, /mob/living/human))
 				owner = loc
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton, /obj/hud/pullbutton, /obj/hud/backpack)
 
 	rarm
@@ -651,9 +650,9 @@
 				crushing += owner:DNA.strength
 				cutting += owner:DNA.blades
 				stitching += owner:DNA.kogti
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/rhand, /obj/hud/glove_right)
 
 		roboarm
@@ -705,9 +704,9 @@
 			if(istype(loc, /mob/living/human))
 				owner = loc
 				speeding += owner:DNA.speeding
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/shoes_right, /obj/hud/socks_right)
 
 		roboleg
@@ -763,9 +762,9 @@
 			if(istype(loc, /mob/living/human))
 				owner = loc
 				speeding += owner:DNA.speeding
-				muscle.health += owner:DNA.muscles
-				skin.health += owner:DNA.skin
-				bone.health += owner:DNA.bones
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/shoes_left, /obj/hud/socks_left)
 
 		roboleg

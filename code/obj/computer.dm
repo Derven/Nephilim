@@ -793,8 +793,72 @@
 	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
 	easy_deconstruct = 1
 	max_VLTAMP = 5000
-	var/obj/machinery/genetics_machine/GM
+	var/tx = 1
+	var/obj/structure/closet/genetic/GM
 	defaultmainboard = /obj/item/mainboard/genetics
+	var/instruction = ""
+
+	New()
+		..()
+		MAINBOARD = new defaultmainboard(src)
+		sleep(5)
+		tocontrol()
+		instruction += "1 - [pick("тип дыхания", "неизвестно")];"
+		instruction += "2 - [pick("скорость метаболизма", "неизвестно")];"
+		instruction += "3 - [pick("сопротивляемость температуре", "неизвестно")];"
+		instruction += "4 - [pick("скорость перемещения", "неизвестно")];"
+		instruction += "5 - [pick("слух", "неизвестно")];"
+		instruction += "6 - [pick("сила", "неизвестно")];"
+		instruction += "7 - [pick("здоровье", "неизвестно")];"
+		instruction += "8 - [pick("кожа", "неизвестно")];"
+		instruction += "9 - [pick("глаза", "неизвестно")];"
+		instruction += "10 - [pick("фотосинтез", "неизвестно")];"
+		instruction += "11 - [pick("жабры", "неизвестно")];"
+		instruction += "12 - [pick("чувтсвительность к боли", "неизвестно")];"
+		instruction += "13 - [pick("режушие руки", "неизвестно")];"
+		instruction += "14 - [pick("когти", "неизвестно")];"
+		instruction += "15 - [pick("кости", "неизвестно")];"
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(okinterface() && use_power())
+			var/list/stats = list()
+			var/list/hrefs = list()
+			for(var/obj/structure/closet/genetic/A in range(1, src))
+				stats.Add(fix1103("[A.ru_name] - доступен"))
+				hrefs.Add("amachine=\ref[A]")
+			stats.Add("внести изменения")
+			hrefs.Add("xy=input")
+			stats.Add("посмотреть изменения")
+			hrefs.Add("send=ok")
+			stats.Add("вывести инструкцию")
+			hrefs.Add("send=instruction")
+			special_browse(M, nterface(stats, hrefs))
+
+	Topic(href,href_list[])
+		if(href_list["amachine"])
+			attack_hand(usr)
+		if(href_list["xy"] == "input")
+			for(var/obj/structure/closet/genetic/A in range(1, src))
+				for(var/mob/living/human/H in A)
+					tx = input("Выбрать участок генетического кода.","Ваш участок от 1 до 15",tx)
+					if(tx > 15)
+						tx = 15
+					if(tx < 1)
+						tx = 1
+					H.DNA.mutate_sector(tx)
+					attack_hand(usr)
+		if(href_list["send"] == "ok")
+			for(var/obj/structure/closet/genetic/A in range(1, src))
+				for(var/mob/living/human/H in A)
+					var/list/iDNA = H.DNA.encode()
+					var/str = ""
+					for(var/fragment in iDNA)
+						str += fragment
+					usr.message_to_usr("[str]")
+					attack_hand(usr)
+		if(href_list["send"] == "instruction")
+			usr.message_to_usr("[instruction]")
 
 /obj/item/mainboard/genetics
 	icon = 'computer.dmi'
@@ -802,7 +866,8 @@
 	ru_name = "главная плата генетического компьютера"
 	comptype = /obj/machinery/computer/shuttle
 
-/obj/machinery/genetics_machine
+/obj/structure/closet/genetic
 	icon = 'computer.dmi'
-	icon_state = "scanner"
+	icon_state = "scanner_1"
 	ru_name = "генетический модификатор"
+	state = "scanner"

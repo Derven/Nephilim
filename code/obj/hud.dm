@@ -178,7 +178,6 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		type_of_slot = null
 
 		proc/check_nutrtion(var/hungry)
-			world << hungry
 			switch(hungry)
 				if(-9999 to 0)
 					icon_state = "nutrition1"

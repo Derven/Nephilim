@@ -178,7 +178,7 @@
 "dv" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dw" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dx" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/light/east,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
-"dy" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/power_block,/obj/machinery/genetics_machine,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
+"dy" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/power_block,/obj/structure/closet/genetic,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
