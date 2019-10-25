@@ -75,7 +75,7 @@
 	var/death = 0
 	var/oxyloss = 0
 	var/clothes_temperature_def = 0
-	var/damagezone = "damage_chest"
+	var/damagezone = "damage_thorax"
 	var/harm_intent = 0
 
 	var/datum/dna/DNA
@@ -92,6 +92,7 @@
 	var/oxygen_tank = 0
 
 	var/image/bone_chest
+	var/image/bone_thorax
 	var/image/bone_l_leg
 	var/image/bone_r_leg
 	var/image/bone_head
@@ -99,6 +100,7 @@
 	var/image/bone_l_arm
 
 	var/image/muscle_chest
+	var/image/muscle_thorax
 	var/image/muscle_l_leg
 	var/image/muscle_r_leg
 	var/image/muscle_head
@@ -106,6 +108,7 @@
 	var/image/muscle_l_arm
 
 	var/image/skin_chest
+	var/image/skin_thorax
 	var/image/skin_l_leg
 	var/image/skin_r_leg
 	var/image/skin_head
@@ -118,10 +121,12 @@
 	var/obj/item/organ/lleg/left_leg
 	var/obj/item/organ/head/ohead
 	var/obj/item/organ/chest/ochest
+	var/obj/item/organ/thorax/othorax
 	var/obj/item/organ/lungs/olungs
 	var/obj/item/organ/heart/oheart
 	var/obj/item/organ/stomach/ostomach
 	var/obj/item/organ/eyes/eyes
+	var/obj/item/organ/tongue/otongue
 	var/throwmode = 0
 	var/stuned = 0
 
@@ -394,21 +399,46 @@
 
 
 	verb/say(t as text)
-		t = fix255(t)
-		var/mysay = ""
-		switch(say_intent)
-			if(SAY)
-				mysay = pick("говорит", "высказывает", "произносит")
-				call_message(5, "[usr] [mysay], \"[t]\"")
-			if(WHISPER)
-				mysay = pick("шепчет", "нежно шепчет")
-				call_message(1, "[usr] [mysay], \"[t]\"")
-			if(KRIK)
-				mysay = pick("орет", "кричит")
-				call_message(7, "<h2>[usr] [mysay], \"[t]\"</h2>")
-			if(ISTERIKA)
-				mysay = pick("визжит", "бросается слюной", "истошно орет")
-				call_message(7, "<b><i><h2>[usr] [mysay], \"[t]\"</h2></b></i>")
+		if(otongue)
+			t = fix255(t)
+			var/mysay = ""
+			switch(say_intent)
+				if(SAY)
+					mysay = pick("говорит", "высказывает", "произносит")
+					if(otongue.muscle.health > 50)
+						call_message(5, "[usr] [mysay], \"[t]\"")
+					else
+						if(otongue.muscle.health > 40)
+							call_message(5, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+						else
+							call_message(5, "[usr] [mysay], \"[speech_error(t)]\"")
+				if(WHISPER)
+					mysay = pick("шепчет", "нежно шепчет")
+					if(otongue.muscle.health > 50)
+						call_message(1, "[usr] [mysay], \"[t]\"")
+					else
+						if(otongue.muscle.health > 40)
+							call_message(1, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+						else
+							call_message(1, "[usr] [mysay], \"[speech_error(t)]\"")
+				if(KRIK)
+					mysay = pick("орет", "кричит")
+					if(otongue.muscle.health > 50)
+						call_message(7, "[usr] [mysay], \"[t]\"")
+					else
+						if(otongue.muscle.health > 40)
+							call_message(7, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+						else
+							call_message(7, "[usr] [mysay], \"[speech_error(t)]\"")
+				if(ISTERIKA)
+					mysay = pick("визжит", "бросается слюной", "истошно орет")
+					if(otongue.muscle.health > 50)
+						call_message(7, "[usr] [mysay], \"[t]\"")
+					else
+						if(otongue.muscle.health > 40)
+							call_message(7, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+						else
+							call_message(7, "[usr] [mysay], \"[speech_error(t)]\"")
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/handcuffs))
@@ -470,13 +500,14 @@
 
 	proc/humanparts_upd()
 		humanparts.Cut()
-		humanparts.Add(bone_chest, bone_l_leg, bone_r_leg, bone_head, bone_r_arm, bone_l_arm, \
+		humanparts.Add(bone_chest, bone_thorax, bone_l_leg, bone_r_leg, bone_head, bone_r_arm, bone_l_arm, \
 		lungs, heart, stomach, \
-		muscle_chest, muscle_l_leg, muscle_r_leg, muscle_head, muscle_r_arm, muscle_l_arm, \
-		skin_chest, skin_l_leg, skin_r_leg, skin_head, skin_r_arm, skin_l_arm)
+		muscle_chest, muscle_l_leg, muscle_thorax, muscle_r_leg, muscle_head, muscle_r_arm, muscle_l_arm, \
+		skin_chest, skin_l_leg, skin_r_leg, skin_head, skin_r_arm, skin_thorax, skin_l_arm)
 
 	proc/generate()
 		bone_chest = image(icon = 'icons/human.dmi',icon_state = "bone_chest",layer = src.layer)
+		bone_thorax = image(icon = 'icons/human.dmi',icon_state = "bone_thorax",layer = src.layer)
 		bone_l_leg = image(icon = 'icons/human.dmi',icon_state = "bone_leg_l",layer = src.layer)
 		bone_r_leg = image(icon = 'icons/human.dmi',icon_state = "bone_leg_r",layer = src.layer)
 		bone_head = image(icon = 'icons/human.dmi',icon_state = "bone_head",layer = src.layer + 1)
@@ -488,6 +519,7 @@
 		stomach = image(icon = 'icons/human.dmi',icon_state = "stomach",layer = src.layer)
 
 		muscle_chest = image(icon = 'icons/human.dmi',icon_state = "muscles_chest",layer = src.layer + 1)
+		muscle_thorax = image(icon = 'icons/human.dmi',icon_state = "muscle_thorax",layer = src.layer + 1)
 		muscle_l_leg = image(icon = 'icons/human.dmi',icon_state = "muscles_leg_l",layer = src.layer + 1)
 		muscle_r_leg = image(icon = 'icons/human.dmi',icon_state = "muscles_leg_r",layer = src.layer + 1)
 		muscle_head = image(icon = 'icons/human.dmi',icon_state = "muscles_head",layer = src.layer + 2)
@@ -495,6 +527,7 @@
 		muscle_l_arm = image(icon = 'icons/human.dmi',icon_state = "muscles_arm_l",layer = src.layer + 1)
 
 		skin_chest = image(icon = 'icons/human.dmi',icon_state = "skin_chest",layer = src.layer + 3)
+		skin_thorax = image(icon = 'icons/human.dmi',icon_state = "skin_thorax",layer = src.layer + 3)
 		skin_l_leg = image(icon = 'icons/human.dmi',icon_state = "skin_leg_l",layer = src.layer + 2)
 		skin_r_leg = image(icon = 'icons/human.dmi',icon_state = "skin_leg_r",layer = src.layer + 2)
 		skin_head = image(icon = 'icons/human.dmi',icon_state = "skin_head",layer = src.layer + 3)
@@ -512,6 +545,8 @@
 		ochest = new /obj/item/organ/chest(src)
 		ohead = new /obj/item/organ/head(src)
 		eyes = new /obj/item/organ/eyes(src)
+		otongue = new /obj/item/organ/tongue(src)
+		othorax = new /obj/item/organ/thorax(src)
 
 	proc/organsnull()
 		left_arm = null
@@ -556,6 +591,19 @@
 			skin_chest = null
 			bone_chest = null
 			muscle_chest = null
+
+		if(othorax)
+			othorax.process()
+			skin_thorax = othorax.check_skin()
+			bone_thorax = othorax.check_bone()
+			muscle_thorax = othorax.check_muscle()
+		else
+			skin_thorax = null
+			bone_thorax = null
+			muscle_thorax = null
+
+		if(otongue)
+			otongue.process()
 
 		if(left_leg)
 			left_leg.process()
@@ -687,6 +735,9 @@
 	verb/check_speed()
 		speed += 100
 		accelerate += 10
+
+	verb/check_tongue()
+		otongue.muscle.health = 39
 
 	proc/rest()
 		spawn(5)

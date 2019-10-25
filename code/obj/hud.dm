@@ -371,6 +371,12 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 			icon_state = "damage_chest"
 			name = "damage_chest"
 			activezone = 1
+			screen_loc = "14,13"
+
+		damage_thorax
+			icon_state = "damage_thorax"
+			name = "damage_thorax"
+			activezone = 1
 			color = "red"
 			screen_loc = "14,13"
 

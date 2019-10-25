@@ -430,6 +430,18 @@ var/list/obj/machinery/machines = list()
 	icon = 'effects.dmi'
 	icon_state = "vomit"
 
+/obj/effect/blood
+	name = "blood"
+	icon = 'effects.dmi'
+	icon_state = "1"
+
+	New()
+		..()
+		pixel_x += rand(-2,3)
+		pixel_y += rand(-2,3)
+		icon_state = pick("1","2","3","4","5")
+
+
 /obj/effect/sparks
 	name = "spaks"
 	icon = 'power.dmi'

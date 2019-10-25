@@ -151,13 +151,20 @@
 						bonus += 1
 					if(I.crushing * 0.7 - O.def * 0.5 > 0)
 						O.muscle.health -= bonus + I.crushing * 0.7 - O.def * 0.5
-						if(name == "chest")
+						if(O.name == "thorax")
 							if(I.crushing + bonus > 10)
 								for(var/obj/item/organ/heart/H in src)
 									H.muscle.health -= round(I.crushing / 10)
 								for(var/obj/item/organ/lungs/L in src)
 									L.muscle.health -= round(I.crushing / 8)
-
+						if(O.name == "chest")
+							for(var/obj/item/organ/stomach/H in src)
+								H.muscle.health -= round(I.crushing / 10)
+						if(O.name == "head")
+							if(prob(40))
+								O.ARTERIAL.opened = 1
+							if(prob(40))
+								O.VENOS.opened = 1
 				//режущий урон
 				if(O.bone)
 					if(I.cutting * 0.2 - O.def * 2 > 0)
@@ -177,13 +184,22 @@
 						bonus += 5
 					if(I.cutting * 1.2 - O.def * 0.3 > 0)
 						O.skin.health -= bonus + I.cutting * 1.2 - O.def * 0.3
-						if(name == "chest")
+						if(prob(25))
+							O.ARTERIAL.opened = 1
+						if(prob(25))
+							O.VENOS.opened = 1
+						if(O.name == "thorax")
 							if(I.cutting + bonus > 10)
 								for(var/obj/item/organ/heart/H in src)
 									H.muscle.health -= round(I.cutting / 12)
 								for(var/obj/item/organ/lungs/L in src)
 									L.muscle.health -= round(I.cutting / 10)
-
+						if(O.name == "head")
+							for(var/obj/item/organ/tongue/T in src)
+								T.muscle.health -= round(I.cutting / 8)
+						if(O.name == "chest")
+							for(var/obj/item/organ/stomach/H in src)
+								H.muscle.health -= round(I.cutting / 10)
 				//колющий урон
 				if(O.skin)
 					if(attacker.punch_intent == UKOL)
@@ -196,7 +212,11 @@
 						bonus += 8
 					if(I.stitching * 3 - O.def * 0.3 > 0)
 						O.skin.health -= bonus + I.stitching * 3 - O.def * 0.3
-						if(O.name == "chest")
+						if(prob(5))
+							O.VENOS.opened = 1
+						if(prob(5))
+							O.ARTERIAL.opened = 1
+						if(O.name == "thorax")
 							if(I.stitching + bonus > 10)
 								for(var/obj/item/organ/heart/H in src)
 									H.muscle.health -= round(I.stitching / 4)
@@ -207,3 +227,9 @@
 							if(I.stitching + bonus > 5)
 								if(eyes)
 									eyes.muscle.health -= I.stitching + bonus
+							for(var/obj/item/organ/tongue/T in src)
+								T.muscle.health -= round(I.stitching / 12)
+
+						if(O.name == "chest")
+							for(var/obj/item/organ/stomach/H in src)
+								H.muscle.health -= round(I.stitching / 10)

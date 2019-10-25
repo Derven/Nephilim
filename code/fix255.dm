@@ -6,6 +6,15 @@
 //PIZDING(STOLE)
 //THANK to Forum_Account
 
+/proc/speech_error(var/text)
+	var/list/listtext = splittext(text,"",1,-1)
+	var/newtext = ""
+	for(var/t in listtext)
+		if(prob(50))
+			t = pick("ф", "у", "аа", "*", "!", "ша", "ы")
+		newtext += t
+	return newtext
+
 /proc
 	replace(txt, a, b)
 		#ifdef DEBUG

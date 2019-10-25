@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1571930207
+LAST_COMPILE_TIME: 1572014823
 DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons skin 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1477
-WINDOW: code\DNA.dm;code\.mob\organs.dm;code\mob.dm;code\chemistry\PORTING\REAGENTS.dm;code\obj\hud.dm;code\obj\computer.dm;hephilim255.dmm;code\obj\structure\ladder.dm;icons\computer.dmi
-FILE: code\obj\computer.dm
+WINDOW: code\DNA.dm;code\.mob\organs.dm;code\mob.dm;code\chemistry\PORTING\REAGENTS.dm;code\obj\hud.dm;code\obj\computer.dm;hephilim255.dmm;icons\items.dmi;icons\silicon_hud.dmi;icons\human.dmi;code\iamrobot.dm;code\mob_damage_system.dm;code\.mob\interact.dm;code\fix255.dm;icons\helm.dmi;icons\HUD.dmi;code\multitile.dm;icons\effects.dmi;code\power.dm
+FILE: code\.mob\organs.dm
 */
 // END_INTERNALS

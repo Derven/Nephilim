@@ -33,6 +33,12 @@
 	robo
 		health = 120
 
+/datum/atrerial
+	var/opened = 0
+
+/datum/venos
+	var/opened = 0
+
 /obj/item/organ
 	icon = 'human.dmi'
 	name = "organ"
@@ -47,6 +53,8 @@
 	var/def = 0 //защита одеждой и другими факторами
 	var/scalped = 0
 	var/silicon = 0
+	var/datum/atrerial/ARTERIAL
+	var/datum/venos/VENOS
 	layer = 5
 
 	var/list/obj/hud/IHUD = list()
@@ -104,6 +112,10 @@
 				if(name == "chest")
 					return src
 
+			if("damage_thorax")
+				if(name == "thorax")
+					return src
+
 			if("damage_head")
 				if(name == "head")
 					return src
@@ -129,6 +141,8 @@
 	New()
 		init()
 		..()
+		ARTERIAL = new /datum/atrerial()
+		VENOS = new /datum/venos()
 		if(length(IHUD) > 0)
 			create_hud()
 
@@ -178,6 +192,22 @@
 				check_pain()
 
 			check_temperature()
+
+			if(ARTERIAL)
+				if(ARTERIAL.opened)
+					owner.reagents.remove_reagent("blood", 4)
+					new /obj/effect/blood(owner.loc)
+			else
+				owner.reagents.remove_reagent("blood", 4)
+				new /obj/effect/blood(owner.loc)
+
+			if(VENOS)
+				if(VENOS.opened)
+					owner.reagents.remove_reagent("blood_ven", 2)
+					new /obj/effect/blood(owner.loc)
+			else
+				owner.reagents.remove_reagent("blood_ven", 2)
+				new /obj/effect/blood(owner.loc)
 
 			if(istype(src, /obj/item/organ/heart))
 				if(src:muscle.health > 0)
@@ -357,6 +387,38 @@
 						damage_level = HARD_DAMAGE
 						if(istype(src, /obj/item/organ/head))
 							owner.death()
+
+	thorax
+		name = "thorax"
+		ru_name = "грудная клетка"
+		temp_factor = 0.7
+		icon_state = "skin_thorax"
+		crushing = 2
+		cutting = 1
+		stitching = 1
+
+		init()
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
+			bone.name = "ребра"
+			muscle.name = "мускулатура грудной клетки"
+			skin.name = "кожа груди"
+			skin.istate = "skin_thorax"
+			skin.damagedstate = "skin_damaged_thorax"
+			muscle.istate = "muscles_thorax"
+			muscle.damagedstate = "muscles_damaged_thorax"
+			bone.istate = "bone_thorax"
+			if(istype(loc, /mob/living/human))
+				owner = loc
+				crushing += owner:DNA.strength
+				cutting += owner:DNA.blades
+				stitching += owner:DNA.kogti
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
+			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
+
 	larm
 		name = "l_arm"
 		ru_name = "левая рука"
@@ -441,7 +503,7 @@
 				skin.health += owner:DNA.skin * 100
 				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
-			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
+			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_thorax, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
 			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind, /obj/hud/temp)
 
 	lungs
@@ -496,6 +558,26 @@
 				bone.health  += owner:DNA.bones * 100
 			IHUD = list()
 
+	tongue
+		name = "tongue"
+		ru_name = "язык"
+		temp_factor = 0.0
+		icon_state = ""
+
+		init()
+			if(!muscle) muscle = new /datum/muscle
+			bone.name = null
+			muscle.name = "язык"
+			skin.name = null
+			skin.istate = null
+			skin.damagedstate = null
+			muscle.istate = ""
+			muscle.damagedstate = ""
+			bone.istate = null
+			if(istype(loc, /mob/living/human))
+				owner = loc
+				muscle.health += owner:DNA.muscles * 100
+			IHUD = list()
 
 	heart
 		name = "heart"
