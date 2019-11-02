@@ -8,6 +8,10 @@
 	var/structurehealth = 100
 	var/reality = 1
 	var/atom/target = null
+	var/machine_accelerate = 0
+
+	proc/update_icon()
+		return
 
 	verb/buckle_to()
 		set src in range(1, usr)
@@ -36,7 +40,9 @@
 							DZ.hardness = initial(DZ.hardness)
 					transportid = -1
 					call_message(5, "[src.ru_name ? src.ru_name : src.name ] откручивается от каркаса челнока")
-
+		if(istype(I, /obj/item/device))
+			if(I:MAINBOARD)
+				I:attack_device(M, src)
 
 	verb/pull()
 		set src in range(1, usr)
@@ -89,7 +95,19 @@
 				Obstacle.collisionBumped(Obstacle.collision(src, 1), damage_zone)
 				if(target)
 					target = null
-				collisionBumped(Obstacle.collision(src, 0), damage_zone)
+				if(istype(src, /mob/living))
+					if(src:MACHINE)
+						if(src:client)
+							src:client.shakecamera()
+						src:MACHINE.speed = speed
+						src.speed = round(src:MACHINE.speed / 2)
+						src:collisionBumped(Obstacle.collision(src, 0), damage_zone)
+						src:MACHINE.collisionBumped(Obstacle.collision(src, 0), damage_zone)
+						src:MACHINE.speed = 0
+					else
+						collisionBumped(Obstacle.collision(src, 0), damage_zone)
+				else
+					collisionBumped(Obstacle.collision(src, 0), damage_zone)
 				damage_zone = null
 				call_message(5, "[src.ru_name ? src.ru_name : src.name ] сталкивается с [Obstacle.ru_name] ")
 				if(istype(src, /mob/living))
@@ -124,8 +142,10 @@
 		if(init)
 			return
 		if(istype(src, /mob))
-			if(src:buckled)
+			if(src:buckled && src:MACHINE == null)
 				return 0
+		if(machine_accelerate > 0)
+			machine_accelerate--
 		moving_vector = dir
 		if(reality)
 			density = 1
@@ -138,6 +158,13 @@
 					speed = 0
 					accelerate = 0
 		..()
+		if(istype(src, /mob))
+			if(src:MACHINE != null)
+				src:MACHINE.loc = src:loc
+				src:loc = src:MACHINE.loc
+				src:MACHINE.dir = src.dir
+				if(machine_accelerate > 5)
+					src:speed = round(machine_accelerate / 2)
 		if(istype(src, /obj/machinery/atmospherics))
 			src:disconnect()
 			src:process()
@@ -151,7 +178,7 @@
 		if(reality)
 			if(atmosdeceleration() > 0)
 				if(istype(src, /mob/living))
-					if(src:client)
+					if(src:client && src:MACHINE == null)
 						src:client.dir = turn(src:client.dir, pick(90,-90,180,-180))
 				sleep((src.loc:pressure / 1000) + 1)
 				if(istype(src, /mob/living))

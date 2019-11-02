@@ -235,6 +235,10 @@
 				if(!owner.oxygen_tank)
 					if(istype(owner.loc, /turf))
 						if(istype(owner.loc, /turf/floor))
+							if(prob(rand(1,3)))
+								if(owner.reagents.get_reagent_amount("oxygen") > 0)
+									owner.loc.reagents.add_reagent("hydrogen", 1)
+									owner.reagents.remove_reagent("oxygen", 1)
 							if(owner.loc:reagents.get_master_reagent_state() == LIQUID && !owner:DNA.jabre)
 								owner.oxyloss = 300
 								if(prob(10))
@@ -565,7 +569,9 @@
 		icon_state = ""
 
 		init()
+			if(!bone) bone = new /datum/bone
 			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
 			bone.name = null
 			muscle.name = "язык"
 			skin.name = null

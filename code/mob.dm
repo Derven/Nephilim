@@ -26,6 +26,7 @@
 	var/blind = 0
 	var/list/obj/item/list_items = list()
 	var/buckled = 0
+	var/obj/structure/chair/venicle/MACHINE
 
 /mob/living/human/Stat()
 	stat("CPU",world.cpu)
@@ -65,11 +66,13 @@
 			return 1
 	return 0
 
+/mob/living
+	var/health = 100
+
 /mob/living/human
 	icon = 'icons/human.dmi'
 	icon_state = "brain"
 	var/rest = 0
-	var/health = 100
 	var/bodytemp = 36
 	layer = 2
 	var/death = 0
@@ -142,7 +145,6 @@
 				pixel_x = initial(pixel_x)
 				pixel_y = initial(pixel_y)
 
-
 	//panch
 	var/punch_intent = PANCHSBOKY
 	var/say_intent = SAY
@@ -214,7 +216,6 @@
 				H.list_items["chestu"] = null
 				I.loc = src.loc
 
-
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
 
@@ -240,7 +241,6 @@
 				I.loc = src.loc
 				H.list_items["rleg"] = null
 
-
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
 
@@ -252,7 +252,6 @@
 			else
 				I.loc = src.loc
 				H.list_items["lleg"] = null
-
 
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
@@ -266,7 +265,6 @@
 				I.loc = src.loc
 				H.list_items["chestback"] = null
 
-
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
 
@@ -278,7 +276,6 @@
 			else
 				I.loc = src.loc
 				H.list_items["rlegs"] = null
-
 
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
@@ -292,7 +289,6 @@
 				I.loc = src.loc
 				H.list_items["llegs"] = null
 
-
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
 
@@ -304,7 +300,6 @@
 			else
 				I.loc = src.loc
 				H.list_items["tank"] = null
-
 
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
@@ -318,7 +313,6 @@
 				I.loc = src.loc
 				H.list_items["chests"] = null
 
-
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
 
@@ -330,7 +324,6 @@
 			else
 				I.loc = src.loc
 				H.list_items["chestb"] = null
-
 
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
@@ -344,7 +337,6 @@
 				I.loc = src.loc
 				H.list_items["chestm"] = null
 
-
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
 
@@ -356,7 +348,6 @@
 			else
 				I.loc = src.loc
 				H.list_items["rarm"] = null
-
 
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
@@ -372,7 +363,6 @@
 
 			H.update_overlays()
 			usr << browse(null,"window=[name]")
-
 
 	proc/check_isogloves()
 		if(usr:get_slot("lhand"))
@@ -488,6 +478,8 @@
 		//sleep(2)
 		//nocontrol()
 		if(death == 1)
+			if(!rest)
+				rest()
 			if(client)
 				var/mob/dead/ghost/deadly_ghost = new /mob/dead/ghost(src.loc)
 				client.screen.Cut()
@@ -675,7 +667,10 @@
 		if(!chair)
 			buckled = 0
 		stun()
-
+		if(do_after(src,5))
+			if(machine_accelerate > 0)
+				machine_accelerate = 0
+		reagents.reaction(src)
 
 	proc/blood_process()
 		reagents.remove_reagent("blood", 2)  //поглощение мозгом крови насыщенной кислородом

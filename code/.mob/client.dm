@@ -28,6 +28,8 @@ client
 			if(spd > 4)
 				spd = 5
 			sleep(4 - spd)
+			if(mob:MACHINE)
+				mob:machine_accelerate += 2
 			inmove = 0
 			..()
 			var/mob/living/human/Han = check_handcuffed(mob)

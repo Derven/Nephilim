@@ -142,6 +142,8 @@ datum
 			id = "phosphorus"
 
 			reaction_mob(var/mob/living/human/M, var/volume) //By default we have a chance to transfer some
+				for(var/datum/mutation/phosphorus_metabolic/PM in M.mutations)
+					return
 				M.chemdamage(rand(LITE_CHEM, MEDIUM_CHEM))
 				return
 

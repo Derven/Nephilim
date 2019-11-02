@@ -68,6 +68,12 @@
 			DNArecode.Add(alphabet_check(codefragment))
 		return DNArecode
 
+	proc/encode2(var/list/DNAcode)
+		var/list/DNArecode = list()
+		for(var/codefragment in DNAcode)
+			DNArecode.Add(alphabet_check(codefragment))
+		return DNArecode
+
 	proc/decode(var/list/DNAcode)
 		var/list/DNArecode = list()
 		for(var/codefragment in DNAcode)
@@ -106,3 +112,128 @@
 	for(var/fragment in iDNA)
 		str += fragment
 	world << str
+
+
+//////UNIVERSAL MUTATIONS
+
+//*PLANTS
+
+/mob/living
+	var/list/datum/mutation/mutations = list()
+	var/lifepower = 0
+
+/datum/mutation
+	var/datum/mutation/removekebab
+	var/ru_name = "мутация"
+	var/mob/living/owner
+
+	proc/process()
+
+	oxygen_photosynthesis
+		ru_name = "фотосинтез кислорода"
+		removekebab = /datum/mutation/photophobia
+		process()
+			if(owner)
+				if(prob(50))
+					if(istype(owner.loc, /turf/floor))
+						if(owner.loc.luminosity > 0)
+							if(owner.reagents.get_reagent_amount("hydrogen") > 0)
+								owner.loc.reagents.add_reagent("oxygen", 1)
+								owner.reagents.remove_reagent("hydrogen", 1)
+							else
+								if(istype(owner, /mob/living/human))
+									owner:oxyloss++
+								else
+									owner.health--
+	photophobia
+		ru_name = "фотобоязнь"
+		removekebab = /datum/mutation/oxygen_photosynthesis
+		process()
+			if(owner)
+				if(prob(50))
+					if(istype(owner.loc, /turf/floor))
+						if(owner.loc.luminosity > 0)
+							if(istype(owner, /mob/living/human))
+								owner:chemdamage(rand(25,35))
+							else
+								if(prob(25))
+									owner.health--
+	fluorescent
+		ru_name = "свечение"
+		removekebab = /datum/mutation/photophobia
+
+		process()
+			if(owner)
+				owner.ul_SetLuminosity(1, rand(1,2), rand(1,2))
+		Del()
+			..()
+			owner.ul_SetLuminosity(0,0,0)
+
+	phosphorus_metabolic
+		ru_name = "фосфорный метаболизм"
+
+		process()
+			if(owner.reagents.get_reagent_amount("phosphorus") > 0)
+				owner.reagents.remove_reagent("phosphorus", 1)
+				if(istype(owner, /mob/living/human))
+					for(var/obj/item/organ/O in owner)
+						if(O.skin.health < 100)
+							O.skin.health++
+						if(O.muscle.health < 100)
+							O.muscle.health++
+						if(O.bone.health < 100)
+							O.bone.health++
+				else
+					if(owner.health < 100)
+						owner.health++
+					owner.lifepower += rand(5,8)
+			if(istype(owner.loc, /turf/floor))
+				if(owner.loc:reagents.get_reagent_amount("phosphorus") > 0)
+					owner.loc:reagents.remove_reagent("phosphorus", 1)
+					if(istype(owner, /mob/living/human))
+						for(var/obj/item/organ/O in owner)
+							if(O.skin.health < 100)
+								O.skin.health++
+							if(O.muscle.health < 100)
+								O.muscle.health++
+							if(O.bone.health < 100)
+								O.bone.health++
+					else
+						if(owner.health < 100)
+							owner.health++
+						owner.lifepower += rand(5,8)
+
+	nitrogen_metabolic
+		ru_name = "азотный метаболизм"
+
+		process()
+			if(owner.reagents.get_reagent_amount("nitrogen") > 0)
+				owner.reagents.remove_reagent("nitrogen", 1)
+				if(istype(owner, /mob/living/human))
+					for(var/obj/item/organ/O in owner)
+						if(O.skin.health < 100)
+							O.skin.health++
+						if(O.muscle.health < 100)
+							O.muscle.health++
+						if(O.bone.health < 100)
+							O.bone.health++
+				else
+					if(owner.health < 100)
+						owner.health++
+					owner.lifepower += rand(5,8)
+			if(istype(owner.loc, /turf/floor))
+				if(owner.loc:reagents.get_reagent_amount("nitrogen") > 0)
+					owner.loc:reagents.remove_reagent("nitrogen", 1)
+					if(istype(owner, /mob/living/human))
+						for(var/obj/item/organ/O in owner)
+							if(O.skin.health < 100)
+								O.skin.health++
+							if(O.muscle.health < 100)
+								O.muscle.health++
+							if(O.bone.health < 100)
+								O.bone.health++
+					else
+						if(owner.health < 100)
+							owner.health++
+						owner.lifepower += rand(5,8)
+//*PLANTS

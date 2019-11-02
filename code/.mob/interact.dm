@@ -10,6 +10,9 @@
 /atom/proc/afterattack(var/mob/M, var/item/I)
 	return 0
 
+/atom/proc/justattack(var/mob/M, var/atom/A)
+	return 0
+
 /atom/var/block_air = 0
 
 /atom/proc/check_in_cardinal_Z(var/atmos_block)
@@ -116,6 +119,7 @@
 					if(usr:get_slot("lhand"):active)
 						if(usr:get_slot("lhand"):SLOT != null)
 							afterattack(usr, usr:get_slot("lhand"):SLOT)
+							usr:get_slot("lhand"):SLOT:justattack(usr, src)
 							attackby(usr, usr:get_slot("lhand"):SLOT)
 							return
 
@@ -123,9 +127,24 @@
 					if(usr:get_slot("rhand"):active)
 						if(usr:get_slot("rhand"):SLOT != null)
 							afterattack(usr, usr:get_slot("rhand"):SLOT)
+							usr:get_slot("rhand"):SLOT:justattack(usr, src)
 							attackby(usr, usr:get_slot("rhand"):SLOT)
 							return
-			attack_hand(usr)
+			if(usr.MACHINE)
+				if(!usr.MACHINE.SLOT)
+					if(istype(src, /atom/movable))
+						if(!src:anchored && src != usr.MACHINE)
+							usr.MACHINE.SLOT = src
+							usr.MACHINE.overlays += src
+							src:Move(usr.MACHINE)
+						else
+							attack_hand(usr)
+					else
+						attack_hand(usr)
+				else
+					attack_hand(usr)
+			else
+				attack_hand(usr)
 		else
 			if(usr:throwmode)
 				usr:throwmode = !usr:throwmode

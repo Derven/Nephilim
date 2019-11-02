@@ -88,6 +88,7 @@
 			R.my_atom = src
 			R.add_reagent("oxygen", 50)
 			R.add_reagent("nitrogen", 10)
+			R.add_reagent("hydrogen", 10)
 			..()
 
 		plating

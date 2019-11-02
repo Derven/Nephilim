@@ -57,19 +57,19 @@
 "be" = (/obj/structure/table,/turf/floor{icon_state = "carpet15-15"; dir = 5},/area)
 "bf" = (/turf/floor{icon_state = "cargo"; dir = 4},/area)
 "bg" = (/turf/floor{icon_state = "hull"; dir = 4},/area)
-"bh" = (/obj/machinery/airlock,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/turf/floor,/area)
+"bh" = (/obj/machinery/airlock,/turf/floor{icon_state = "hull"; dir = 4},/area)
 "bi" = (/turf/floor{icon_state = "wall0"; dir = 4},/area)
 "bj" = (/turf/floor{icon_state = "justmark"},/area)
 "bk" = (/obj/machinery/computer/autolathe,/turf/floor,/area)
 "bl" = (/obj/structure/chair{tag = "icon-chair (WEST)"; icon_state = "chair"; dir = 4},/turf/floor,/area)
 "bm" = (/obj/machinery/computer,/turf/floor,/area)
 "bn" = (/obj/structure/chair,/obj/electro/cable/copper,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
-"bo" = (/obj/machinery/gserver,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
+"bo" = (/obj/machinery/server,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "bp" = (/obj/machinery/airlock,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "bq" = (/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "br" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/turf/floor,/area)
 "bs" = (/obj/structure/table,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
-"bt" = (/obj/electro/cable/copper,/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/machinery/power_block,/obj/machinery/computer/genetics/floppybird,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
+"bt" = (/obj/machinery/computer,/obj/electro/cable/copper,/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/machinery/power_block,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "bu" = (/turf/floor{icon_state = "medbay"; dir = 4},/area)
 "bv" = (/obj/structure/table,/turf/floor{icon_state = "medbay"; dir = 4},/area)
 "bw" = (/obj/structure/closet,/turf/floor{icon_state = "medbay3"; dir = 4},/area)
@@ -170,7 +170,7 @@
 "dn" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/light/north,/turf/floor,/area)
 "do" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
 "dp" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/power_block,/obj/machinery/computer/genetics,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
-"dq" = (/obj/landmark,/turf/floor,/area)
+"dq" = (/obj/landmark,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dr" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/electro/cable/copper,/turf/floor,/area)
 "ds" = (/obj/machinery/airlock,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dt" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
@@ -181,42 +181,6 @@
 "dy" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/power_block,/obj/structure/closet/genetic,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dz" = (/obj/electro/cable/copper,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dA" = (/obj/machinery/airlock,/obj/electro/cable/copper,/obj/machinery/power_block,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
-"dB" = (/obj/electro/cable/copper,/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor{icon_state = "cargo2"; dir = 4},/area)
-"dC" = (/obj/electro/cable/copper,/turf/floor{icon_state = "cargo2"; dir = 4},/area)
-"dD" = (/obj/structure/chair/venicle{icon_state = "cargoboy"; dir = 4},/turf/floor{icon_state = "hull"; dir = 4},/area)
-"dE" = (/obj/machinery/airlock,/obj/electro/cable/copper,/obj/machinery/power_block,/turf/floor,/area)
-"dF" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/turf/floor{icon_state = "hull"; dir = 4},/area)
-"dG" = (/obj/machinery/airlock,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/turf/floor{icon_state = "hull"; dir = 4},/area)
-"dH" = (/obj/electro/cable/copper,/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor,/area)
-"dI" = (/obj/electro/cable/copper,/turf/floor{icon_state = "cargo"; dir = 4},/area)
-"dJ" = (/obj/electro/cable/copper,/turf/floor{icon_state = "carpet4321"; dir = 5},/area)
-"dK" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/light/south,/turf/floor,/area)
-"dL" = (/obj/electro/cable/copper,/turf/floor/plating,/area)
-"dM" = (/obj/electro/cable/copper,/turf/floor{icon_state = "medbay3"; dir = 4},/area)
-"dN" = (/obj/machinery/airlock,/obj/electro/cable/copper,/obj/machinery/power_block,/turf/floor{icon_state = "medbay"; dir = 4},/area)
-"dO" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/floor{icon_state = "medbay"; dir = 4},/area)
-"dP" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/turf/floor{icon_state = "medbay3"; dir = 4},/area)
-"dQ" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/turf/floor{icon_state = "medbay"; dir = 4},/area)
-"dR" = (/obj/electro/cable/copper,/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor{icon_state = "medbay"; dir = 4},/area)
-"dS" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/floor{icon_state = "white"},/area)
-"dT" = (/obj/machinery/airlock,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/obj/machinery/power_block,/turf/floor{icon_state = "medbay3"; dir = 4},/area)
-"dU" = (/obj/machinery/airlock,/obj/electro/cable/copper,/obj/machinery/power_block,/turf/floor{icon_state = "medbay3"; dir = 4},/area)
-"dV" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor,/area)
-"dW" = (/obj/structure/chair{tag = "icon-chair (NORTH)"; icon_state = "chair"; dir = 1},/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor,/area)
-"dX" = (/obj/structure/chair{tag = "icon-chair (NORTH)"; icon_state = "chair"; dir = 1},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor,/area)
-"dY" = (/obj/structure/chair{tag = "icon-chair (NORTH)"; icon_state = "chair"; dir = 1},/obj/electro/cable/copper,/turf/floor,/area)
-"dZ" = (/obj/machinery/airlock,/obj/electro/cable/copper,/turf/floor/plating,/area)
-"ea" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/floor,/area)
-"eb" = (/obj/electro/cable/copper,/obj/machinery/light/west,/turf/floor,/area)
-"ec" = (/obj/electro/cable/copper,/obj/machinery/light/north,/turf/floor,/area)
-"ed" = (/mob/living/plant{init = 1},/turf/floor{icon_state = "grass2"},/area)
-"ee" = (/mob/living/plant{init = 1},/turf/floor{icon_state = "grass0"},/area)
-"ef" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/floor,/area)
-"eg" = (/mob/living/plant{init = 1},/turf/floor{icon_state = "grass3"},/area)
-"eh" = (/obj/item/tools/screwdriver,/turf/floor,/area)
-"ei" = (/obj/item/device/seed_extractor,/turf/floor,/area)
-"ej" = (/obj/item/weapon/reagent_containers/syringe,/turf/floor,/area)
-"ek" = (/obj/item/weapon/reagent_containers/glass/phos,/turf/floor,/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -239,41 +203,41 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacabadadadadaeab
 aaaaaaaaaaabababababababababababababababababababaaaaaaaaaaaaabacacabadafafadaeabadadabacabaaaaaaaaabababacacabababababababagababacabaaaaahadahaXahbfbfahaXahadagadadahacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaabacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaabacacabadafafadadagadadabacababababababacacacacabaqaqaqaqabaqaqaqabacababababadbfaXbfbfbfbfaXbfadabadadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaabababagahahahagabababagahahahababacabaaaaaaaaaaaaabacacabadafafadadabadadabacacacacacacacacacabababaqaqaqaqaMaqaqaNabacacacacabadbfbfbfbfbfbfbfbfadababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaabaiadadadadadadadadadadadadadadabacababababababababacacabadafafadababadabababababababacacacacabaOaPaOaPaOaPabaqaqaNabacacacacbhdBbfbfbfbfbfbfbfbfadabacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaabaiaiaiaiaiaiaiaiaiaiaiaiaiadadabacacacacacacacacacacacagadafafadahadadabajakakakalababababacabaQaRaQaRaQaRabaqaqaNabacababababbMbfbfbfbfbfbfbfbfaXagacababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaababababababababahahahababaiadadabababahahahababacacacacabadadadadahadadabamananananaoaoapabacabaOaPaOaPaOaPabaqaqaNabacabbgbgbgbMbfbfbfbfbfbfbfbfadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaabaqaqaqaqaqagaiadadabcxcycxcxcxcxabacababababadafafadahadadabamanasatanananauabacabaQaRaQaRaQaRaMaqaqaqabacabbgbgbgdCbfahahafabahbfbfadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadabarczararararavacacacacabadafafadahadadabamananaVanananauabacabadaSaSaSaSadabababababacabdDbgahdEahahadadadahbfbfadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadabarczararararabacacacacabadafafadahawawabamananddanananauabaccrcudWdXaSaSadafaTadabacacabdDbgahbMadadadadadabababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadababcAahahahabababababacabadafafcucrcwawabdedjdkdlayananauabacabadaSdYaSaSadafadadabacacabdDdFdGdHadadadadadabacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadagcvcBcucucucucucvcOcSacabadadadadahcTawabazaAaBaVaAaAaAaCabacabadadbMadadadafadaUabacacabbgbgahbMadadadadadabacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadagadadadadadadadadbNabababahahahahahbMadababababdfabababababdZabahahaxaxahahabafafababaWabahahahdIbfbfahahababaWaWababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadahaDaEaEaEaFadadadcqcrcucvcucudgcudgcWcucucvcucubrdmdmdndmdmeadndmdmdobrdmdmdmdmdmdmdmdmdmdVdmdmdhadadadadadadadadadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadahaGaHaHaHaIadadadcqcradadadadbMadbMadadadadadadadadadadadadadadadadbMadadadadadadadadadadbMadadadadadadadadadadadadabacabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaabaqaqaqaqaqagaiadadahaGaHaHaHaIadadadcqcradadadaddiadbMadadadadadadadadadadadadadadadadbMadadadadadadadadadadbMadadadadadadadadadadadadabacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaababababababababahahahababaiadadahaJaKaKaKaLadadadbMabababaWababahdEahabababaWbiabagabababababababadbMabababababadadadabadbMabababababababababababababababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaabaiaiaiaiaiaiaiaiaiaiaiaiaiadadagadadadadadadadadbNabacacacabaYaZdJbbbbbbabacbibkadadafafadabadadadbNabbVdpdyabababababadbMahaeafabecbIedbJeebIadahadadadaeabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaabaiadadadadadadadadadadadadadadagdbcucucucucucudcbMabacacacabaYaZdJbbbcbdabacbiaeadadaSadadabbjahaddrdsbqdtbqabacacacabadbMahadadahbMbIbKegbIbIekahadadadaeabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaabababababababahahahahabababahahahababahahahababbObOabacacacabbeaZbabbbabdabacbiaeadadadadafabbjahaddrdsdvdwdxabacacacabadbMahadefcrdhbKegbIedbIekahadadadaeabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacbWbXbYbWacacacabaZaZaZaZaZaZabacbiaeadadadblafahbjahadbMahbsbsdzahahaWahabadducrcudhahadadejdqadehadagadadadadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaabababababababababababababababababababababbObOabababacababadadababababacbiafadadadadbmahbjahadbMababahdAahacacbqbpadadabadadabadadadadadadeiabafadabababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZcacbcccdcecfcgabacacabadadagacacacacbiafadadadadblafbjahadbMadabbqdzacacacacabadadabababababababegbKbIegabafadabacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcjclclctckabcCacababababacababacbiadadadadadbmabadadadbMadabbqbnbqbqacbqabadadacacacacacacabegbJbIegabadadabacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabciaqcDcEcFabcGacacacacacacabacacababagabababababababadbMadabbobtbsbqbqacabadadabababababacabegbIbKegababaWabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcHcIcJcmcKcncGabababababababacacacabadabacacacacacaWadbNabababababababababadadabadadadabacababababababacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZcoababahcLcpcGabcGaaaaaaaaaaaaabababacabadabacacacacacabadbMadadadadadadadadadadadabadadadabacacacacacacacacacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccMcscNabcMaaaaaaaaaaaaaaaaabacabadabababababababaddudmdmdmdKdmdmdmdKdcadadbLadadadabacacababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccPaccXcQcMaaaaaaaaaaaaaaaaabacabagabacabawacacabaeaeaeabahabahbvahabbMadadbLadadadabacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacaccYcQcMaaaaaaaaaaaaaaaaabacacacacacacacacawabababababbwbubvbubxahbMadadagadafafabacacacacacabababababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacaccRcZdacUaaaaaaaaaaaaaaaaabababacacacabawacacabacacawahbwbubububxabbMadababababababaWabababababbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababcMaaaaaaaaaaaaaaaaaaaaabacacacabawawacahacadacabbvbubuawbyahbMadabbqbqbqbqbqbqbqbqbqbqabbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccVaaaaaaaaaaaaaaaaaaaaabababacabawacadagadadacahbvbubybybyabbMadahbQbsbsbRbQbsbsbRbqbqabbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabawacawahawdLbuabbvbzbvdMbvahbMadahbQbsbsbRbQbsbsbRbqbqabbSabbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabacawawabahdNahabahababdNahabebadahbQbsbsbRbQbsbsbRbqbqahbPabababababacabababababababaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabababababbvdOdPdPdQdQdPdRbuabbMadabbqbqbqbqbqbqbqbqbqbqbSbPbPbPbPabacacacacacacacacabaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabbvbBbBahbubububzbzbvbucTbuahbMadabbqbQbsbRbQbsbsbRbqbqahbPbPbPbPbSacababababababacabaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabbzbubybAbubyawbybybuawdSdPdTdhadagbqbQbsbRbQbsbsbRbqbqbTbPbPbPbPabacabbUbUbUbUabacabaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabbvbybybCbubybuawbububybubydUadadabbqbQbsbRbQbsbsbRbqbqbTbPbPbPbPabacabbUbUbUbUabacabababaaaaaaaaaaaa
+aaaaaaaaaaabaiadadadadadadadadadadadadadadabacababababababababacacabadafafadababadabababababababacacacacabaOaPaOaPaOaPabaqaqaNabacacacacadaXbfbfbfbfbfbfbfbfadabacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaabaiaiaiaiaiaiaiaiaiaiaiaiaiadadabacacacacacacacacacacacagadafafadahadadabajakakakalababababacabaQaRaQaRaQaRabaqaqaNabacababababadbfbfbfbfbfbfbfbfaXagacababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaababababababababahahahababaiadadabababahahahababacacacacabadadadadahadadabamananananaoaoapabacabaOaPaOaPaOaPabaqaqaNabacabbgbgbgadbfbfbfbfbfbfbfbfadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaabaqaqaqaqaqagaiadadabcxcycxcxcxcxabacababababadafafadahadadabamanasatanananauabacabaQaRaQaRaQaRaMaqaqaqabacabbgbgbgaXbfahahafabahbfbfadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadabarczararararavacacacacabadafafadahadadabamananaVanananauabacabadaSaSaSaSadabababababacabbgbgahagahahadadadahbfbfadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadabarczararararabacacacacabadafafadahawawabamananddanananauabacagadaSaSaSaSadafaTadabacacabbgbgahadadadadadadabababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadababcAahahahabababababacabadafafcucrcwawabdedjdkdlayananauabacabadaSaSaSaSadafadadabacacabbgbgbhadadadadadadabacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadagcvcBcucucucucucvcOcSacabadadadadahcTawabazaAaBaVaAaAaAaCabacabadadadadadadafadaUabacacabbgbgahadadadadadadabacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadagadadadadadadadadbNabababahahahahahbMadababababdfabababababaWabahahaxaxahahabafafababaWabahahahbfbfbfahahababaWaWababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadahaDaEaEaEaFadadadcqcrcucvcucudgcucucWcucucvcucubrdmdmdndmdmdmdndmdmdodhadadadadadadadadadadadadadadadadadadadadadadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaahaqaqaqadadabaiadadahaGaHaHaHaIadadadcqcradadadadbMadadadadadadadadadadadadadadadadadadbMadadadadadadadadadadadadadadadadadadadadadadadabacabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaabaqaqaqaqaqagaiadadahaGaHaHaHaIadadadcqcradadadaddiadadadadadadadadadadadadadadadadadadbMadadadadadadadadadadadadadadadadadadadadadadadabacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaababababababababahahahababaiadadahaJaKaKaKaLadadadbMabababaWababahagahabababaWbiabagabababababababadbMabababababadadadabadadabababababababababababababababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaabaiaiaiaiaiaiaiaiaiaiaiaiaiadadagadadadadadadadadbNabacacacabaYaZbabbbbbbabacbibkadadafafadabadadadbNabbVdpdyabababababadadahaeafabadbIbJbJbKbIadahadadadaeabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaabaiadadadadadadadadadadadadadadagdbcucucucucucudcbMabacacacabaYaZbabbbcbdabacbiaeadadaSadadabbjahaddrdsbqdtdqabbqbqbqabadadahadadahadbIbKbKbIbIadahadadadaeabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaabababababababahahahahabababahahahababahahahababbObOabacacacabbeaZbabbbabdabacbiaeadadadadafabbjahaddudsdvdwdxabbqbqbqabadadahadadagadbKbIbIbJbIadahadadadaeabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacbWbXbYbWacacacabaZaZaZaZaZaZabacbiaeadadadblafahbjahadadahbsbsdzahahbpahabadadagadadahadadadadadadadagadadadadabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaabababababababababababababababababababababbObOabababacababadadababababacbiafadadadadbmahbjahadadababahdAahbqbqbqbpadadabadadabadadadadadadadabafadabababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZcacbcccdcecfcgabacacabadadagacacacacbiafadadadadblafbjahadadadabbqdzbqbqbqbqabadadabababababababbIbKbIbKabafadabacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcjclclctckabcCacababababacababacbiadadadadadbmabadadadadadabbqbnbqbqbqbqabadadacacacacacacabbKbJbIbJabadadabacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabciaqcDcEcFabcGacacacacacacabacacababagabababababababadadadabbobtbsbqbqbqabadadabababababacabbJbIbKbIababaWabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcHcIcJcmcKcncGabababababababacacacabadabacacacacacaWadadabababababababababadadabadadadabacababababababacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZcoababahcLcpcGabcGaaaaaaaaaaaaabababacabadabacacacacacabadadadadadadadadadadadadadabadadadabacacacacacacacacacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccMcscNabcMaaaaaaaaaaaaaaaaabacabadabababababababadadadadadadadadadadadadadbLadadadabacacababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccPaccXcQcMaaaaaaaaaaaaaaaaabacabagabacabawacacabaeaeaeabahabahbvahabadadadbLadadadabacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacaccYcQcMaaaaaaaaaaaaaaaaabacacacacacacacacawabababababbwbubvbubxahadadadagadafafabacacacacacabababababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacaccRcZdacUaaaaaaaaaaaaaaaaabababacacacabawacacabacacawahbwbubububxabadadababababababaWabababababbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababcMaaaaaaaaaaaaaaaaaaaaabacacacabawawacahacadacabbvbubuawbyahadadabbqbqbqbqbqbqbqbqbqbqabbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccVaaaaaaaaaaaaaaaaaaaaabababacabawacadagadadacahbvbubybybyabadadahbQbsbsbRbQbsbsbRbqbqabbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabawacawahawacbuabbvbzbvbybvahadadahbQbsbsbRbQbsbsbRbqbqabbSabbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabacawawabahbAahabahababbAahabadadahbQbsbsbRbQbsbsbRbqbqahbPabababababacabababababababaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabababababbvbubybybububybubuabadadabbqbqbqbqbqbqbqbqbqbqbSbPbPbPbPabacacacacacacacacabaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabbvbBbBahbubububzbzbvbuawbuahadadabbQbsbsbRbQbsbsbRbqbqahbPbPbPbPbSacababababababacabaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabbzbubybAbubyawbybybuawawbybCadadagbQbsbsbRbQbsbsbRbqbqbTbPbPbPbPabacabbUbUbUbUabacabaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabbvbybybCbubybuawbububybubybCadadabbQbsbsbRbQbsbsbRbqbqbTbPbPbPbPabacabbUbUbUbUabacabababaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabbzbubuahbybybubububybyawbuahadadababahahahahahahabbpbpabababababababababababbUabacacacabaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabababababababbububyawbububuabadadadadadadadadadadadadadadadagadadadadadadadadadabababacabaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacabbybububyahbububBabahbzbAabadadadadadadadadadadadadadadadagadadadadadadadadadadadabacabaaaaaaaaaaaa

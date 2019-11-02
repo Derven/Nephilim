@@ -246,6 +246,7 @@
 	var/obj/item/devicemainboard/MAINBOARD
 	var/obj/item/devicebattery/DEVICEBATTERY
 	var/obj/item/deviceoutput/SPEAKER
+	var/mainboardtype = /obj/item/devicemainboard
 	var/mainboardov = 0
 	var/batteryov = 0
 	var/speakerov = 0
@@ -256,11 +257,20 @@
 	var/broken = 0
 	layer = 3
 
+	seed_extractor
+		mainboardtype = /obj/item/devicemainboard/seed_extractor
+
 	proc/init()
-		MAINBOARD = new(src)
+		MAINBOARD = new mainboardtype(src)
 		DEVICEBATTERY = new(src)
 		SPEAKER = new(src)
 		tocontrol()
+
+	proc/attack_device(var/mob/M, var/atom/A)
+		if(MAINBOARD && DEVICEBATTERY && SPEAKER)
+			if(DEVICEBATTERY.charge_level > 0 && on && !broken)
+				MAINBOARD.activate(A)
+		return
 
 	New()
 		..()
@@ -415,6 +425,23 @@
 	ru_name = "микроплата"
 	var/comptype = /obj/item/device
 	layer = 4
+
+	proc/activate(var/atom/A)
+		return
+
+	seed_extractor
+		icon_state = "mainboard_device_ext"
+		ru_name = "микроплата экстрактора"
+
+		activate(var/atom/A)
+			if(istype(A, /obj/item/food))
+				if(istype(A.loc, /turf/floor))
+					for(var/mob/living/plant/P in A)
+						P.loc = A.loc
+						P.init = 1
+						P.init()
+						A.loc:call_message(src.loc:SPEAKER.power, "[P.ru_name] высаживаетс€ на [A.loc:ru_name]!")
+						del(A)
 
 
 /obj/item/mainboard
@@ -819,6 +846,25 @@
 		instruction += "14 - [pick("когти", "неизвестно")];"
 		instruction += "15 - [pick("кости", "неизвестно")];"
 
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/screwdriver))
+			if(MAINBOARD)
+				MAINBOARD.loc = src.loc
+				call_message(3, "[usr] вытаскивает [MAINBOARD.ru_name] из [src.ru_name]")
+				MAINBOARD = null
+		if(istype(I, /obj/item/mainboard))
+			if(!MAINBOARD)
+				var/obj/machinery/computer/CM = new I:comptype(src.loc)
+				call_message(3, "[usr] вставл€ет [I.ru_name] в [ru_name]")
+				usr:drop()
+				CM.MAINBOARD = I
+				I.Move(CM)
+				del(src)
+		if(istype(I, /obj/item/DNAdisk))
+			for(var/obj/structure/closet/genetic/A in range(1, src))
+				for(var/mob/living/human/H in A)
+					H.DNA.encodedecodeme(H.DNA.decode(H.DNA.encode2(I:DISKDNA)))
+
 	attack_hand(var/mob/M)
 		M << browse(null,"window=[name]")
 		if(okinterface() && use_power())
@@ -833,6 +879,8 @@
 			hrefs.Add("send=ok")
 			stats.Add("вывести инструкцию")
 			hrefs.Add("send=instruction")
+			stats.Add("сохранить на сервер")
+			hrefs.Add("send=save")
 			special_browse(M, nterface(stats, hrefs))
 
 	Topic(href,href_list[])
@@ -859,6 +907,19 @@
 					attack_hand(usr)
 		if(href_list["send"] == "instruction")
 			usr.message_to_usr("[instruction]")
+		if(href_list["send"] == "save")
+			var/gename = ""
+			gename = input("Ќазовите сохран€емый код.","наименование",gename)
+			for(var/obj/machinery/gserver/A in world)
+				if(A.powernet == powernet)
+					for(var/obj/structure/closet/genetic/A2 in range(1, src))
+						for(var/mob/living/human/H in A2)
+							var/list/iDNA = H.DNA.encode()
+							var/str = ""
+							for(var/fragment in iDNA)
+								str += fragment
+							A.DNA["[gename]"] = str
+							A.mydna["[gename]"] = H.DNA.decode(H.DNA.encode())
 
 /obj/item/mainboard/genetics
 	icon = 'computer.dmi'
@@ -871,3 +932,47 @@
 	icon_state = "scanner_1"
 	ru_name = "генетический модификатор"
 	state = "scanner"
+
+/obj/machinery/gserver
+	icon = 'computer.dmi'
+	icon_state = "server"
+	ru_name = "сервер генетического кода"
+	anchored = 1
+	density = 1
+	var/list/DNA = list()
+	var/list/mydna = list()
+
+	New()
+		..()
+		sleep(5)
+		tocontrol()
+
+/obj/item/DNAdisk
+	layer = 3
+	icon = 'computer.dmi'
+	icon_state = "disk"
+	var/list/DISKDNA = list()
+
+/obj/machinery/computer/genetics/floppybird
+	icon = 'computer.dmi'
+	icon_state = "computer_frame"
+	ru_name = "система вывода генетического кода"
+	anchored = 1
+	density = 1
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(okinterface() && use_power())
+			var/list/stats = list()
+			var/list/hrefs = list()
+			for(var/obj/machinery/gserver/A in range(1, src))
+				for(var/g in A.DNA)
+					stats.Add(fix1103("[g] - [A.DNA[g]] (на дискету)"))
+					hrefs.Add("dna=[g]")
+			special_browse(M, nterface(stats, hrefs))
+
+	Topic(href,href_list[])
+		if(href_list["dna"])
+			for(var/obj/machinery/gserver/A in range(1, src))
+				var/obj/item/DNAdisk/DDISK = new /obj/item/DNAdisk(src.loc)
+				DDISK.DISKDNA = A.mydna[href_list["dna"]]
