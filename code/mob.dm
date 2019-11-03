@@ -92,6 +92,7 @@
 	var/image/lungs
 	var/image/heart
 	var/image/stomach
+	var/image/liver
 	var/oxygen_tank = 0
 
 	var/image/bone_chest
@@ -127,6 +128,7 @@
 	var/obj/item/organ/thorax/othorax
 	var/obj/item/organ/lungs/olungs
 	var/obj/item/organ/heart/oheart
+	var/obj/item/organ/liver/oliver
 	var/obj/item/organ/stomach/ostomach
 	var/obj/item/organ/eyes/eyes
 	var/obj/item/organ/tongue/otongue
@@ -493,7 +495,7 @@
 	proc/humanparts_upd()
 		humanparts.Cut()
 		humanparts.Add(bone_chest, bone_thorax, bone_l_leg, bone_r_leg, bone_head, bone_r_arm, bone_l_arm, \
-		lungs, heart, stomach, \
+		lungs, heart, liver, stomach, \
 		muscle_chest, muscle_l_leg, muscle_thorax, muscle_r_leg, muscle_head, muscle_r_arm, muscle_l_arm, \
 		skin_chest, skin_l_leg, skin_r_leg, skin_head, skin_r_arm, skin_thorax, skin_l_arm)
 
@@ -509,6 +511,7 @@
 		lungs = image(icon = 'icons/human.dmi',icon_state = "lungs",layer = src.layer)
 		heart = image(icon = 'icons/human.dmi',icon_state = "heart",layer = src.layer)
 		stomach = image(icon = 'icons/human.dmi',icon_state = "stomach",layer = src.layer)
+		liver = image(icon = 'icons/human.dmi',icon_state = "liver",layer = src.layer)
 
 		muscle_chest = image(icon = 'icons/human.dmi',icon_state = "muscles_chest",layer = src.layer + 1)
 		muscle_thorax = image(icon = 'icons/human.dmi',icon_state = "muscle_thorax",layer = src.layer + 1)
@@ -539,6 +542,7 @@
 		eyes = new /obj/item/organ/eyes(src)
 		otongue = new /obj/item/organ/tongue(src)
 		othorax = new /obj/item/organ/thorax(src)
+		oliver = new /obj/item/organ/liver(src)
 
 	proc/organsnull()
 		left_arm = null
@@ -551,6 +555,7 @@
 		olungs = null
 		oheart = null
 		ostomach = null
+		oliver = null
 
 	proc/humanupd()
 		humanparts_upd()
@@ -638,6 +643,9 @@
 		if(olungs)
 			olungs.process()
 
+		if(oliver)
+			oliver.process()
+
 		if(oheart)
 			oheart.process()
 
@@ -694,6 +702,9 @@
 		spawn(5)
 			if(!client)
 				loc = initial(loc)
+
+	verb/check_liver()
+		world << oliver.muscle.health
 
 	verb/skin_damage()
 		left_arm.skin.health -= 16

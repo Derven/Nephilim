@@ -12,9 +12,11 @@ datum
 		var/reagent_state = SOLID
 		var/data = null
 		var/volume = 0
+		var/toxin = 0
 
 		proc
 			reaction_mob(var/mob/living/human/M, var/volume) //By default we have a chance to transfer some
+				..()
 				var/datum/reagent/self = src
 				src = null										  //of the reagent to the mob on TOUCHING it.
 
@@ -44,8 +46,16 @@ datum
 				return
 
 			on_mob_life(var/mob/M)
-				holder.remove_reagent(src.id, 0.4) //By default it slowly disappears.
-				return
+				if(name != "blood" && name != "blood_ven")
+					holder.remove_reagent(src.id, 0.4) //By default it slowly disappears.
+					if(istype(M, /mob/living/human))
+						if(toxin)
+							if(M:oliver)
+								holder.remove_reagent(src.id, round(holder.get_reagent_amount(name) / (M:oliver:muscle.health / 50)))
+								M:oliver:muscle.health -= holder.get_reagent_amount(name) / (M:oliver:muscle.health / 100)
+							else
+								M:health -= holder.get_reagent_amount(name)
+					return
 
 		acid
 			name = "acid"
@@ -61,6 +71,7 @@ datum
 			name = "poison"
 			id = "poison"
 			reagent_state = LIQUID
+			toxin = 1
 
 			reaction_mob(var/mob/M)
 				if(!M) M = holder.my_atom
@@ -79,6 +90,7 @@ datum
 			id = "blood_ven"
 
 		ethanol
+			toxin = 1
 			name = "ethanol"
 			id = "ethanol"
 
@@ -87,6 +99,7 @@ datum
 			id = "cola"
 
 		oil
+			toxin = 1
 			name = "oil"
 			id = "oil"
 
@@ -112,6 +125,7 @@ datum
 		secgas //слезоточивый газ
 			name = "secgas"
 			id = "secgas"
+			toxin = 1
 
 			reaction_mob(var/mob/living/human/M, var/volume) //By default we have a chance to transfer some
 				M.cry(rand(1,3))
@@ -132,14 +146,17 @@ datum
 		psilocybin
 			name = "psilocybin"
 			id = "psilocybin"
+			toxin = 1
 
 		palladium
 			name = "palladium"
 			id = "palladium"
+			toxin = 1
 
 		phosphorus
 			name = "phosphorus"
 			id = "phosphorus"
+			toxin = 1
 
 			reaction_mob(var/mob/living/human/M, var/volume) //By default we have a chance to transfer some
 				for(var/datum/mutation/phosphorus_metabolic/PM in M.mutations)

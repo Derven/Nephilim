@@ -536,6 +536,37 @@
 				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/oxygen, /obj/hud/oxy)
 
+	liver
+		name = "liver"
+		ru_name = "печень"
+		temp_factor = 0.0
+		icon_state = "liver"
+
+		init()
+			if(!bone) bone = new /datum/bone
+			if(!muscle) muscle = new /datum/muscle
+			if(!skin) skin = new /datum/skin
+
+			bone.name = null
+			muscle.name = "печень"
+			skin.name = null
+			skin.istate = null
+			skin.damagedstate = null
+			muscle.istate = "liver"
+			muscle.damagedstate = "liver"
+			bone.istate = null
+			if(istype(loc, /mob/living/human))
+				owner = loc
+				muscle.health += owner:DNA.muscles * 100
+				skin.health += owner:DNA.skin * 100
+				bone.health  += owner:DNA.bones * 100
+			IHUD = list()
+
+		process()
+			if(owner)
+				for(var/datum/reagent/R in owner.reagents.reagent_list)
+					R.on_mob_life(owner)
+
 	eyes
 		name = "eyes"
 		ru_name = "глаза"
