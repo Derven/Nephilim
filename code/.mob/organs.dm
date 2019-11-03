@@ -661,7 +661,11 @@
 			if(content)
 				content.loc = owner.loc
 				content = null
-				new /obj/effect/vomit(owner.loc)
+			for(var/datum/reagent/R in owner.reagents.reagent_list)
+				if(R.toxin)
+					owner.reagents.remove_reagent(R.name, round(owner.reagents.get_reagent_amount(R.name)))
+			new /obj/effect/vomit(owner.loc)
+			owner.call_message(3, "<b>[owner.name] стошнило!</b>")
 			owner.message_to_usr("вас стошнило!")
 
 		process(var/image/oskin, var/image/omuscle, var/image/obone)

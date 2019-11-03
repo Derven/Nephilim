@@ -53,8 +53,14 @@ datum
 							if(M:oliver)
 								holder.remove_reagent(src.id, round(holder.get_reagent_amount(name) / (M:oliver:muscle.health / 50)))
 								M:oliver:muscle.health -= holder.get_reagent_amount(name) / (M:oliver:muscle.health / 100)
+								if(prob(rand(15,25)))
+									if(M:ostomach)
+										M:ostomach:vomit()
 							else
 								M:health -= holder.get_reagent_amount(name)
+								if(prob(45))
+									if(M:ostomach)
+										M:ostomach:vomit()
 					return
 
 		acid
