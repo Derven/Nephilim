@@ -335,8 +335,10 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 
 	damage
 		name = "damage"
+		icon = 'zone.dmi'
 		var/activezone = 0
-		layer = 26
+		layer = 27
+		screen_loc = "14,13"
 
 		Click()
 			for(var/obj/hud/damage/DAMN in usr.client.screen)
@@ -347,43 +349,130 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 			activezone = 1
 			color = "red"
 
+		skin
+			layer = 25
+			alpha = 128
+
+			skin_head
+				name = "head_skin"
+				icon_state = "head_skin"
+
+			skin_chest
+				icon_state = "chest_skin"
+				name = "chest_skin"
+
+			skin_thorax
+				icon_state = "thorax_skin"
+				name = "thorax_skin"
+
+			skin_l_arm
+				icon_state = "l_arm_skin"
+				name = "l_arm_skin"
+
+			skin_r_arm
+				icon_state = "r_arm_skin"
+				name = "r_arm_skin"
+
+			skin_l_leg
+				icon_state = "l_leg_skin"
+				name = "l_leg_skin"
+
+			skin_r_leg
+				icon_state = "r_leg_skin"
+				name = "r_leg_skin"
+
+		muscle
+			layer = 24
+
+			head
+				icon_state = "head_muscle"
+				name = "head_muscle"
+
+			chest
+				icon_state = "chest_muscle"
+				name = "chest_muscle"
+
+			thorax
+				icon_state = "thorax_muscle"
+				name = "thorax_muscle"
+
+			l_arm
+				icon_state = "l_arm_muscle"
+				name = "l_arm_muscle"
+
+			r_arm
+				icon_state = "r_arm_muscle"
+				name = "r_arm_muscle"
+
+			l_leg
+				icon_state = "l_leg_muscle"
+				name = "l_leg_muscle"
+
+			r_leg
+				icon_state = "r_leg_muscle"
+				name = "r_leg_muscle"
+
+		bone
+			layer = 26
+
+			head
+				icon_state = "head_bone"
+				name = "head_bone"
+
+			chest
+				icon_state = "chest_bone"
+				name = "chest_bone"
+
+			thorax
+				icon_state = "thorax_bone"
+				name = "thorax_bone"
+
+			l_arm
+				icon_state = "l_arm_bone"
+				name = "l_arm_bone"
+
+			r_arm
+				icon_state = "r_arm_bone"
+				name = "r_arm_bone"
+
+			l_leg
+				icon_state = "l_leg_bone"
+				name = "l_leg_bone"
+
+			r_leg
+				icon_state = "r_leg_bone"
+				name = "r_leg_bone"
+
 		damage_lleg
-			icon_state = "damage_lleg"
+			icon_state = "damage_l_leg"
 			name = "damage_lleg"
-			screen_loc = "14,13"
 
 		damage_rleg
-			icon_state = "damage_rleg"
+			icon_state = "damage_r_leg"
 			name = "damage_rleg"
-			screen_loc = "14,13"
 
 		damage_rarm
-			icon_state = "damage_rarm"
+			icon_state = "damage_r_arm"
 			name = "damage_rarm"
-			screen_loc = "14,13"
 
 		damage_larm
-			icon_state = "damage_larm"
+			icon_state = "damage_l_arm"
 			name = "damage_larm"
-			screen_loc = "14,13"
 
 		damage_chest
 			icon_state = "damage_chest"
 			name = "damage_chest"
 			activezone = 1
-			screen_loc = "14,13"
 
 		damage_thorax
 			icon_state = "damage_thorax"
 			name = "damage_thorax"
 			activezone = 1
 			color = "red"
-			screen_loc = "14,13"
 
 		damage_head
 			icon_state = "damage_head"
 			name = "damage_head"
-			screen_loc = "14,13"
 
 
 	drop

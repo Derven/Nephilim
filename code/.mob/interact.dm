@@ -116,7 +116,7 @@
 		if(get_dist(src, usr) <= 1 || istype(src, /obj/hud) || istype(src.loc, /obj/item/clothing/backpack) || istype(src.loc, /obj/item/clothing/uniform))
 			if(usr:get_slot("lhand") || usr:get_slot("rhand"))
 				if(usr:get_slot("lhand"))
-					if(usr:get_slot("lhand"):active)
+					if(usr:get_slot("lhand"):active && !usr:left_arm.bone.broken)
 						if(usr:get_slot("lhand"):SLOT != null)
 							afterattack(usr, usr:get_slot("lhand"):SLOT)
 							usr:get_slot("lhand"):SLOT:justattack(usr, src)
@@ -124,7 +124,7 @@
 							return
 
 				if(usr:get_slot("rhand"))
-					if(usr:get_slot("rhand"):active)
+					if(usr:get_slot("rhand"):active && !usr:right_arm.bone.broken)
 						if(usr:get_slot("rhand"):SLOT != null)
 							afterattack(usr, usr:get_slot("rhand"):SLOT)
 							usr:get_slot("rhand"):SLOT:justattack(usr, src)
@@ -161,7 +161,7 @@
 		if(get_dist(src, usr) > 1 && get_dist(src, usr) < 127)
 
 			if(usr:get_slot("rhand"))
-				if(usr:get_slot("rhand"):active)
+				if(usr:get_slot("rhand"):active && !usr:right_arm.bone.broken)
 					if(istype(usr:get_slot("rhand"):SLOT, /obj/item/tools/tankgun))
 						var/obj/item/tools/tankgun/tankgun = usr:get_slot("rhand"):SLOT
 						if(tankgun.bullet)
@@ -173,7 +173,7 @@
 						tasergun.pew()
 
 			if(usr:get_slot("lhand"))
-				if(usr:get_slot("lhand"):active)
+				if(usr:get_slot("lhand"):active && !usr:left_arm.bone.broken)
 					if(istype(usr:get_slot("lhand"):SLOT, /obj/item/tools/tankgun))
 						var/obj/item/tools/tankgun/tankgun = usr:get_slot("rhand"):SLOT
 						if(tankgun.bullet)
@@ -206,15 +206,15 @@
 			HEAR << "*шум*"
 
 /mob/proc/message_to_usr(var/msg)
-	usr << fix255(msg)
+	src << fix255(msg)
 
 /mob/living/human/proc/pickup(var/obj/item/I)
 	if(get_slot("lhand") || get_slot("rhand"))
 		if(get_slot("lhand"))
-			if(get_slot("lhand"):active)
+			if(get_slot("lhand"):active && !usr:left_arm.bone.broken)
 				get_slot("lhand"):SLOT = I
 				get_slot("lhand"):put_to_slot()
 		if(get_slot("rhand"))
-			if(get_slot("rhand"):active)
+			if(get_slot("rhand"):active && !usr:right_arm.bone.broken)
 				get_slot("rhand"):SLOT = I
 				get_slot("rhand"):put_to_slot()

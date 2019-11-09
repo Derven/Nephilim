@@ -9,7 +9,7 @@ world
 	turf = /turf/space
 	view = 6		// show up to 6 tiles outward from center (13x13 view)
 	mob = /mob/living/human
-	map_format = TILED_ICON_MAP
+	map_format = TOPDOWN_MAP
 	loop_checks = 0
 
 	New()

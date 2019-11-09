@@ -7,7 +7,7 @@
 	var/health = 150
 	var/broken = 0
 	name = "bone"
-
+	var/physical_damage = 0
 	robo
 		health = 300
 
@@ -15,12 +15,18 @@
 	var/health = 100
 	name = "muscle"
 	var/damagedstate = ""
+	var/physical_damage = 0
+	var/temp_damage = 0
+	var/chem_damage = 0
 
 	robo
 		health = 200
 
 /datum/organ
 	var/health = 120
+	var/physical_damage = 0
+	var/temp_damage = 0
+	var/chem_damage = 0
 	name = "organ"
 	proc/myfunc()
 		return 0
@@ -29,7 +35,9 @@
 	name = "skin"
 	var/health = 60
 	var/damagedstate = ""
-
+	var/physical_damage = 0
+	var/temp_damage = 0
+	var/chem_damage = 0
 	robo
 		health = 120
 
@@ -71,9 +79,11 @@
 			if(istype(I, /obj/item/tools/saw))
 				if(scalped)
 					var/obj/item/organ/O = new src.type(owner.loc)
-					O.muscle.health = muscle.health
-					O.skin.health = skin.health
-					O.bone.health = bone.health
+
+					O.muscle.health = initial(muscle.health) - muscle.physical_damage - muscle.temp_damage - muscle.chem_damage
+					O.skin.health = initial(skin.health) - skin.physical_damage - skin.temp_damage - skin.chem_damage
+					O.bone.health = initial(bone.health) - bone.physical_damage
+
 					O.transform = turn(src.transform, rand(0,170))
 					del_hud()
 					if(istype(src, /obj/item/organ/rleg) || istype(src, /obj/item/organ/lleg))
@@ -178,17 +188,22 @@
 
 			if( (owner.loc:temperature - owner.bodytemp < -30 && owner.clothes_temperature_def + owner:DNA.temp_defense < speed_of_zamerzanie + temp_factor))
 				if(silicon == 0)
-					skin.health -= rand(1,3) - owner.clothes_temperature_def
-					muscle.health -= rand(5,10) - owner.clothes_temperature_def
+					muscle.temp_damage += rand(5,10) - owner.clothes_temperature_def
+					skin.temp_damage += rand(1,3) - owner.clothes_temperature_def
 
 			if( (owner.loc:temperature - owner.bodytemp >= 90 && owner.clothes_temperature_def + owner:DNA.temp_defense < speed_of_zamerzanie + temp_factor) || owner.bodytemp > 50)
 				if(silicon == 0)
-					skin.health -= rand(1,3) - owner.clothes_temperature_def
-					muscle.health -= rand(5,10) - owner.clothes_temperature_def
+					muscle.temp_damage += rand(5,10) - owner.clothes_temperature_def
+					skin.temp_damage += rand(1,3) - owner.clothes_temperature_def
 
 	process(var/image/oskin, var/image/omuscle, var/image/obone)
 		if(owner)
-			if(prob(rand(0,2) - owner:DNA.pain_sensitive))
+
+			muscle.health = initial(muscle.health) - muscle.physical_damage - muscle.temp_damage - muscle.chem_damage
+			skin.health = initial(skin.health) - skin.physical_damage - skin.temp_damage - skin.chem_damage
+			bone.health = initial(bone.health) - bone.physical_damage
+
+			if(prob((rand(0,2) - owner:DNA.pain_sensitive) * 35))
 				check_pain()
 
 			check_temperature()
@@ -217,6 +232,34 @@
 				spawn(src:temp)
 					owner.reagents.remove_reagent("blood_ven", 2)
 					owner.reagents.add_reagent("blood", 2)
+
+			if(istype(src, /obj/item/organ/lleg) || istype(src, /obj/item/organ/rleg))
+				if(src.bone.broken)
+					src:speeding = rand(-1,0)
+					if(prob(35))
+						if(!owner:rest)
+							owner:rest()
+
+			if(istype(src, /obj/item/organ/chest))
+				if(src.bone.broken)
+					if(!owner:rest)
+						owner:rest()
+
+			if(istype(src, /obj/item/organ/thorax))
+				if(src.bone.broken)
+					if(prob(25))
+						owner.oxyloss += rand(2,5)
+
+			if(istype(src, /obj/item/organ/head))
+				if(src.bone.broken)
+					if(prob(35))
+						if(!owner:rest)
+							owner:rest()
+					if(prob(25))
+						if(owner.client)
+							owner.client.shakecamera()
+					if(prob(15))
+						owner.health--
 
 			if(istype(src, /obj/item/organ/eyes))
 				if(muscle.health < 50 && owner:DNA.eyes < 2)
@@ -285,7 +328,12 @@
 					oskin = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
 			if(owner:DNA.metabolism > 0)
 				if(skin.health < initial(skin.health))
-					skin.health += owner:DNA.metabolism * rand(1,3)
+					if(skin.physical_damage >= 5)
+						skin.physical_damage -= owner:DNA.metabolism * rand(1,4)
+					if(skin.temp_damage >= 5)
+						skin.temp_damage -= owner:DNA.metabolism * rand(1,4)
+					if(skin.chem_damage >= 5)
+						skin.chem_damage -=  owner:DNA.metabolism * rand(1,4)
 					if(owner:ostomach)
 						owner:ostomach.hungry += owner:DNA.metabolism
 					else
@@ -295,6 +343,12 @@
 	proc/check_muscle()
 		var/image/omuscle
 		if(owner)
+			if(owner.get_slot("[name]_muscle", owner))
+				owner.get_slot("[name]_muscle", owner):overlays.Cut()
+				if(ARTERIAL.opened)
+					owner.get_slot("[name]_muscle", owner):overlays.Add(image(icon = 'zone.dmi',icon_state = "[name]_arterial_damaged",layer = 28))
+				if(VENOS.opened)
+					owner.get_slot("[name]_muscle", owner):overlays.Add(image(icon = 'zone.dmi',icon_state = "[name]_venos_damaged",layer = 27))
 			switch(muscle.health)
 				if(50 to 10000)
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "[muscle.istate]",layer = owner.layer + 2)
@@ -306,7 +360,6 @@
 						if(!owner.rest)
 							owner.rest()
 					omuscle = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
-
 					var/obj/item/organ/O = new src.type(owner.loc)
 					O.muscle.health = muscle.health
 					O.skin.health = skin.health
@@ -319,7 +372,12 @@
 
 			if(owner:DNA.metabolism > 0)
 				if(muscle.health < initial(muscle.health))
-					muscle.health += owner:DNA.metabolism * rand(1,3)
+					if(muscle.physical_damage >= 5)
+						muscle.physical_damage -= owner:DNA.metabolism * rand(1,3)
+					if(muscle.temp_damage >= 5)
+						muscle.temp_damage -= owner:DNA.metabolism * rand(1,3)
+					if(muscle.chem_damage >= 5)
+						muscle.chem_damage -=  owner:DNA.metabolism * rand(1,3)
 					if(owner:ostomach)
 						owner:ostomach.hungry += owner:DNA.metabolism
 					else
@@ -331,8 +389,15 @@
 		var/image/obone
 		if(owner)
 			switch(bone.health)
-				if(5 to 10000)
+				if(50 to 10000)
 					obone = image(icon = 'icons/human.dmi',icon_state = "[bone.istate]",layer = owner.layer + 2)
+					bone.broken = 0
+					if(owner.get_slot("[name]_bone", owner))
+						owner.get_slot("[name]_bone", owner):icon_state = "[name]_bone"
+				if(5 to 50)
+					bone.broken = 1
+					if(owner.get_slot("[name]_bone", owner))
+						owner.get_slot("[name]_bone", owner):icon_state = "[name]_bone_damaged"
 				if(-999 to 5)
 					if(name == "chest" || name == "l_leg" || name == "r_leg")
 						if(!owner.rest)
@@ -343,38 +408,42 @@
 
 			if(owner:DNA.metabolism > 1)
 				if(bone.health < initial(bone.health))
-					bone.health += owner:DNA.metabolism * rand(1,3)
+					if(bone.physical_damage >= 5)
+						bone.physical_damage -= owner:DNA.metabolism * rand(1,2)
 					if(owner:ostomach)
 						owner:ostomach.hungry += owner:DNA.metabolism
 					else
 						owner.health--
 	proc/check_pain()
 		if(owner)
+			var/full_pain = 0
 			if(skin.name != null)
 				switch(skin.health)
 					if(15 to 20)
 						damage_level = LIGHT_DAMAGE
-						owner.message_to_usr("[skin.name] немного болит")
+						owner.message_to_usr("<font size='3' color='red'>[skin.name] немного болит</font>")
 					if(5 to 15)
 						damage_level = LIGHT_DAMAGE
-						owner.message_to_usr("[skin.name] серьезно болит. Это очень плохо.")
+						owner.message_to_usr("<font size='4' color='red'>[skin.name] серьезно болит. Это очень плохо.</font>")
 					if(-999 to 5)
 						damage_level = MEDIUM_DAMAGE
-						owner.message_to_usr("[skin.name] практически отвалилась. Это адская боль")
+						owner.message_to_usr("<font size='5' color='red'>[skin.name] практически отвалилась. Это адская боль</font>")
+			full_pain += damage_level
 
 			switch(muscle.health)
 				if(50 to 70)
 					if(bone.name != null)
-						owner.message_to_usr("[muscle.name] немного болит")
+						owner.message_to_usr("<font size='3' color='red'>[muscle.name] немного болит</font>")
 					damage_level = MEDIUM_DAMAGE
 				if(30 to 50)
 					if(bone.name != null)
-						owner.message_to_usr("[muscle.name] серьезно болит. Это очень плохо.")
+						owner.message_to_usr("<font size='4' color='red'>[muscle.name] серьезно болит. Это очень плохо.</font>")
 					damage_level = MEDIUM_DAMAGE
 				if(-999 to 5)
 					if(bone.name != null)
-						owner.message_to_usr("[muscle.name] практически отвалилась. Это адская боль! Использование [src.ru_name] затруднено")
+						owner.message_to_usr("<font size='5' color='red'>[muscle.name] практически отвалилась. Это адская боль! Использование [src.ru_name] затруднено</font>")
 					damage_level = HARD_DAMAGE
+			full_pain += damage_level
 
 			if(bone.name != null)
 				switch(bone.health)
@@ -382,15 +451,28 @@
 						if(bone.broken)
 							bone.broken = !bone.broken
 					if(40 to 70)
-						owner.message_to_usr("[bone.name] сломана(ы), это очень больно. Использование [src.ru_name] затруднено")
+						owner.message_to_usr("<font size='5' color='red'>[bone.name] сломана(ы), это очень больно. Использование [src.ru_name] затруднено</font>")
 						damage_level = MEDIUM_DAMAGE
 						bone.broken = 1
 					if(-999 to 5)
 						bone.broken = 1
-						owner.message_to_usr("[bone.name] раздроблена(ы) в мелкую крошку. Вам невыносимо больно. Использование или лечение [src.ru_name] невозможно")
+						owner.message_to_usr("<font size='6' color='red'>[bone.name] раздроблена(ы) в мелкую крошку. Вам невыносимо больно. Использование или лечение [src.ru_name] невозможно</font>")
 						damage_level = HARD_DAMAGE
 						if(istype(src, /obj/item/organ/head))
 							owner.death()
+			full_pain += damage_level
+
+			switch(full_pain)
+				if(1 to 2)
+					if(owner.get_slot("[name]_muscle", owner))
+						owner.get_slot("[name]_muscle", owner):icon_state = "[name]_pain1"
+				if(3 to 5)
+					if(owner.get_slot("[name]_muscle", owner))
+						owner.get_slot("[name]_muscle", owner):icon_state = "[name]_pain2"
+				if(5 to 100)
+					if(owner.get_slot("[name]_muscle", owner))
+						owner.get_slot("[name]_muscle", owner):icon_state = "[name]_pain3"
+
 
 	thorax
 		name = "thorax"
@@ -421,7 +503,7 @@
 				muscle.health += owner:DNA.muscles * 100
 				skin.health += owner:DNA.skin * 100
 				bone.health  += owner:DNA.bones * 100
-			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
+			IHUD = list(/obj/hud/damage/skin/skin_thorax, /obj/hud/damage/muscle/thorax, /obj/hud/damage/bone/thorax)
 
 	larm
 		name = "l_arm"
@@ -452,7 +534,8 @@
 				muscle.health += owner:DNA.muscles * 100
 				skin.health += owner:DNA.skin * 100
 				bone.health  += owner:DNA.bones * 100
-			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left)
+			IHUD = list(/obj/hud/lhand, /obj/hud/glove_left, \
+			/obj/hud/damage/skin/skin_l_arm, /obj/hud/damage/muscle/l_arm, /obj/hud/damage/bone/l_arm)
 
 		roboarm
 			name = "l_arm"
@@ -508,7 +591,8 @@
 				bone.health  += owner:DNA.bones * 100
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_thorax, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
-			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind, /obj/hud/temp)
+			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind, /obj/hud/temp, \
+			/obj/hud/damage/skin/skin_head, /obj/hud/damage/muscle/head, /obj/hud/damage/bone/head)
 
 	lungs
 		name = "lungs"
@@ -743,7 +827,8 @@
 				muscle.health += owner:DNA.muscles * 100
 				skin.health += owner:DNA.skin * 100
 				bone.health  += owner:DNA.bones * 100
-			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton, /obj/hud/pullbutton, /obj/hud/backpack)
+			IHUD = list(/obj/hud/uniform, /obj/hud/suit, /obj/hud/tank, /obj/hud/mayka, /obj/hud/boxers, /obj/hud/throwbutton, /obj/hud/pullbutton, /obj/hud/backpack, \
+			/obj/hud/damage/skin/skin_chest, /obj/hud/damage/muscle/chest, /obj/hud/damage/bone/chest)
 
 	rarm
 		name = "r_arm"
@@ -776,7 +861,8 @@
 				muscle.health += owner:DNA.muscles * 100
 				skin.health += owner:DNA.skin * 100
 				bone.health  += owner:DNA.bones * 100
-			IHUD = list(/obj/hud/rhand, /obj/hud/glove_right)
+			IHUD = list(/obj/hud/rhand, /obj/hud/glove_right, \
+			/obj/hud/damage/skin/skin_r_arm, /obj/hud/damage/muscle/r_arm, /obj/hud/damage/bone/r_arm)
 
 		roboarm
 			name = "r_arm"
@@ -830,7 +916,8 @@
 				muscle.health += owner:DNA.muscles * 100
 				skin.health += owner:DNA.skin * 100
 				bone.health  += owner:DNA.bones * 100
-			IHUD = list(/obj/hud/shoes_right, /obj/hud/socks_right)
+			IHUD = list(/obj/hud/shoes_right, /obj/hud/socks_right, \
+			/obj/hud/damage/skin/skin_r_leg, /obj/hud/damage/muscle/r_leg, /obj/hud/damage/bone/r_leg)
 
 		roboleg
 			name = "r_leg"
@@ -888,7 +975,8 @@
 				muscle.health += owner:DNA.muscles * 100
 				skin.health += owner:DNA.skin * 100
 				bone.health  += owner:DNA.bones * 100
-			IHUD = list(/obj/hud/shoes_left, /obj/hud/socks_left)
+			IHUD = list(/obj/hud/shoes_left, /obj/hud/socks_left, \
+			/obj/hud/damage/skin/skin_l_leg, /obj/hud/damage/muscle/l_leg, /obj/hud/damage/bone/l_leg)
 
 		roboleg
 			name = "l_leg"

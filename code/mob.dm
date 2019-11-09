@@ -722,6 +722,15 @@
 		ochest.muscle.health -= 10
 		ohead.muscle.health -= 10
 
+	verb/bone_damage()
+		right_arm.bone.physical_damage += 10
+		left_arm.bone.physical_damage += 10
+		left_leg.bone.physical_damage += 10
+		right_leg.bone.physical_damage += 10
+		ochest.bone.physical_damage += 10
+		ohead.bone.physical_damage += 10
+		othorax.bone.physical_damage += 10
+
 	verb/check_blood()
 		world << reagents.get_reagent_amount("blood")
 		world << reagents.get_reagent_amount("blood_ven")
