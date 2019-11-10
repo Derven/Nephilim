@@ -132,7 +132,7 @@
 "cB" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor,/area)
 "cC" = (/obj/machinery/portable_atmospherics/canister/empty,/obj/machinery/atmospherics/connector,/turf/floor/plating,/area)
 "cD" = (/obj/item/baton/stunbaton,/turf/floor{icon_state = "bar"},/area)
-"cE" = (/obj/electro/cable/copper,/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 5},/turf/floor{icon_state = "bar"},/area)
+"cE" = (/obj/item/tools/wrench,/obj/item/devicebattery,/turf/floor{icon_state = "bar"},/area)
 "cF" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 10},/turf/floor{icon_state = "bar"},/area)
 "cG" = (/obj/machinery/atmospherics/pipe,/turf/wall{icon_state = "wall0"},/area)
 "cH" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/machinery/portable_atmospherics/canister/plasma,/obj/machinery/atmospherics/connector{dir = 8},/turf/floor{icon_state = "bar"},/area)
@@ -170,7 +170,7 @@
 "dn" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/light/north,/turf/floor,/area)
 "do" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
 "dp" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/power_block,/obj/machinery/computer/genetics,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
-"dq" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 8},/obj/landmark,/turf/floor{icon_state = "bar"},/area)
+"dq" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 8},/obj/landmark,/turf/floor{icon_state = "bar"; temperature = 20},/area)
 "dr" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/electro/cable/copper,/turf/floor,/area)
 "ds" = (/obj/machinery/airlock,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dt" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
@@ -223,7 +223,7 @@
 "eo" = (/obj/item/impactgrenage/secgrenage,/turf/floor,/area)
 "ep" = (/obj/item/weapon/reagent_containers/glass/phos,/turf/floor{icon_state = "white"},/area)
 "eq" = (/obj/item/weapon/reagent_containers/glass/phos,/turf/floor{icon_state = "medbay3"; dir = 4},/area)
-"er" = (/obj/item/tools/wrench,/obj/item/devicebattery,/turf/floor{icon_state = "bar"},/area)
+"er" = (/obj/electro/cable/copper,/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 5},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor{icon_state = "bar"},/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -266,7 +266,7 @@ aaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacacacacacbWbXbYbWacacacabaZaZaZaZ
 aaaaaaaaaaaaaaaaabababababababababababababababababababababbObOabababacababadadababababacbiafadadadadbmahbjahadbMababahdAahacacbqbpadadabadadabadadeladadadeiabafadabababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZcacbcccdcecfcgabacacabadadagacacacacbiafadadadadblafbjahadbMadabbqdzacacacacabadeoabababababababegbKbIegabafadabacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcjcldqctckabcCacababababacababacbiadadadadadbmabadadadbMadabbqbnbqbqacbqabadadaWacacacacacabegbJbIegabadadabacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcicDercEcFabcGacacacacacacabacacababagabababababababadbMadabbobtbsbqbqacabadadabababababacabegbIbKegababaWabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcicDcEercFabcGacacacacacacabacacababagabababababababadbMadabbobtbsbqbqacabadadabababababacabegbIbKegababaWabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcHcIcJcmcKcncGabababababababacacacabadabacacacacacaWadbNabababababababababadadabadadadabacababababababacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZcoababahcLcpcGabcGaaaaaaaaaaaaabababacabadabacacacacacabadbMadadadadadadadadadadadabadadadabacacacacacacacacacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccMcscNabcMaaaaaaaaaaaaaaaaabacabadabababababababaddudmdmdmdKdmdmdmdKdcadadbLadadadabacacababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaa

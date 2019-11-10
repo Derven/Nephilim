@@ -13,6 +13,11 @@
 			..()
 			reagents.add_reagent("phosphorus", 300)
 
+	adrenaline
+		New()
+			..()
+			reagents.add_reagent("adrenalin", 300)
+
 	justattack(mob/user, atom/target)
 		if(!target.reagents) return
 		if(ismob(target) && target.reagents && reagents.total_volume)

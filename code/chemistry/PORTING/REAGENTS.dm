@@ -73,6 +73,21 @@ datum
 			id = "nothing"
 			reagent_state = GAS
 
+		adrenalin
+			name = "adrenalin"
+			id = "adrenalin"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					holder.remove_reagent(src.id, round(holder.get_reagent_amount(name) / (M:oliver:muscle.health / 50)))
+					M:oheart.bonus += round(holder.get_reagent_amount(name))
+					if(prob(holder.get_reagent_amount(name)))
+						for(var/obj/item/organ/O in M)
+							if(M.get_slot("[O.name]_muscle", M))
+								M.get_slot("[O.name]_muscle", M):icon_state = "[name]_muscle"
+				return
+
 		poison
 			name = "poison"
 			id = "poison"

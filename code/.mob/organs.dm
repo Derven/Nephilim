@@ -199,12 +199,14 @@
 	process(var/image/oskin, var/image/omuscle, var/image/obone)
 		if(owner)
 
-			muscle.health = initial(muscle.health) - muscle.physical_damage - muscle.temp_damage - muscle.chem_damage
-			skin.health = initial(skin.health) - skin.physical_damage - skin.temp_damage - skin.chem_damage
+			muscle.health = initial(muscle.health) - (muscle.physical_damage + muscle.temp_damage + muscle.chem_damage)
+			skin.health = initial(skin.health) - (skin.physical_damage + skin.temp_damage + skin.chem_damage)
 			bone.health = initial(bone.health) - bone.physical_damage
 
 			if(prob((rand(0,2) - owner:DNA.pain_sensitive) * 35))
-				check_pain()
+				if(owner:oheart)
+					if(owner:oheart.temp < 120)
+						check_pain()
 
 			check_temperature()
 
@@ -212,26 +214,25 @@
 				if(ARTERIAL.opened)
 					owner.reagents.remove_reagent("blood", 4)
 					new /obj/effect/blood(owner.loc)
-			else
-				owner.reagents.remove_reagent("blood", 4)
-				new /obj/effect/blood(owner.loc)
 
 			if(VENOS)
 				if(VENOS.opened)
 					owner.reagents.remove_reagent("blood_ven", 2)
 					new /obj/effect/blood(owner.loc)
-			else
-				owner.reagents.remove_reagent("blood_ven", 2)
-				new /obj/effect/blood(owner.loc)
 
 			if(istype(src, /obj/item/organ/heart))
 				if(src:muscle.health > 0)
-					src:temp = ((100 - src:muscle.health) / 3) + rand(40,63)
+					src:temp = ((100 - src:muscle.health) / 3) + rand(40,63) + src:bonus
+					if(prob(25))
+						src:bonus--
 				else
-					owner.death()
+					src:temp = 0
 				spawn(src:temp)
 					owner.reagents.remove_reagent("blood_ven", 2)
 					owner.reagents.add_reagent("blood", 2)
+
+				if(src:temp > 185)
+					src:muscle.physical_damage += src:temp
 
 			if(istype(src, /obj/item/organ/lleg) || istype(src, /obj/item/organ/rleg))
 				if(src.bone.broken)
@@ -329,11 +330,11 @@
 			if(owner:DNA.metabolism > 0)
 				if(skin.health < initial(skin.health))
 					if(skin.physical_damage >= 5)
-						skin.physical_damage -= owner:DNA.metabolism * rand(1,4)
+						skin.physical_damage -= owner:DNA.metabolism * rand(1,4) + round(owner:oheart.temp / 100)
 					if(skin.temp_damage >= 5)
-						skin.temp_damage -= owner:DNA.metabolism * rand(1,4)
+						skin.temp_damage -= owner:DNA.metabolism * rand(1,4) + round(owner:oheart.temp / 100)
 					if(skin.chem_damage >= 5)
-						skin.chem_damage -=  owner:DNA.metabolism * rand(1,4)
+						skin.chem_damage -=  owner:DNA.metabolism * rand(1,4) + round(owner:oheart.temp / 100)
 					if(owner:ostomach)
 						owner:ostomach.hungry += owner:DNA.metabolism
 					else
@@ -373,11 +374,11 @@
 			if(owner:DNA.metabolism > 0)
 				if(muscle.health < initial(muscle.health))
 					if(muscle.physical_damage >= 5)
-						muscle.physical_damage -= owner:DNA.metabolism * rand(1,3)
+						muscle.physical_damage -= owner:DNA.metabolism * rand(1,3) + round(owner:oheart.temp / 200)
 					if(muscle.temp_damage >= 5)
-						muscle.temp_damage -= owner:DNA.metabolism * rand(1,3)
+						muscle.temp_damage -= owner:DNA.metabolism * rand(1,3) + round(owner:oheart.temp / 200)
 					if(muscle.chem_damage >= 5)
-						muscle.chem_damage -=  owner:DNA.metabolism * rand(1,3)
+						muscle.chem_damage -=  owner:DNA.metabolism * rand(1,3) + round(owner:oheart.temp / 200)
 					if(owner:ostomach)
 						owner:ostomach.hungry += owner:DNA.metabolism
 					else
@@ -405,7 +406,9 @@
 					del_hud()
 					obone = image(icon = 'icons/human.dmi',icon_state = "null",layer = owner.layer + 2)
 			return obone
-
+			if(prob(50))
+				if(owner.reagents.get_reagent_amount("blood_ven") + owner.reagents.get_reagent_amount("blood") < 300)
+					owner.reagents.add_reagent("blood", 1 + owner:DNA.metabolism)
 			if(owner:DNA.metabolism > 1)
 				if(bone.health < initial(bone.health))
 					if(bone.physical_damage >= 5)
@@ -472,6 +475,9 @@
 				if(5 to 100)
 					if(owner.get_slot("[name]_muscle", owner))
 						owner.get_slot("[name]_muscle", owner):icon_state = "[name]_pain3"
+
+			if(full_pain > 1)
+				owner.reagents.add_reagent("adrenalin", round(full_pain / 2))
 
 
 	thorax
@@ -707,6 +713,7 @@
 		var/temp = 1
 		temp_factor = 0.0
 		icon_state = "heart"
+		var/bonus = 0
 
 		init()
 			if(!bone) bone = new /datum/bone

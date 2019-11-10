@@ -32,6 +32,9 @@
 	stat("CPU",world.cpu)
 	stat("difftime",difftime)
 	//statpanel("debug contents",list_items)
+	if(oheart)
+		stat("pulse",oheart.temp)
+	stat("HP",health)
 	if(ochest)
 		if(get_slot("backpack"))
 			if(get_slot("backpack"):SLOT)
@@ -136,16 +139,17 @@
 	var/stuned = 0
 
 	proc/stun()
+		if(stuned < 0)
+			stuned = 0
 		if(stuned > 0)
 			if(!rest)
 				rest()
-			while(stuned > 0)
-				stuned -= 1
-				pixel_x += rand(-3,3)
-				pixel_y += rand(-3,3)
-				sleep(1)
-				pixel_x = initial(pixel_x)
-				pixel_y = initial(pixel_y)
+			stuned -= 1
+			pixel_x += rand(-3,3)
+			pixel_y += rand(-3,3)
+			sleep(rand(0,1))
+			pixel_x = initial(pixel_x)
+			pixel_y = initial(pixel_y)
 
 	//panch
 	var/punch_intent = PANCHSBOKY
@@ -678,6 +682,19 @@
 		if(do_after(src,5))
 			if(machine_accelerate > 0)
 				machine_accelerate = 0
+		if(!oheart)
+			health -= rand(1,5)
+			if(prob(45))
+				if(!rest)
+					rest()
+				message_to_usr("<font size='5' color='red'>¬ы чувствуете острую боль в области сердца</font>")
+		else
+			if(oheart.temp <= 0)
+				health -= rand(1,5)
+				if(prob(45))
+					if(!rest)
+						rest()
+					message_to_usr("<font size='5' color='red'>¬ы чувствуете острую боль в области сердца</font>")
 		reagents.reaction(src)
 
 	proc/blood_process()
@@ -746,6 +763,9 @@
 
 	verb/damage_eyes()
 		eyes.muscle.health -= 10
+
+	verb/heartdel()
+		oheart = null
 
 	verb/check_speed()
 		speed += 100
