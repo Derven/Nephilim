@@ -402,44 +402,44 @@
 				if(SAY)
 					mysay = pick("говорит", "высказывает", "произносит")
 					if(otongue.muscle.health > 50)
-						call_message(5, "[usr] [mysay], \"[t]\"")
+						call_message(5, "- [usr] [mysay], \"[t]\"")
 					else
 						if(otongue.muscle.health > 40)
-							call_message(5, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+							call_message(5, "- [usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
 						else
-							call_message(5, "[usr] [mysay], \"[speech_error(t)]\"")
+							call_message(5, "- [usr] [mysay], \"[speech_error(t)]\"")
 				if(WHISPER)
 					mysay = pick("шепчет", "нежно шепчет")
 					if(otongue.muscle.health > 50)
-						call_message(1, "[usr] [mysay], \"[t]\"")
+						call_message(1, "- [usr] [mysay], \"[t]\"")
 					else
 						if(otongue.muscle.health > 40)
-							call_message(1, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+							call_message(1, "- [usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
 						else
-							call_message(1, "[usr] [mysay], \"[speech_error(t)]\"")
+							call_message(1, "- [usr] [mysay], \"[speech_error(t)]\"")
 				if(KRIK)
 					mysay = pick("орет", "кричит")
 					if(otongue.muscle.health > 50)
-						call_message(7, "[usr] [mysay], \"[t]\"")
+						call_message(7, "- [usr] [mysay], \"[t]\"")
 					else
 						if(otongue.muscle.health > 40)
-							call_message(7, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+							call_message(7, "- [usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
 						else
-							call_message(7, "[usr] [mysay], \"[speech_error(t)]\"")
+							call_message(7, "- [usr] [mysay], \"[speech_error(t)]\"")
 				if(ISTERIKA)
 					mysay = pick("визжит", "бросаетс€ слюной", "истошно орет")
 					if(otongue.muscle.health > 50)
-						call_message(7, "[usr] [mysay], \"[t]\"")
+						call_message(7, "- [usr] [mysay], \"[t]\"")
 					else
 						if(otongue.muscle.health > 40)
-							call_message(7, "[usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
+							call_message(7, "- [usr] [mysay], \"[replacetextEx(t,pick("а", "б", "в", "л", "р", "ф", "ш", "т", "д"),pick("а", "б", "в", "л", "р", "ф", "ш"),1,-1)]\"")
 						else
-							call_message(7, "[usr] [mysay], \"[speech_error(t)]\"")
+							call_message(7, "- [usr] [mysay], \"[speech_error(t)]\"")
 
 	attackby(var/mob/M, var/obj/item/I)
 		if(istype(I, /obj/item/handcuffs))
 			if(!handcuffs)
-				call_message(5, "[usr] надевает наручники на [src]")
+				call_message(5, "<font size='3' color='#696969'>[usr] надевает наручники на [src]")
 				handcuffs = 1
 				M:drop()
 				I.loc = src
@@ -461,7 +461,7 @@
 				if(ORGAN.damagezone_to_organ(M:damagezone) != null)
 					damage_target = ORGAN.damagezone_to_organ(M:damagezone):ru_name
 
-			call_message(3, "[M] бьет [src] [I.ru_name] [method] в область [damage_target]")
+			call_message(3, "<font size='3' color='#696969'>[M] бьет [src] [I.ru_name] [method] в область [damage_target]")
 			attack_organ(I, M:damagezone, M)
 		else
 			interact_withorgan(I, M:damagezone, M)
@@ -493,7 +493,7 @@
 				deadly_ghost.client = client
 				deadly_ghost.client.dir = NORTH
 
-		message_to_usr("Ќаступила смерть")
+		message_to_usr("<font size='3' color='#696969'>Ќаступила смерть")
 		nocontrol()
 
 	proc/humanparts_upd()
@@ -794,21 +794,21 @@
 				if(RH.SLOT != null)
 					var/itemname = RH.SLOT.ru_name
 					if(RH.active == 1)
-						usr.call_message(3, "Ѕросает [itemname] на пол")
+						usr.call_message(3, "<font size='3' color='#696969'>Ѕросает [itemname] на пол")
 						RH.remove_from_slot()
 
 			for(var/obj/hud/lhand/LH in usr.client.screen)
 				if(LH.SLOT != null)
 					var/itemname = LH.SLOT.ru_name
 					if(LH.active == 1)
-						usr.call_message(3, "Ѕросает [itemname] на пол")
+						usr.call_message(3, "<font size='3' color='#696969'>Ѕросает [itemname] на пол")
 						LH.remove_from_slot()
 		else
 			for(var/obj/hud/rhand/RH in usr.client.screen)
 				if(RH.SLOT != null)
 					var/itemname = RH.SLOT.ru_name
 					if(RH.active == 1)
-						usr.call_message(3, "Ѕросает [itemname] прочь")
+						usr.call_message(3, "<font size='3' color='#696969'>Ѕросает [itemname] прочь")
 						var/obj/item/I = RH.SLOT
 						RH.remove_from_slot()
 						I.speed = strength
@@ -819,7 +819,7 @@
 				if(LH.SLOT != null)
 					var/itemname = LH.SLOT.ru_name
 					if(LH.active == 1)
-						usr.call_message(3, "Ѕросает [itemname] прочь")
+						usr.call_message(3, "<font size='3' color='#696969'>Ѕросает [itemname] прочь")
 						var/obj/item/I = LH.SLOT
 						LH.remove_from_slot()
 						I.speed = strength

@@ -170,7 +170,7 @@
 "dn" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/light/north,/turf/floor,/area)
 "do" = (/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
 "dp" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/power_block,/obj/machinery/computer/genetics,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
-"dq" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 8},/obj/landmark,/turf/floor{icon_state = "bar"; temperature = 20},/area)
+"dq" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 8},/obj/item/weapon/reagent_containers/syringe,/turf/floor{icon_state = "bar"; temperature = 20},/area)
 "dr" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/electro/cable/copper,/turf/floor,/area)
 "ds" = (/obj/machinery/airlock,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/obj/machinery/power_block,/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
 "dt" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor{icon_state = "crystalwhite"; dir = 5},/area)
@@ -223,7 +223,10 @@
 "eo" = (/obj/item/impactgrenage/secgrenage,/turf/floor,/area)
 "ep" = (/obj/item/weapon/reagent_containers/glass/phos,/turf/floor{icon_state = "white"},/area)
 "eq" = (/obj/item/weapon/reagent_containers/glass/phos,/turf/floor{icon_state = "medbay3"; dir = 4},/area)
-"er" = (/obj/electro/cable/copper,/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 5},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor{icon_state = "bar"},/area)
+"er" = (/obj/electro/cable/copper,/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 5},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/item/weapon/reagent_containers/glass/tricordracine,/turf/floor{icon_state = "bar"},/area)
+"es" = (/obj/landmark,/turf/floor{icon_state = "medbay"; dir = 4},/area)
+"et" = (/obj/machinery/computer/chemical,/obj/electro/cable/copper,/obj/machinery/power_block,/turf/floor{icon_state = "medbay"; dir = 4},/area)
+"eu" = (/obj/structure/table,/obj/item/weapon/reagent_containers/glass,/turf/floor{icon_state = "medbay"; dir = 4},/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -269,11 +272,11 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcjcldqctckabcCacabababab
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcicDcEercFabcGacacacacacacabacacababagabababababababadbMadabbobtbsbqbqacabadadabababababacabegbIbKegababaWabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZchabcHcIcJcmcKcncGabababababababacacacabadabacacacacacaWadbNabababababababababadadabadadadabacababababababacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabZbZbZbZcoababahcLcpcGabcGaaaaaaaaaaaaabababacabadabacacacacacabadbMadadadadadadadadadadadabadadadabacacacacacacacacacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccMcscNabcMaaaaaaaaaaaaaaaaabacabadabababababababaddudmdmdmdKdmdmdmdKdcadadbLadadadabacacababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccPaccXcQcMaaaaaaaaaaaaaaaaabacabagabacabawacacabaeaeaeabahabahbvahabbMadadbLadadadabacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacaccYcQcMaaaaaaaaaaaaaaaaabacacacacacacacacawabababababbwbubvbubxahbMadadagadafafabacacacacacabababababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccMcscNabcMaaaaaaaaaaaaaaaaabacabadabababababababaddudmdmdmdKdmdmdVdKdcadadbLadadadabacacababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaccPaccXcQcMaaaaaaaaaaaaaaaaabacabagabacabawacacabaeaeaeabahabahbvcpabbMadadbLadadadabacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacaccYcQcMaaaaaaaaaaaaaaaaabacacacacacacacacawabababababbwbueubuetahbMadadagadafafabacacacacacabababababababacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacaccRcZdacUaaaaaaaaaaaaaaaaabababacacacabawacacabacacawahbwbubububxabbMadababababababaWabababababbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababcMaaaaaaaaaaaaaaaaaaaaabacacacabawawacahacadacabbvbubuepeqahbMadabbqbqbqbqbqbqbqbqbqbqabbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababcMaaaaaaaaaaaaaaaaaaaaabacacacabawawacahacadacabbvbuesepeqahbMadabbqbqbqbqbqbqbqbqbqbqabbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccVaaaaaaaaaaaaaaaaaaaaabababacabawacadagadadacahbvbubyemenabbMadahbQbsbsbRbQbsbsbRbqbqabbPbPbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabawacawahawdLbuabbvbzbvdMbvahbMadahbQbsbsbRbQbsbsbRbqbqabbSabbPbPbPabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacabacawawabahdNahabahababdNahabebadahbQbsbsbRbQbsbsbRbqbqahbPabababababacabababababababaaaaaaaaaaaaaaaa

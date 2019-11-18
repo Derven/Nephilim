@@ -206,7 +206,7 @@
 			HEAR << "*шум*"
 
 /mob/proc/message_to_usr(var/msg)
-	src << fix255(msg)
+	src << fix255("\[[msg]\]")
 
 /mob/living/human/proc/pickup(var/obj/item/I)
 	if(get_slot("lhand") || get_slot("rhand"))

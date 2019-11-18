@@ -942,16 +942,17 @@ window "outputwindow"
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
-		text-color = #e4e4e4
-		background-color = #000000
+		font-family = "Consolas"
+		font-size = 12
 		is-default = true
 		saved-params = "max-lines"
 		style = ".system {color:#ff0000;}"
+		legacy-size = false
 
 window "rpane"
 	elem "rpane"
 		type = MAIN
-		pos = 193,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none

@@ -224,7 +224,10 @@
 				if(src:muscle.health > 0)
 					src:temp = ((100 - src:muscle.health) / 3) + rand(40,63) + src:bonus
 					if(prob(25))
-						src:bonus--
+						if(src:bonus >= 0)
+							src:bonus--
+					if(src:temp < src:muscle.health)
+						src:temp = rand(20,45)
 				else
 					src:temp = 0
 				spawn(src:temp)
@@ -598,7 +601,7 @@
 			IHUD = list(/obj/hud/helmet, /obj/hud/drop, /obj/hud/punch_intent, \
 			/obj/hud/damage/damage_lleg, /obj/hud/damage/damage_rleg, /obj/hud/damage/damage_larm, /obj/hud/damage/damage_thorax, /obj/hud/damage/damage_rarm, /obj/hud/damage/damage_chest, \
 			/obj/hud/damage/damage_head, /obj/hud/say_intent, /obj/hud/harm_intent, /obj/hud/slot_level, /obj/hud/blind, /obj/hud/temp, \
-			/obj/hud/damage/skin/skin_head, /obj/hud/damage/muscle/head, /obj/hud/damage/bone/head)
+			/obj/hud/damage/skin/skin_head, /obj/hud/damage/muscle/head, /obj/hud/damage/bone/head, /obj/hud/backgr, /obj/hud/backzone)
 
 	lungs
 		name = "lungs"

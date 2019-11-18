@@ -13,6 +13,11 @@
 			..()
 			reagents.add_reagent("phosphorus", 300)
 
+	tricordracine
+		New()
+			..()
+			reagents.add_reagent("tricordracine", 300)
+
 	adrenaline
 		New()
 			..()

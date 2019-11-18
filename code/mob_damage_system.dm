@@ -8,7 +8,7 @@
 					var/obj/hud/HUD = get_slot("blind", src)
 					if(HUD)
 						HUD.icon_state = pick("blind_1", "blind_2")
-					call_message(5, "глаза [src] слезятся ")
+					call_message(5, "<font size='3' color='#696969'>глаза [src] слезятся ")
 
 	proc/interact_withorgan(var/obj/item/I, var/zone, var/mob/M)
 		var/obj/item/organ/O

@@ -129,6 +129,14 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 		type_of_slot = null
 		mouse_opacity = 0
 
+	backgr
+		name = "backgr"
+		icon_state = "1"
+		layer = 21
+		screen_loc = "14,14 to 14,1"
+		type_of_slot = null
+		mouse_opacity = 0
+
 	temp
 		name = "temp"
 		icon_state = "temp1"
@@ -333,6 +341,15 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 					icon_state = "oxygen_0"
 					usr:message_to_usr("Нельзя переключить этот режим без баллона")
 
+	backzone
+		name = "backgr"
+		icon_state = "frame"
+		icon = 'zone.dmi'
+		layer = 22
+		screen_loc = "14,13"
+		type_of_slot = null
+		mouse_opacity = 0
+
 	damage
 		name = "damage"
 		icon = 'zone.dmi'
@@ -347,11 +364,12 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 
 			usr:damagezone = name
 			activezone = 1
-			color = "red"
+			color = "black"
 
 		skin
 			layer = 25
-			alpha = 128
+			alpha = 200
+			color = "white"
 
 			skin_head
 				name = "head_skin"
@@ -468,7 +486,7 @@ var/list/obj/item/disacceptedtomount = list(/obj/item/stack, /obj/item/mainboard
 			icon_state = "damage_thorax"
 			name = "damage_thorax"
 			activezone = 1
-			color = "red"
+			color = "black"
 
 		damage_head
 			icon_state = "damage_head"

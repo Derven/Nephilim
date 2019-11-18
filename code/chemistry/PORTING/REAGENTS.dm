@@ -63,6 +63,132 @@ datum
 										M:ostomach:vomit()
 					return
 
+		barium
+			name = "barium"
+			id = "barium"
+			reagent_state = GAS
+
+		calcium
+			name = "calcium"
+			id = "calcium"
+			reagent_state = GAS
+
+		chlorine
+			name = "chlorine"
+			id = "chlorine"
+			reagent_state = GAS
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					for(var/obj/item/organ/O in M)
+						if(prob(15))
+							if(O.muscle.temp_damage > 0)
+								O.muscle.temp_damage += rand(1,5)
+							if(O.skin.temp_damage > 0)
+								O.skin.temp_damage += rand(1,5)
+					holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+		fluorine
+			name = "fluorine"
+			id = "fluorine"
+			reagent_state = GAS
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					for(var/obj/item/organ/O in M)
+						if(prob(15))
+							if(O.muscle.temp_damage > 0)
+								O.muscle.temp_damage += rand(1,5)
+								O.muscle.chem_damage += rand(1,5)
+							if(O.skin.temp_damage > 0)
+								O.skin.temp_damage += rand(1,5)
+								O.skin.chem_damage += rand(1,5)
+					holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+		helium
+			name = "helium"
+			id = "helium"
+			reagent_state = GAS
+
+		iron
+			name = "iron"
+			id = "iron"
+			reagent_state = GAS
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					for(var/obj/item/organ/O in M)
+						if(prob(5))
+							if(O.muscle.temp_damage > 0)
+								O.muscle.chem_damage += rand(1,2)
+							if(O.skin.temp_damage > 0)
+								O.skin.chem_damage += rand(1,2)
+						if(prob(35))
+							if(M.reagents.get_reagent_amount("blood_ven") + M.reagents.get_reagent_amount("blood") < 300)
+								M.reagents.add_reagent("blood", 1)
+					holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+		lithium
+			name = "lithium"
+			id = "lithium"
+			reagent_state = GAS
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					for(var/obj/item/organ/O in M)
+						if(prob(5))
+							if(O.muscle.temp_damage > 0)
+								O.muscle.chem_damage += rand(1,2)
+							if(O.skin.temp_damage > 0)
+								O.skin.chem_damage += rand(1,2)
+						if(prob(35))
+							if(M.reagents.get_reagent_amount("blood_ven") + M.reagents.get_reagent_amount("blood") < 300)
+								M.reagents.add_reagent("blood", 1)
+					holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+		magnesium
+			name = "magnesium"
+			id = "magnesium"
+			reagent_state = GAS
+
+		mercury
+			name = "mercury"
+			id = "mercury"
+			reagent_state = GAS
+
+		potassium
+			name = "potassium"
+			id = "potassium"
+			reagent_state = GAS
+
+		radium
+			name = "radium"
+			id = "radium"
+			reagent_state = GAS
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					if(prob(15))
+						M:DNA.mutate_sector(rand(1,15))
+					else
+						for(var/obj/item/organ/O in M)
+							if(prob(5))
+								if(O.muscle.temp_damage > 0)
+									O.muscle.chem_damage += rand(1,2)
+								if(O.skin.temp_damage > 0)
+									O.skin.chem_damage += rand(1,2)
+					holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+		silver
+			name = "silver"
+			id = "silver"
+			reagent_state = GAS
+
+		sugar
+			name = "sugar"
+			id = "sugar"
+			reagent_state = GAS
+
 		acid
 			name = "acid"
 			id = "acid"
@@ -87,6 +213,130 @@ datum
 							if(M.get_slot("[O.name]_muscle", M))
 								M.get_slot("[O.name]_muscle", M):icon_state = "[name]_muscle"
 				return
+
+		dyloven
+			name = "dyloven"
+			id = "dyloven"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					if(M:oliver)
+						if(M:oliver:muscle.health < initial(M:oliver:muscle.health))
+							M:oliver:muscle.health++
+							holder.remove_reagent(src.id, round(holder.get_reagent_amount(name) / (M:oliver:muscle.health / 50)))
+				return
+
+		alkysin
+			name = "alkysin"
+			id = "alkysin"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					if(M:health > 0 && M:health < initial(M:health))
+						M:health++
+						holder.remove_reagent(src.id, 0.5)
+						if(M.client)
+							if(prob(5))
+								M.client.shakecamera()
+								M.message_to_usr("Вы чувствуете головокружение...")
+
+		impedolinez
+			name = "impedolinez"
+			id = "impedolinez"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					if(M:eyes)
+						if(M:eyes:muscle.health < initial(M:eyes:muscle.health))
+							M:eyes:muscle.health++
+							holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+		bicardine
+			name = "bicardine"
+			id = "bicardine"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					for(var/obj/item/organ/O in M)
+						if(O.muscle.physical_damage > 0)
+							O.muscle.physical_damage -= rand(1,5)
+						if(O.bone.physical_damage > 0)
+							O.bone.physical_damage -= rand(1,5)
+						if(O.skin.physical_damage > 0)
+							O.skin.physical_damage -= rand(1,5)
+					holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+		kelotane
+			name = "kelotane"
+			id = "kelotane"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					for(var/obj/item/organ/O in M)
+						if(O.muscle.temp_damage > 0)
+							O.muscle.temp_damage -= rand(1,5)
+						if(O.skin.temp_damage > 0)
+							O.skin.temp_damage -= rand(1,5)
+					holder.remove_reagent(src.id, pick(0.5, 1, 2))
+
+
+		inaprovaline
+			name = "inaprovaline"
+			id = "inaprovaline"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					if(M:oheart)
+						if(M:oheart:muscle.health < initial(M:oheart:muscle.health))
+							M:oheart:muscle.health++
+						holder.remove_reagent(src.id, pick(0.5, 1, 2))
+						holder.remove_reagent("adrenalin", pick(0.5, 1, 2))
+
+		tricordracine
+			name = "tricordracine"
+			id = "tricordracine"
+			reagent_state = LIQUID
+
+			on_mob_life(var/mob/M)
+				if(istype(M, /mob/living/human))
+					if(M:health < initial(M:health))
+						M:health++
+					for(var/obj/item/organ/O in M)
+						if(O.ARTERIAL.opened)
+							if(prob(10))
+								O.ARTERIAL.opened = 0
+						if(O.VENOS.opened)
+							if(prob(10))
+								O.VENOS.opened = 0
+						if(O.muscle.physical_damage > 0)
+							O.muscle.physical_damage -= rand(1,5)
+						if(O.bone.physical_damage > 0)
+							O.bone.physical_damage -= rand(1,5)
+						if(O.skin.physical_damage > 0)
+							O.skin.physical_damage -= rand(1,5)
+						if(O.muscle.temp_damage > 0)
+							O.muscle.temp_damage -= rand(1,5)
+						if(O.skin.temp_damage > 0)
+							O.skin.temp_damage -= rand(1,5)
+						if(O.muscle.chem_damage > 0)
+							O.muscle.chem_damage -= rand(1,5)
+						if(O.skin.chem_damage > 0)
+							O.skin.chem_damage -= rand(1,5)
+					holder.remove_reagent(src.id, pick(1, 2, 5, 7))
+					if(prob(15))
+						M.client.shakecamera()
+						M.message_to_usr("Вы чувствуете головокружение...")
+					if(prob(rand(15,25)))
+						if(M:ostomach)
+							M:ostomach:vomit()
+					if(prob(10))
+						M:cry(rand(5,10))
 
 		poison
 			name = "poison"
@@ -185,10 +435,6 @@ datum
 				M.chemdamage(rand(LITE_CHEM, MEDIUM_CHEM))
 				return
 
-		potassium
-			name = "potassium"
-			id = "potassium"
-
 		carbon
 			name = "carbon"
 			id = "carbon"
@@ -214,10 +460,6 @@ datum
 			name = "hydrogen"
 			id = "hydrogen"
 
-		iron
-			name = "iron"
-			id = "iron"
-
 		copper
 			name = "copper"
 			id = "copper"
@@ -229,22 +471,6 @@ datum
 		gold
 			name = "gold"
 			id = "gold"
-
-		mercury
-			name = "mercury"
-			id = "mercury"
-
-		chlorine
-			name = "chlorine"
-			id = "chlorine"
-
-		fluorine
-			name = "fluorine"
-			id = "fluorine"
-
-		radium
-			name = "radium"
-			id = "radium"
 
 		uranium
 			name = "uranium"

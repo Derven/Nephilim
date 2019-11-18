@@ -976,3 +976,75 @@
 			for(var/obj/machinery/gserver/A in range(1, src))
 				var/obj/item/DNAdisk/DDISK = new /obj/item/DNAdisk(src.loc)
 				DDISK.DISKDNA = A.mydna[href_list["dna"]]
+
+
+///CHEMICAl
+/obj/machinery/computer/chemical
+	icon = 'computer.dmi'
+	icon_state = "chemical_dispenser"
+	ru_name = "раздатчик химикатов"
+	anchored = 1
+	density = 1
+	layer = 3
+	need_voltage = 10
+	need_amperage = 2
+	construct_parts = list(/obj/item/unconnected_cable, /obj/item/stack/glass, /obj/item/stack/metal)
+	easy_deconstruct = 1
+	max_VLTAMP = 5000
+	var/obj/item/weapon/reagent_containers/RG
+	defaultmainboard = /obj/item/mainboard/chemical
+	var/list/chemical_names = list("chemical=barium", "chemical=calcium", "chemical=chlorine", "chemical=fluorine", "chemical=helium", "chemical=iron", "chemical=lithium", \
+	"chemical=magnesium", "chemical=mercury", "chemical=potassium", "chemical=radium", "chemical=silver", "chemical=sugar", "container=out")
+	var/list/chemical_ru_names = list("Барий", "Кальций", "Хлор", "Фтор", "Гелий", "Железо", "Литиум", "Магний", "Ртуть", "Калий", "Радий", "Серебро", "Сахар", "\[Извлечь контейнер!\]")
+
+	attackby(var/mob/M, var/obj/item/I)
+		if(istype(I, /obj/item/tools/screwdriver))
+			if(MAINBOARD)
+				MAINBOARD.loc = src.loc
+				call_message(3, "[usr] вытаскивает [MAINBOARD.ru_name] из [src.ru_name]")
+				MAINBOARD = null
+		if(istype(I, /obj/item/mainboard))
+			if(!MAINBOARD)
+				var/obj/machinery/computer/CM = new I:comptype(src.loc)
+				call_message(3, "[usr] вставляет [I.ru_name] в [ru_name]")
+				usr:drop()
+				CM.MAINBOARD = I
+				I.Move(CM)
+				del(src)
+		if(istype(I, /obj/item/weapon/reagent_containers))
+			if(!RG)
+				usr:drop()
+				RG = I
+				I.loc = src
+
+	attack_hand(var/mob/M)
+		M << browse(null,"window=[name]")
+		if(okinterface() && use_power())
+			special_browse(M, nterface(chemical_ru_names, chemical_names))
+
+	Topic(href,href_list[])
+		if(href_list["chemical"])
+			if(RG)
+				if(RG.volume - RG.reagents.get_total_amount() > 10)
+					RG.reagents.add_reagent(href_list["chemical"], 10)
+					loc.call_message(5, "[src.ru_name] выдает 10 единиц [href_list["chemical"]]")
+			attack_hand(usr)
+		if(href_list["container"])
+			if(RG)
+				RG.loc = src.loc
+				RG = null
+	process()
+		if(MAINBOARD)
+			if(checkoverlay == 0)
+				overlays.Add(MAINBOARD)
+				checkoverlay = 1
+			use_power()
+		else
+			overlays.Cut()
+			//nocontrol()
+
+/obj/item/mainboard/chemical
+	icon = 'computer.dmi'
+	icon_state = "mainboard_chemical"
+	ru_name = "главная плата навигационного компьютера"
+	comptype = /obj/machinery/computer/chemical
