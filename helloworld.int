@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1573997149
+LAST_COMPILE_TIME: 1615995276
 DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons skin 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
-LAST_COMPILE_VERSION: 512.1477
-WINDOW: code\chemistry\PORTING\REAGENTS.dm;code\obj\computer.dm;hephilim255.dmm
-FILE: hephilim255.dmm
+LAST_COMPILE_VERSION: 513.1539
+WINDOW: code\chemistry\PORTING\REAGENTS.dm;code\obj\computer.dm;hephilim255.dmm;nephilim.dmm;code\atom.dm;code\topics.dm
+FILE: code\topics.dm
 */
 // END_INTERNALS

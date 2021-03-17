@@ -23,7 +23,7 @@
 	winset(M, name, "alpha=225")
 
 /atom/proc/nterface(var/desc, var/hrefs)
-	var/msg = {"<html><body background=\"space.png\" vlink=\"#8FE8CA\" link=\"#8FE8CA\" alink=\"#8FE8CA\">
+	var/msg = {"<html><meta charset=\"UTF-8\"><body background=\"space.png\" vlink=\"#8FE8CA\" link=\"#8FE8CA\" alink=\"#8FE8CA\">
 	<style>
 	a{
     	text-decoration: none;
