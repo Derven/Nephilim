@@ -1,0 +1,223 @@
+"aa" = (/turf/space,/area)
+"ab" = (/turf/wall{icon_state = "wall0"},/area)
+"ac" = (/turf/floor,/area)
+"ad" = (/turf/wall/window,/area)
+"ae" = (/turf/space/hull,/area)
+"af" = (/turf/floor{icon_state = "bar"},/area)
+"ag" = (/turf/floor{icon_state = "plating"},/area)
+"ah" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/space/hull,/area)
+"ai" = (/turf/floor{icon_state = "cargo2"},/area)
+"aj" = (/turf/floor{icon_state = "cargo"},/area)
+"ak" = (/obj/landmark,/turf/floor{icon_state = "cargo2"},/area)
+"al" = (/obj/structure/lattice{icon_state = "lattice"; dir = 8},/turf/space,/area)
+"am" = (/obj/structure/lattice,/turf/space,/area)
+"an" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 6},/turf/space,/area)
+"ao" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 4},/turf/wall{icon_state = "wall0"},/area)
+"ap" = (/obj/machinery/atmospherics/connector{dir = 4},/obj/machinery/portable_atmospherics/canister/oxygen,/turf/floor/plating,/area)
+"aq" = (/turf/floor/plating,/area)
+"ar" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/floor/plating,/area)
+"as" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/power_block,/obj/machinery/computer/atmos{freq = 1},/turf/floor/plating,/area)
+"at" = (/obj/machinery/atmospherics/pipe,/turf/wall{icon_state = "wall0"},/area)
+"au" = (/obj/machinery/light/west,/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor/plating,/area)
+"av" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor/plating,/area)
+"aw" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor/plating,/area)
+"ax" = (/obj/machinery/atmospherics/outer{dir = 1; freq = 1; icon_state = "vent"},/turf/floor/plating,/area)
+"ay" = (/obj/machinery/airlock,/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/airlock/firedoor,/obj/machinery/power_block,/obj/machinery/airlock/firedoor,/turf/floor/plating,/area)
+"az" = (/obj/structure/closet/oxycloset,/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 6},/turf/floor,/area)
+"aA" = (/obj/machinery/sparkbutton,/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/wall/window,/area)
+"aB" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor,/area)
+"aC" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/floor,/area)
+"aD" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor,/area)
+"aE" = (/obj/machinery/light/north,/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
+"aF" = (/obj/machinery/atmospherics/outer/high_volume{dir = 8; freq = 2; icon_state = "vent"},/turf/floor/plating,/area)
+"aG" = (/obj/machinery/atmospherics/inner/high_volume{dir = 4; freq = 2; icon_state = "in"},/turf/floor/plating,/area)
+"aH" = (/obj/machinery/generator/TEG,/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/wall/window,/area)
+"aI" = (/obj/item/tools/wrench,/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/floor,/area)
+"aJ" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
+"aK" = (/obj/machinery/atmospherics/outer{freq = 1},/turf/floor/plating,/area)
+"aL" = (/obj/structure/closet/oxycloset,/turf/floor,/area)
+"aM" = (/obj/structure/chair/venicle{icon_state = "cargoboy"; dir = 4},/turf/floor{icon_state = "bar"},/area)
+"aN" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor/plating,/area)
+"aO" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/power_block,/obj/machinery/airlock,/obj/machinery/airlock/firedoor,/obj/machinery/airlock/firedoor,/turf/floor/plating,/area)
+"aP" = (/obj/machinery/atmospherics/connector{dir = 4},/obj/machinery/portable_atmospherics/canister/plasma,/turf/floor/plating,/area)
+"aQ" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor/plating,/area)
+"aR" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/computer/atmos{freq = 1},/obj/machinery/power_block,/turf/floor/plating,/area)
+"aS" = (/obj/machinery/portable_atmospherics/canister/water,/turf/floor,/area)
+"aT" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/space/hull,/area)
+"aU" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/space/hull,/area)
+"aV" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/space/hull,/area)
+"aW" = (/obj/electro/cable/copper,/turf/space/hull,/area)
+"aX" = (/obj/machinery/generator/solar,/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/space/hull,/area)
+"aY" = (/obj/machinery/generator/solar,/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/space/hull,/area)
+"aZ" = (/obj/machinery/generator/solar,/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/space/hull,/area)
+"ba" = (/obj/electro/cable/copper,/turf/wall{icon_state = "wall0"},/area)
+"bb" = (/obj/machinery/power_block,/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/airlock/space_shutter,/turf/floor{icon_state = "plating"},/area)
+"bc" = (/obj/machinery/generator/solar,/obj/electro/cable/copper,/turf/space/hull,/area)
+"bd" = (/obj/machinery/generator/solar,/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/space/hull,/area)
+"be" = (/obj/machinery/generator/solar,/obj/electro/cable/copper{dir = 8; icon_state = "copper"; zLevel = 0},/turf/space/hull,/area)
+"bf" = (/obj/electro/cable/copper,/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 4},/turf/wall{icon_state = "wall0"},/area)
+"bg" = (/obj/machinery/generator/solar,/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/space/hull,/area)
+"bh" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/power_block,/obj/machinery/atmospherics/pipe,/obj/machinery/airlock/space_shutter{outer = 2},/turf/floor{icon_state = "plating"},/area)
+"bi" = (/obj/electro/cable/copper{dir = 6; icon_state = "copper"; zLevel = -1},/turf/floor,/area)
+"bj" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 5},/obj/machinery/portable_atmospherics/canister/plasma/high_volume,/turf/floor,/area)
+"bk" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor{icon_state = "bar"},/area)
+"bl" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/floor{icon_state = "plating"},/area)
+"bm" = (/obj/machinery/atmospherics/outer{dir = 4; freq = 10; icon_state = "in_work"},/turf/floor{icon_state = "bar"},/area)
+"bn" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor{icon_state = "cargo"},/area)
+"bo" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/airlock_space_controller{outer = 1},/turf/floor{icon_state = "plating"},/area)
+"bp" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor,/area)
+"bq" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/turf/floor,/area)
+"br" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/electro/cable/copper{dir = 6; icon_state = "copper"; zLevel = -1},/turf/floor,/area)
+"bs" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/turf/floor,/area)
+"bt" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/wall/window,/area)
+"bu" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/computer/eng,/obj/machinery/power_block,/turf/floor/plating,/area)
+"bv" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor/plating,/area)
+"bw" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/turf/floor/plating,/area)
+"bx" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/electro/battery/smes,/turf/floor/plating,/area)
+"by" = (/obj/machinery/power_block,/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/airlock,/obj/machinery/airlock/firedoor,/turf/floor/plating,/area)
+"bz" = (/obj/machinery/portable_atmospherics/canister/plasma/high_volume,/turf/floor,/area)
+"bA" = (/obj/machinery/power_block,/obj/electro/cable/copper,/obj/machinery/airlock,/obj/machinery/airlock/firedoor,/obj/machinery/airlock/firedoor,/turf/floor/plating,/area)
+"bB" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/turf/floor,/area)
+"bC" = (/obj/electro/cable/switcher{dir = 10; pixel_x = 32},/turf/floor,/area)
+"bD" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/floor,/area)
+"bE" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/machinery/light/north,/obj/machinery/airlock/firedoor,/obj/machinery/power_block,/turf/floor{icon_state = "bar"},/area)
+"bF" = (/obj/machinery/portable_atmospherics/canister/oxygen/high_volume,/turf/floor,/area)
+"bG" = (/obj/machinery/portable_atmospherics/canister/phosphorus/high_volume,/turf/floor,/area)
+"bH" = (/obj/machinery/power_block,/turf/floor,/area)
+"bI" = (/obj/structure/table,/obj/item/tools/welder,/turf/floor,/area)
+"bJ" = (/obj/structure/table,/obj/item/tools/saw,/obj/item/tools/screwdriver,/turf/floor,/area)
+"bK" = (/obj/structure/table,/obj/item/tools/wrench,/obj/item/tools/wirecutters,/turf/floor,/area)
+"bL" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/machinery/light/east,/turf/floor,/area)
+"bM" = (/obj/machinery/airlock/firedoor,/obj/machinery/power_block,/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor,/area)
+"bN" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/floor,/area)
+"bO" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/machinery/computer/autolathe,/obj/machinery/power_block,/turf/floor,/area)
+"bP" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/electro/cable/copper{icon_state = "copper"; dir = 10},/turf/floor,/area)
+"bQ" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/light/west,/turf/floor,/area)
+"bR" = (/obj/machinery/light/south,/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/turf/floor,/area)
+"bS" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/atmospherics/inner{freq = 10},/turf/floor{icon_state = "plating"},/area)
+"bT" = (/obj/machinery/atmospherics/outer{dir = 8; freq = 10; icon_state = "vent"},/turf/floor{icon_state = "bar"},/area)
+"bU" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 10},/turf/floor,/area)
+"bV" = (/obj/machinery/atmospherics/pipe,/turf/floor,/area)
+"bW" = (/obj/item/clothing/helmet/space,/turf/floor{icon_state = "cargo"},/area)
+"bX" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/machinery/atmospherics/pipe,/turf/floor,/area)
+"bY" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 5},/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 5},/turf/floor{icon_state = "plating"},/area)
+"bZ" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/machinery/light/north,/obj/machinery/atmospherics/connector,/obj/machinery/portable_atmospherics/canister/empty,/turf/floor{icon_state = "cargo2"},/area)
+"ca" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 4},/turf/floor{icon_state = "plating"},/area)
+"cb" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 9},/turf/floor{icon_state = "plating"},/area)
+"cc" = (/obj/machinery/atmospherics/connector,/obj/machinery/portable_atmospherics/canister/oxygen/high_volume,/turf/floor,/area)
+"cd" = (/obj/machinery/sparkgenerator,/obj/electro/cable/copper{icon_state = "copper"; dir = 4},/obj/machinery/light/north,/turf/floor/plating,/area)
+"ce" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 4},/turf/floor,/area)
+"cf" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 4},/turf/floor,/area)
+"cg" = (/obj/machinery/atmospherics/pipe{icon_state = "pipe_atmos"; dir = 9},/turf/floor,/area)
+"ch" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 8},/obj/electro/cable/copper{icon_state = "copper"; dir = 6},/turf/floor{icon_state = "bar"},/area)
+"ci" = (/obj/structure/table,/turf/floor,/area)
+"cj" = (/obj/structure/table,/obj/item/stack/glass{amount = 50},/turf/floor,/area)
+"ck" = (/obj/structure/table,/obj/item/stack/metal{amount = 50},/turf/floor,/area)
+"cl" = (/obj/machinery/airlock_initiator{pixel_x = -32},/obj/electro/cable/copper{icon_state = "copper"; dir = 9},/obj/machinery/power_block,/turf/floor{icon_state = "bar"},/area)
+"cm" = (/obj/item/tools/wrench,/turf/floor{icon_state = "plating"},/area)
+"cn" = (/obj/electro/cable/copper{icon_state = "copper"; dir = 1},/obj/machinery/power_block,/obj/machinery/airlock/space_shutter{outer = 2},/turf/floor{icon_state = "plating"},/area)
+"co" = (/obj/item/clothing/suit/spacesuit,/turf/floor{icon_state = "bar"},/area)
+"cp" = (/obj/structure/staple,/turf/wall{icon_state = "wall0"},/area)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaeahaTaTaTaTaUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaeaVaeaeaeaeaWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalalababadadadabaXaYaZaYababcpbaadbbbbcpaacpbbbbadabcpabababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamalanaoapaqarasabbcbdbebcadaLazbfbmbobSabaaabbobSbTaobUacacacacacacacacacacacacabacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababatabauavawaqabaZbebebgabacbVbaadcnbhabadabcnbhadabbVacacacacacacacacacacacacacacacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaqaqaxabababayababadababadabbibXbEchblbYbZbnbZcacbbkabccacacacacacacacacacacacacabacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaqaqaqaqcdaAaBaCaDaEacacaccccecfcgabclcmagakajakagagafabacacacacacacacacacacacacacabacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaFaoaGaqaqaqaqaHaIaJaDaDbqbqbqbqbrbsacabafagagakajakagagafafacacacacacacacacacacacacacabacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaqaqaKabababaOababacacacacbpacbHabaMagagakajakagagafabababababababababababababababacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababatabauaNawaqabacbIbJacbpacbHabaMagagaiajaiagagafabacacacacacacacacacacacacacabacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaSaSbjaoaParaQaRabacbIbKacbpacbHabafagagajbWajagagafabacacacacacacacacacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaSaSbzbzababbAabababacacacacbpacacabafagagafafcoagagafabacacacacacacacacacacacacacabacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacabacacacacacacacacbBbqbCababagabababababagababababababababababacabacabababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacabacacacacacacacacbDaDbLabacacacacacacacacacabacacacacacacacacacabacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacacbMbNaDbObOaDaDaDaDbPacacabacacacacacacacacacabacacacacacacacacacabacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbFbFbFabbQacacacacacacbRbPacacabacacacacacacacacacabacacacacacacacacacabacacacacacacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbFbFabacacacacacacababbtadadabacacacacacacacacacacacacacacacacacacacabacacacacacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbGabcicjcjckckababbubvaqaqabacacacacacacacacacabacacacacacacacacacabacacacacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababaqbwaNbxabacacacacacacacacacabacacacacacacacacacabacacacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababbyabababababababababababacababababababababababababababacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababacacacacacacacacacacacabacacacacacabacacacacacacacacacacababababacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababacacacacacacacacacacacacacacacacacabacacacacacacacacacacabacacabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababacacababababababababababacacacacacabacacacacacacacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababacacabacacacacacacacacabacacacacacabacacacacacacacacacababacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababacacabacacacacacacacacabababacabababacacacacacacacacababacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababacacabacacacacacacacacabacacacacacacacacacacacacacababacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababacacabacacacacacacacacacacacacacacacacacacacacacacabacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababacacabacacacacacacacacacacacacacacabacacacacacacacabacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacabacacacacacacacacabacacacacacabababababababababacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacabacacacacacacacacabacacacacacacacacacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababacacabacacabacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacacacacacacacacabacacabacacabababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacabacacabacacabacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacacacacacacacacacacabacacabacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacabacacabacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacacacacacacabacacabacacabacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacabacacabacacabacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababacababababacacabacacabacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacabacacabacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacacacacabacacacacacabacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacabacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabacacacacacabacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabacacacacacabacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabacacacacacabacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabacacacacacabababacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababacacacacabacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacabacacacacabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacacacacabacacacacabacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabacacacacabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabacacacacabacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababacacababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacacacacacacacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacacacacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacacabababacacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacabaaabacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacabaaabacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacabaaabacacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababacacabaaabacacababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacabaaabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacabaaabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacabaaabacacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababaaababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababaaababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaaabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}

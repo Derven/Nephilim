@@ -15,6 +15,7 @@
 		for(var/obj/machinery/airlock_space_controller/C in controlled)
 			if(C.freq == freq)
 				C.on = !C.on
+				world << "[C.on]"
 				C.outer = outer
 	justid
 		attack_hand()
@@ -135,6 +136,7 @@
 			call_message(3, "Ёта дверь открываетс€ удаленно. ¬ доступе отказано.")
 
 	proc/open()
+		world << "[open]"
 		open = !open
 		density = open
 		opacity = open
