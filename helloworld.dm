@@ -8,7 +8,7 @@ world
 	icon_size = 32	// 32x32 icon size by default
 	turf = /turf/space
 	view = 6		// show up to 6 tiles outward from center (13x13 view)
-	mob = /mob/living/human
+	mob = /mob/living/lobbyman
 	map_format = TOPDOWN_MAP
 	loop_checks = 0
 

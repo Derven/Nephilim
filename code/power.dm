@@ -430,6 +430,11 @@ var/list/obj/machinery/machines = list()
 	icon = 'effects.dmi'
 	icon_state = "vomit"
 
+/obj/decor/bighud
+	name = "lobby"
+	icon = 'big_HUD.dmi'
+	layer = 21
+
 /obj/effect/blood
 	name = "blood"
 	icon = 'effects.dmi'
@@ -473,6 +478,7 @@ var/list/obj/machinery/machines = list()
 	name = "cable"
 	icon = 'power.dmi'
 	icon_state = "cable_part"
+
 
 /obj/electro/cable/Del()
 	new /obj/effect/sparks(src.loc)
