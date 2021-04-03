@@ -260,6 +260,31 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 	var/freq = 30
 	on = 0
 
+	//oven and other flamethrower
+	var/fire = 0
+
+	kitchen_oven
+		icon='oven.dmi'
+		ru_name = "плазмопечь"
+		density = 1
+		anchored = 1
+
+		verb/on_oven()
+			set src in oview(1)
+			on = !on
+			if(on)
+				call_message(5, "в [ru_name] открывается вентиль")
+			else
+				call_message(5, "в [ru_name] закрывается вентиль")
+
+		verb/fire_oven()
+			set src in oview(1)
+			fire = !fire
+			if(fire)
+				call_message(5, "в [ru_name] активируется запальник")
+			else
+				call_message(5, "в [ru_name] деактивируется запальник")
+
 	newvent
 		anchored = 0
 
@@ -269,6 +294,12 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 			dir = turn(dir, 45)
 
 	attackby(var/mob/M, var/obj/item/I)
+		if(istype(src, /obj/machinery/atmospherics/outer/kitchen_oven))
+			if(istype(I, /obj/item/weapon/reagent_containers/food))
+				if(src.on == 1 && fire == 1)
+					call_message(3, "[src.ru_name] начинает шкворчать")
+					I:cooking()
+
 		if(istype(I, /obj/item/tools/wrench))
 			call_message(3, "[src.ru_name] [anchored ? "откручивается" : "закручивается"]")
 			anchored = !anchored
@@ -290,6 +321,8 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 			usr.loc = src.loc
 
 	mousedrop(var/atom/movable/over_object, var/atom/movable/over_location)
+		if(!istype(src, /obj/machinery/atmospherics/outer/kitchen_oven))
+			return
 		if(istype(over_object, /mob/living/human))
 			call_message(5, "[over_object] заталкивается в [ru_name]")
 			if(!over_object:rest)
@@ -302,6 +335,15 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 /obj/machinery/atmospherics/outer/process()
 	atmosnet = 0
 	icon_state = "vent"
+
+	if(fire == 1 && istype(src, /obj/machinery/atmospherics/outer/kitchen_oven)) //Wow kitchen
+		icon_state = "vent_fire"
+		for(var/turf/floor/F in range(1, src))
+			F:initiate_burning = 1
+	else
+		for(var/turf/floor/F in range(1, src))
+			F:initiate_burning = 0
+
 	if(on)
 		for(var/obj/machinery/atmospherics/pipe/P in range(1, src))
 			atmosnet = P.atmosnet
@@ -315,33 +357,42 @@ var/global/datum/atmos_net/a_net = new() //атмососеть
 								M.MoveToVent(src, reagents.get_total_amount())
 
 				for(var/turf/floor/F in range(1, src))
-					for(var/atom/movable/A in F)
-						if(A.block_air == 0)
-							/*
-							if(C.oxygen > volume)
-								icon_state = "vent_work"
-								F.oxygen += volume
-								C.oxygen -= volume
+					if(!istype(src, /obj/machinery/atmospherics/outer/kitchen_oven) || (istype(src, /obj/machinery/atmospherics/outer/kitchen_oven) && fire == 0)) //kitchen check
+						for(var/atom/movable/A in F)
+							if(A.block_air == 0)
+								/*
+								if(C.oxygen > volume)
+									icon_state = "vent_work"
+									F.oxygen += volume
+									C.oxygen -= volume
 
-							if(C.plasma > 0)
-								icon_state = "vent_work"
-								F.plasma += volume
-								C.plasma -= volume
+								if(C.plasma > 0)
+									icon_state = "vent_work"
+									F.plasma += volume
+									C.plasma -= volume
 
-							if(C.water > 0)
-								icon_state = "vent_work"
-								F.water += volume
-								C.water -= volume
-							*/
-							C.reagents.trans_to(F, volume, 1)
-							icon_state = "in_work"
+								if(C.water > 0)
+									icon_state = "vent_work"
+									F.water += volume
+									C.water -= volume
+								*/
+								C.reagents.trans_to(F, volume, 1)
+								icon_state = "in_work"
 
-							if(F.temperature < C.temperature)
-								F.temperature += C.temperature - F.temperature
-								C.temperature -= abs(C.temperature - F.temperature) / 2
+								if(F.temperature < C.temperature)
+									F.temperature += C.temperature - F.temperature
+									C.temperature -= abs(C.temperature - F.temperature) / 2
 
-							if(C.temperature < -180)
-								C.temperature = -180
+								if(C.temperature < -180)
+									C.temperature = -180
+
+				if(istype(src, /obj/machinery/atmospherics/outer/kitchen_oven) && fire == 1) //flaming plasma (kitchen)
+					if(C.reagents.has_reagent("plasma", 1))
+						C.reagents.remove_reagent("plasma", 1)
+						if(prob(rand(1,5)))
+							call_message(5, "[ru_name] делает пшышшшшшь")
+
+
 
 
 /obj/machinery/atmospherics/outer/New()

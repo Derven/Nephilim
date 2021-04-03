@@ -113,7 +113,6 @@
 		str += fragment
 	world << str
 
-
 //////UNIVERSAL MUTATIONS
 
 //*PLANTS

@@ -1,12 +1,12 @@
 // BEGIN_INTERNALS
 /*
 MAP_ZOOM: 1.000
-LAST_COMPILE_TIME: 1616257311
-DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons skin 
+LAST_COMPILE_TIME: 1617426338
+DIR: backup code code\.mob code\chemistry code\chemistry\PORTING code\obj code\obj\structure icons icons\atmokitchen skin 
 AUTO_FILE_DIR: ON
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 513.1539
-WINDOW: code\chemistry\PORTING\REAGENTS.dm;code\obj\computer.dm;hephilim255.dmm;Arquitens.dmm;code\obj\items.dm;code\obj\landmarks.dm;code\DNA.dm;helloworld.dm;code\hydroponics.dm;code\area.dm;code\.mob\client.dm;code\.mob\lobby.dm;skin\interface.dm;code\mob.dm;code\mob_damage_system.dm;code\atom.dm;code\controller_hueroller.dm;code\luna_porting.dm;code\obj\hud.dm;icons\HUD.dmi;icons\big_HUD.dmi;code\obj\shit.dm;code\.mob\interact.dm;code\.mob\organs.dm;code\power.dm;helloworld.dme
-FILE: code\.mob\lobby.dm
+WINDOW: code\chemistry\PORTING\REAGENTS.dm;code\obj\computer.dm;hephilim255.dmm;Arquitens.dmm;code\obj\food.dm;code\glass.dm;code\DNA.dm;code\.mob\lobby.dm;code\mob.dm;code\mob_damage_system.dm;code\chemistry\PORTING\HOLDER.dm;code\food.dm;icons\items.dmi;icons\computer.dmi;code\obj\atmos_devices.dm;code\obj\machinery.dm;code\power.dm;icons\atmokitchen\oven.dmi;code\obj\structure\table.dm;code\obj\structure\chair.dm;code\obj\items_structure.dm;code\obj\constructing.dm;code\.mob\interact.dm;code\obj\landmarks.dm;code\.mob\organs.dm;code\syringes.dm;icons\chemical.dmi;code\obj\items.dm
+FILE: code\obj\atmos_devices.dm
 */
 // END_INTERNALS

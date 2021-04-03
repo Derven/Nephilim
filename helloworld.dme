@@ -8,6 +8,7 @@
 // BEGIN_FILE_DIR
 #define FILE_DIR .
 #define FILE_DIR "icons"
+#define FILE_DIR "icons/atmokitchen"
 // END_FILE_DIR
 
 // BEGIN_PREFERENCES
@@ -23,6 +24,7 @@
 #include "code\controller_hueroller.dm"
 #include "code\DNA.dm"
 #include "code\fix255.dm"
+#include "code\food.dm"
 #include "code\ghost.dm"
 #include "code\glass.dm"
 #include "code\hydroponics.dm"
